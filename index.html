@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TopUpKu - Layanan Top Up Game Cepat & Terpercaya</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+    <!-- Header / Navbar -->
+    <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-gamepad text-indigo-500 text-2xl"></i>
+                <span class="text-xl font-bold tracking-wider">TOPUP<span class="text-indigo-500">KU</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm text-gray-300">
+                <a href="#" class="hover:text-indigo-400">Beranda</a>
+                <a href="#games" class="hover:text-indigo-400">Daftar Game</a>
+                <a href="#" class="hover:text-indigo-400">Cek Transaksi</a>
+                <a href="#" class="hover:text-indigo-400">Bantuan</a>
+            </nav>
+            <div>
+                <button class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Masuk</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-indigo-900 to-gray-900 py-16 text-center px-4">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Top Up Game Termurah & Tercepat</h1>
+            <p class="text-gray-400 mb-8 text-lg">Proses instan 24 Jam. Aman, terpercaya, dan banyak pilihan metode pembayaran.</p>
+            <a href="#games" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3 rounded-full shadow-lg transition">Mulai Top Up</a>
+        </div>
+    </section>
+
+    <!-- Daftar Game Section -->
+    <section id="games" class="max-w-7xl mx-auto px-4 py-12">
+        <h2 class="text-2xl font-bold mb-6 border-l-4 border-indigo-500 pl-3">Pilih Game</h2>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <!-- Game 1: Mobile Legends -->
+            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer border border-gray-700 group">
+                <div class="h-40 bg-indigo-600 flex items-center justify-center relative">
+                    <i class="fa-solid fa-shield-halved text-6xl text-indigo-300 group-hover:scale-110 transition"></i>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg mb-1">Mobile Legends</h3>
+                    <p class="text-xs text-gray-400">Moonton</p>
+                </div>
+            </div>
+
+            <!-- Game 2: Free Fire -->
+            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer border border-gray-700 group">
+                <div class="h-40 bg-orange-600 flex items-center justify-center relative">
+                    <i class="fa-solid fa-fire text-6xl text-orange-300 group-hover:scale-110 transition"></i>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg mb-1">Free Fire</h3>
+                    <p class="text-xs text-gray-400">Garena</p>
+                </div>
+            </div>
+
+            <!-- Game 3: PUBG Mobile -->
+            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer border border-gray-700 group">
+                <div class="h-40 bg-yellow-600 flex items-center justify-center relative">
+                    <i class="fa-solid fa-plane text-6xl text-yellow-300 group-hover:scale-110 transition"></i>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg mb-1">PUBG Mobile</h3>
+                    <p class="text-xs text-gray-400">Tencent</p>
+                </div>
+            </div>
+
+            <!-- Game 4: Genshin Impact -->
+            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer border border-gray-700 group">
+                <div class="h-40 bg-blue-600 flex items-center justify-center relative">
+                    <i class="fa-solid fa-star text-6xl text-blue-300 group-hover:scale-110 transition"></i>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg mb-1">Genshin Impact</h3>
+                    <p class="text-xs text-gray-400">HoYoverse</p>
+                </div>
+            </div>
+
+            <!-- Game 5: Valorant -->
+            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer border border-gray-700 group">
+                <div class="h-40 bg-red-600 flex items-center justify-center relative">
+                    <i class="fa-solid fa-crosshairs text-6xl text-red-300 group-hover:scale-110 transition"></i>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg mb-1">Valorant</h3>
+                    <p class="text-xs text-gray-400">Riot Games</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contoh Form Simulasi Transaksi (Bisa dikembangkan jadi halaman detail) -->
+    <section class="max-w-4xl mx-auto px-4 py-8 bg-gray-800 rounded-2xl border border-gray-700 my-12">
+        <h3 class="text-xl font-bold mb-4 text-indigo-400"><i class="fa-solid fa-cart-shopping mr-2"></i> Simulasi Form Top Up</h3>
+        <form class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">User ID / ID Game</label>
+                    <input type="text" placeholder="Masukkan ID" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Server ID (Opsional)</label>
+                    <input type="text" placeholder="Masukkan Server" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-indigo-500">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm text-gray-400 mb-2">Pilih Nominal</label>
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="border border-gray-700 p-3 rounded-lg text-center cursor-pointer hover:border-indigo-500 bg-gray-900">
+                        <p class="font-bold text-sm">86 Diamonds</p>
+                        <p class="text-xs text-indigo-400">Rp 20.000</p>
+                    </div>
+                    <div class="border border-indigo-500 p-3 rounded-lg text-center cursor-pointer bg-indigo-950/40">
+                        <p class="font-bold text-sm">172 Diamonds</p>
+                        <p class="text-xs text-indigo-400">Rp 40.000</p>
+                    </div>
+                    <div class="border border-gray-700 p-3 rounded-lg text-center cursor-pointer hover:border-indigo-500 bg-gray-900">
+                        <p class="font-bold text-sm">257 Diamonds</p>
+                        <p class="text-xs text-indigo-400">Rp 60.000</p>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" onclick="alert('Fitur pembayaran simulasi berhasil diklik!')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition mt-4">Beli Sekarang</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 border-t border-gray-700 text-center py-6 text-gray-400 text-sm">
+        <p>&copy; 2026 TopUpKu. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -24,43 +24,59 @@
         .animate-fade-down { animation: fadeInDown 0.8s ease-out forwards; }
         .animate-fade-up { animation: fadeInUp 0.8s ease-out forwards; }
         .animate-float { animation: float 3s ease-in-out infinite; }
+        
+        /* Neon Glow Effects */
+        .neon-glow-cyan {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.35), inset 0 0 15px rgba(6, 182, 212, 0.15);
+        }
+        .neon-glow-purple {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+        }
+        .text-glow {
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+        }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white">
+<body class="bg-[#0b0f19] text-slate-100 font-sans selection:bg-cyan-500 selection:text-slate-950">
 
     <!-- Header / Navbar -->
-    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 transition-all">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2 animate-fade-down">
-                <img src="logo.jpg.webp" alt="HZtopup Logo" class="h-10 rounded-xl shadow-lg shadow-indigo-500/30 animate-float object-cover">
-                <span class="text-xl font-black tracking-wider bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">HZ<span class="text-white">TOPUP</span></span>
+    <header class="bg-[#0b0f19]/90 backdrop-blur-md border-b border-cyan-900/30 sticky top-0 z-50 transition-all">
+        <div class="max-w-7xl mx-auto px-4 py-3.5 flex justify-between items-center">
+            <div class="flex items-center space-x-3 animate-fade-down">
+                <div class="p-1 rounded-2xl bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 neon-glow-cyan animate-float">
+                    <img src="logo.jpg.webp" alt="HZtopup Logo" class="h-11 w-11 rounded-xl object-cover">
+                </div>
+                <span class="text-xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent text-glow">HZ<span class="text-white">TOPUP</span></span>
             </div>
             <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
-                <a href="#" class="hover:text-indigo-400 transition">Beranda</a>
-                <a href="#games" class="hover:text-indigo-400 transition">Game</a>
-                <a href="#ppob" class="hover:text-indigo-400 transition">Pulsa & Token</a>
-                <a href="#form-section" class="hover:text-indigo-400 transition">Transaksi</a>
+                <a href="#" class="hover:text-cyan-400 transition">Beranda</a>
+                <a href="#games" class="hover:text-cyan-400 transition">Game</a>
+                <a href="#ppob" class="hover:text-cyan-400 transition">Pulsa & Token</a>
+                <a href="#form-section" class="hover:text-cyan-400 transition">Transaksi</a>
             </nav>
             <div>
-                <button onclick="openLoginModal()" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-xl text-sm font-semibold shadow-lg shadow-indigo-600/30 transition transform hover:-translate-y-0.5 active:translate-y-0">Masuk</button>
+                <button onclick="openLoginModal()" class="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-cyan-600/25 transition transform hover:-translate-y-0.5 active:translate-y-0 border border-cyan-400/30">Masuk</button>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section dengan Animasi -->
-    <section class="relative bg-gradient-to-b from-indigo-950/60 via-slate-950 to-slate-950 py-20 text-center px-4 overflow-hidden">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-600/20 blur-[120px] rounded-full pointer-events-none"></div>
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-b from-purple-950/30 via-[#0b0f19] to-[#0b0f19] py-20 text-center px-4 overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-gradient-to-r from-cyan-600/15 to-purple-600/20 blur-[140px] rounded-full pointer-events-none"></div>
 
         <div class="max-w-3xl mx-auto relative z-10">
-            <span class="inline-block bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 animate-fade-down">⚡ Layanan Otomatis 24 Jam Nonstop</span>
+            <span class="inline-flex items-center space-x-2 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 animate-fade-down shadow-sm shadow-cyan-500/10">
+                <i class="fa-solid fa-bolt text-cyan-400"></i>
+                <span>Layanan Otomatis 24 Jam Nonstop</span>
+            </span>
             <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight animate-fade-down leading-tight">
-                Top Up Game, Pulsa & Token PLN <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Tercepat</span>
+                Top Up Game, Pulsa & Token PLN <span class="bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent text-glow">Tercepat</span>
             </h1>
             <p class="text-slate-400 mb-8 text-base md:text-lg animate-fade-up max-w-2xl mx-auto">
                 Proses instan langsung masuk, harga paling bersaing, serta dijamin aman dan terpercaya untuk seluruh kebutuhan digital Anda.
             </p>
             <div class="animate-fade-up">
-                <a href="#form-section" class="inline-flex items-center space-x-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold px-8 py-3.5 rounded-2xl shadow-xl shadow-indigo-600/40 transition transform hover:-translate-y-1">
+                <a href="#form-section" class="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold px-8 py-3.5 rounded-2xl shadow-xl shadow-cyan-600/30 transition transform hover:-translate-y-1 border border-cyan-400/30">
                     <span>Mulai Transaksi</span>
                     <i class="fa-solid fa-arrow-down text-xs"></i>
                 </a>
@@ -71,24 +87,24 @@
     <!-- Kategori Game -->
     <section id="games" class="max-w-7xl mx-auto px-4 py-12">
         <div class="flex items-center justify-between mb-8">
-            <h2 class="text-2xl font-black border-l-4 border-indigo-500 pl-3 tracking-wide">Popular Games</h2>
+            <h2 class="text-2xl font-black border-l-4 border-cyan-500 pl-3 tracking-wide">Popular Games</h2>
             <span class="text-xs text-slate-400 font-medium">Pilih game favoritmu</span>
         </div>
         
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
-            <div onclick="selectCategory('mlbb')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
-                <div class="h-36 bg-gradient-to-br from-indigo-600 to-indigo-800 flex items-center justify-center relative overflow-hidden">
+            <div onclick="selectCategory('mlbb')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-cyan-500/10 hover:border-cyan-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
+                <div class="h-36 bg-gradient-to-br from-indigo-600 to-purple-800 flex items-center justify-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
                     <i class="fa-solid fa-shield-halved text-5xl text-indigo-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
                 <div class="p-4 text-center">
-                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-indigo-400 transition">Mobile Legends</h3>
+                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-cyan-400 transition">Mobile Legends</h3>
                     <p class="text-xs text-slate-500 mt-0.5">Moonton</p>
                 </div>
             </div>
 
-            <div onclick="selectCategory('ff')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
-                <div class="h-36 bg-gradient-to-br from-orange-600 to-orange-800 flex items-center justify-center relative overflow-hidden">
+            <div onclick="selectCategory('ff')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
+                <div class="h-36 bg-gradient-to-br from-orange-600 to-red-800 flex items-center justify-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
                     <i class="fa-solid fa-fire text-5xl text-orange-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
@@ -98,7 +114,7 @@
                 </div>
             </div>
 
-            <div onclick="selectCategory('pubg')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-amber-500/10 hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('pubg')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-amber-500/10 hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
                 <div class="h-36 bg-gradient-to-br from-amber-600 to-yellow-700 flex items-center justify-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
                     <i class="fa-solid fa-plane text-5xl text-amber-200 group-hover:scale-110 transition duration-300"></i>
@@ -109,7 +125,7 @@
                 </div>
             </div>
 
-            <div onclick="selectCategory('genshin')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('genshin')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
                 <div class="h-36 bg-gradient-to-br from-blue-600 to-cyan-700 flex items-center justify-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
                     <i class="fa-solid fa-star text-5xl text-blue-200 group-hover:scale-110 transition duration-300"></i>
@@ -120,8 +136,8 @@
                 </div>
             </div>
 
-            <div onclick="selectCategory('valorant')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-red-500/10 hover:border-red-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
-                <div class="h-36 bg-gradient-to-br from-red-600 to-rose-800 flex items-center justify-center relative overflow-hidden">
+            <div onclick="selectCategory('valorant')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-red-500/10 hover:border-red-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
+                <div class="h-36 bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
                     <i class="fa-solid fa-crosshairs text-5xl text-red-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
@@ -141,7 +157,7 @@
         </div>
         
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-            <div onclick="selectCategory('pulsa')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-emerald-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('pulsa')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-emerald-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
                 <div class="h-36 bg-gradient-to-br from-emerald-600 to-teal-800 flex items-center justify-center">
                     <i class="fa-solid fa-mobile-screen-button text-5xl text-emerald-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
@@ -151,7 +167,7 @@
                 </div>
             </div>
 
-            <div onclick="selectCategory('data')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-teal-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('data')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-teal-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
                 <div class="h-36 bg-gradient-to-br from-teal-600 to-cyan-800 flex items-center justify-center">
                     <i class="fa-solid fa-wifi text-5xl text-teal-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
@@ -161,7 +177,7 @@
                 </div>
             </div>
 
-            <div onclick="selectCategory('pln')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('pln')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
                 <div class="h-36 bg-gradient-to-br from-amber-600 to-orange-700 flex items-center justify-center">
                     <i class="fa-solid fa-lightbulb text-5xl text-amber-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
@@ -171,7 +187,7 @@
                 </div>
             </div>
 
-            <div onclick="selectCategory('pln_tagihan')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-yellow-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('pln_tagihan')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-yellow-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
                 <div class="h-36 bg-gradient-to-br from-yellow-600 to-amber-800 flex items-center justify-center">
                     <i class="fa-solid fa-file-invoice-dollar text-5xl text-yellow-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
@@ -185,16 +201,16 @@
 
     <!-- Form Transaksi -->
     <section id="form-section" class="max-w-4xl mx-auto px-4 py-10 my-8">
-        <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 md:p-8 shadow-2xl">
-            <h3 class="text-xl font-black mb-6 text-indigo-400 flex items-center">
-                <span class="bg-indigo-600/20 p-2 rounded-xl mr-3 text-indigo-400"><i class="fa-solid fa-cart-shopping"></i></span>
+        <div class="bg-slate-900/90 backdrop-blur-xl border border-cyan-500/20 rounded-3xl p-6 md:p-8 shadow-2xl neon-glow-cyan">
+            <h3 class="text-xl font-black mb-6 text-cyan-400 flex items-center">
+                <span class="bg-cyan-500/10 border border-cyan-500/30 p-2.5 rounded-xl mr-3 text-cyan-400"><i class="fa-solid fa-cart-shopping"></i></span>
                 Form Pemesanan & Transaksi
             </h3>
             
             <form id="topup-form" class="space-y-6" onsubmit="handleTransaction(event)">
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">1. Pilih Kategori Layanan</label>
-                    <select id="category-select" onchange="renderProducts()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
+                    <select id="category-select" onchange="renderProducts()" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
                         <option value="mlbb">Game - Mobile Legends</option>
                         <option value="ff">Game - Free Fire</option>
                         <option value="pubg">Game - PUBG Mobile</option>
@@ -210,11 +226,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label id="target-label" class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">2. User ID / Nomor Tujuan</label>
-                        <input type="text" id="target-input" required placeholder="Contoh: 12345678" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
+                        <input type="text" id="target-input" required placeholder="Contoh: 12345678" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
                     </div>
                     <div id="zone-container">
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Zone / Server ID</label>
-                        <input type="text" id="zone-input" placeholder="Contoh: 2124" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
+                        <input type="text" id="zone-input" placeholder="Contoh: 2124" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
                     </div>
                 </div>
 
@@ -227,7 +243,7 @@
 
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">4. Metode Pembayaran</label>
-                    <select id="payment-method" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
+                    <select id="payment-method" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
                         <option value="QRIS (All E-Wallet)">QRIS (GoPay, OVO, ShopeePay, DANA)</option>
                         <option value="BSI Virtual Account">Bank Syariah Indonesia (BSI VA)</option>
                         <option value="BRI Virtual Account">Bank Rakyat Indonesia (BRI VA)</option>
@@ -235,14 +251,14 @@
                     </select>
                 </div>
 
-                <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-4 rounded-xl shadow-xl shadow-indigo-600/30 transition transform hover:-translate-y-0.5">Bayar Sekarang</button>
+                <button type="submit" class="w-full bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold py-4 rounded-xl shadow-xl shadow-cyan-600/30 transition transform hover:-translate-y-0.5 border border-cyan-400/30">Bayar Sekarang</button>
             </form>
         </div>
     </section>
 
     <!-- Modal Detail Pembayaran -->
     <div id="payment-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden px-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative">
+        <div class="bg-slate-900 border border-cyan-500/30 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative neon-glow-cyan">
             <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
             <div class="text-center mb-6">
                 <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -252,7 +268,7 @@
                 <p class="text-xs text-slate-400 mt-1" id="invoice-id">INV/2026/HZ/0000</p>
             </div>
             
-            <div class="space-y-3 bg-slate-950 p-4 rounded-2xl border border-slate-800 text-xs text-slate-300 mb-6">
+            <div class="space-y-3 bg-[#0b0f19] p-4 rounded-2xl border border-slate-800 text-xs text-slate-300 mb-6">
                 <div class="flex justify-between">
                     <span class="text-slate-500">Layanan:</span>
                     <span id="summary-service" class="font-semibold text-slate-200">-</span>
@@ -263,7 +279,7 @@
                 </div>
                 <div class="flex justify-between">
                     <span class="text-slate-500">Produk:</span>
-                    <span id="summary-product" class="font-semibold text-indigo-400">-</span>
+                    <span id="summary-product" class="font-semibold text-cyan-400">-</span>
                 </div>
                 <div class="flex justify-between">
                     <span class="text-slate-500">Metode Bayar:</span>
@@ -276,32 +292,32 @@
                 </div>
             </div>
 
-            <button onclick="closePaymentModal(); alert('Terima kasih! Pesanan sedang diproses.');" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition">Konfirmasi Pembayaran</button>
+            <button onclick="closePaymentModal(); alert('Terima kasih! Pesanan sedang diproses.');" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-xl transition">Konfirmasi Pembayaran</button>
         </div>
     </div>
 
     <!-- Modal Login -->
     <div id="login-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden px-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl relative">
+        <div class="bg-slate-900 border border-purple-500/30 rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl relative neon-glow-purple">
             <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h4 class="text-xl font-black text-center mb-6 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Masuk Akun HZtopup</h4>
+            <h4 class="text-xl font-black text-center mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent text-glow">Masuk Akun HZtopup</h4>
             <form onsubmit="event.preventDefault(); closeLoginModal(); alert('Berhasil Masuk!');" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-400 mb-1">Email / No. HP</label>
-                    <input type="text" required placeholder="user@domain.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-indigo-500">
+                    <input type="text" required placeholder="user@domain.com" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-400 mb-1">Kata Sandi</label>
-                    <input type="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-indigo-500">
+                    <input type="password" required placeholder="••••••••" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500">
                 </div>
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition mt-2">Masuk</button>
+                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl transition mt-2 shadow-lg shadow-purple-600/30">Masuk</button>
             </form>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 border-t border-slate-800 text-center py-8 text-slate-400 text-sm">
-        <p>&copy; 2026 <span class="text-indigo-400 font-bold">HZtopup</span>. All rights reserved.</p>
+    <footer class="bg-[#080b13] border-t border-cyan-900/20 text-center py-8 text-slate-400 text-sm">
+        <p>&copy; 2026 <span class="text-cyan-400 font-bold">HZtopup</span>. All rights reserved.</p>
     </footer>
 
     <!-- Script Interaktif JavaScript -->
@@ -394,9 +410,9 @@
             selectedProductIndex = 0;
 
             container.innerHTML = items.map((item, idx) => `
-                <div onclick="selectProduct(${idx})" id="product-card-${idx}" class="border ${idx === 0 ? 'border-indigo-500 bg-indigo-950/40 shadow-lg shadow-indigo-500/10' : 'border-slate-800 bg-slate-950 hover:border-indigo-500 hover:bg-indigo-950/20'} p-4 rounded-xl text-center cursor-pointer transition">
+                <div onclick="selectProduct(${idx})" id="product-card-${idx}" class="border ${idx === 0 ? 'border-cyan-500 bg-cyan-950/40 shadow-lg shadow-cyan-500/10' : 'border-slate-800 bg-[#0b0f19] hover:border-cyan-500/50 hover:bg-cyan-950/20'} p-4 rounded-xl text-center cursor-pointer transition">
                     <p class="font-bold text-sm text-slate-200">${item.name}</p>
-                    <p class="text-xs text-indigo-400 font-semibold mt-1">${item.price}</p>
+                    <p class="text-xs text-cyan-400 font-semibold mt-1">${item.price}</p>
                 </div>
             `).join('');
         }
@@ -408,9 +424,9 @@
                 const el = document.getElementById(`product-card-${idx}`);
                 if (el) {
                     if (idx === index) {
-                        el.className = 'border border-indigo-500 bg-indigo-950/40 shadow-lg shadow-indigo-500/10 p-4 rounded-xl text-center cursor-pointer transition';
+                        el.className = 'border border-cyan-500 bg-cyan-950/40 shadow-lg shadow-cyan-500/10 p-4 rounded-xl text-center cursor-pointer transition';
                     } else {
-                        el.className = 'border border-slate-800 bg-slate-950 hover:border-indigo-500 hover:bg-indigo-950/20 p-4 rounded-xl text-center cursor-pointer transition';
+                        el.className = 'border border-slate-800 bg-[#0b0f19] hover:border-cyan-500/50 hover:bg-cyan-950/20 p-4 rounded-xl text-center cursor-pointer transition';
                     }
                 }
             });

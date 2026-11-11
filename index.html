@@ -7,470 +7,487 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN untuk Diagram -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Custom Animation Keyframes -->
     <style>
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
         .animate-fade-down { animation: fadeInDown 0.8s ease-out forwards; }
         .animate-fade-up { animation: fadeInUp 0.8s ease-out forwards; }
         .animate-float { animation: float 3s ease-in-out infinite; }
         
         /* Neon Glow Effects */
-        .neon-glow-cyan {
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.35), inset 0 0 15px rgba(6, 182, 212, 0.15);
-        }
-        .neon-glow-purple {
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
-        }
-        .text-glow {
-            text-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
-        }
+        .neon-glow-cyan { box-shadow: 0 0 20px rgba(6, 182, 212, 0.35), inset 0 0 15px rgba(6, 182, 212, 0.15); }
+        .neon-glow-purple { box-shadow: 0 0 25px rgba(168, 85, 247, 0.4); }
+        .text-glow { text-shadow: 0 0 12px rgba(168, 85, 247, 0.5); }
     </style>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 font-sans selection:bg-cyan-500 selection:text-slate-950">
 
-    <!-- Header / Navbar -->
-    <header class="bg-[#0b0f19]/90 backdrop-blur-md border-b border-cyan-900/30 sticky top-0 z-50 transition-all">
-        <div class="max-w-7xl mx-auto px-4 py-3.5 flex justify-between items-center">
-            <div class="flex items-center space-x-3 animate-fade-down">
-                <div class="p-1 rounded-2xl bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 neon-glow-cyan animate-float">
-                    <img src="logo.jpg.webp" alt="HZtopup Logo" class="h-11 w-11 rounded-xl object-cover">
+    <!-- ================= HALAMAN UTAMA WEBSITE ================= -->
+    <div id="main-view">
+        <!-- Header / Navbar -->
+        <header class="bg-[#0b0f19]/90 backdrop-blur-md border-b border-cyan-900/30 sticky top-0 z-50 transition-all">
+            <div class="max-w-7xl mx-auto px-4 py-3.5 flex justify-between items-center">
+                <div class="flex items-center space-x-3 animate-fade-down">
+                    <div class="p-1 rounded-2xl bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 neon-glow-cyan animate-float">
+                        <img src="logo.jpg.webp" alt="HZtopup Logo" class="h-11 w-11 rounded-xl object-cover">
+                    </div>
+                    <span class="text-xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent text-glow">HZ<span class="text-white">TOPUP</span></span>
                 </div>
-                <span class="text-xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent text-glow">HZ<span class="text-white">TOPUP</span></span>
-            </div>
-            <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
-                <a href="#" class="hover:text-cyan-400 transition">Beranda</a>
-                <a href="#games" class="hover:text-cyan-400 transition">Game</a>
-                <a href="#ppob" class="hover:text-cyan-400 transition">Pulsa & Token</a>
-                <a href="#form-section" class="hover:text-cyan-400 transition">Transaksi</a>
-            </nav>
-            <div>
-                <button onclick="openLoginModal()" class="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-cyan-600/25 transition transform hover:-translate-y-0.5 active:translate-y-0 border border-cyan-400/30">Masuk</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="relative bg-gradient-to-b from-purple-950/30 via-[#0b0f19] to-[#0b0f19] py-20 text-center px-4 overflow-hidden">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-gradient-to-r from-cyan-600/15 to-purple-600/20 blur-[140px] rounded-full pointer-events-none"></div>
-
-        <div class="max-w-3xl mx-auto relative z-10">
-            <span class="inline-flex items-center space-x-2 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 animate-fade-down shadow-sm shadow-cyan-500/10">
-                <i class="fa-solid fa-bolt text-cyan-400"></i>
-                <span>Layanan Otomatis 24 Jam Nonstop</span>
-            </span>
-            <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight animate-fade-down leading-tight">
-                Top Up Game, Pulsa & Token PLN <span class="bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent text-glow">Tercepat</span>
-            </h1>
-            <p class="text-slate-400 mb-8 text-base md:text-lg animate-fade-up max-w-2xl mx-auto">
-                Proses instan langsung masuk, harga paling bersaing, serta dijamin aman dan terpercaya untuk seluruh kebutuhan digital Anda.
-            </p>
-            <div class="animate-fade-up">
-                <a href="#form-section" class="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold px-8 py-3.5 rounded-2xl shadow-xl shadow-cyan-600/30 transition transform hover:-translate-y-1 border border-cyan-400/30">
-                    <span>Mulai Transaksi</span>
-                    <i class="fa-solid fa-arrow-down text-xs"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Kategori Game -->
-    <section id="games" class="max-w-7xl mx-auto px-4 py-12">
-        <div class="flex items-center justify-between mb-8">
-            <h2 class="text-2xl font-black border-l-4 border-cyan-500 pl-3 tracking-wide">Popular Games</h2>
-            <span class="text-xs text-slate-400 font-medium">Pilih game favoritmu</span>
-        </div>
-        
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
-            <div onclick="selectCategory('mlbb')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-cyan-500/10 hover:border-cyan-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                <div class="h-36 bg-gradient-to-br from-indigo-600 to-purple-800 flex items-center justify-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
-                    <i class="fa-solid fa-shield-halved text-5xl text-indigo-200 group-hover:scale-110 transition duration-300"></i>
-                </div>
-                <div class="p-4 text-center">
-                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-cyan-400 transition">Mobile Legends</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">Moonton</p>
-                </div>
-            </div>
-
-            <div onclick="selectCategory('ff')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                <div class="h-36 bg-gradient-to-br from-orange-600 to-red-800 flex items-center justify-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
-                    <i class="fa-solid fa-fire text-5xl text-orange-200 group-hover:scale-110 transition duration-300"></i>
-                </div>
-                <div class="p-4 text-center">
-                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-orange-400 transition">Free Fire</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">Garena</p>
-                </div>
-            </div>
-
-            <div onclick="selectCategory('pubg')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-amber-500/10 hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                <div class="h-36 bg-gradient-to-br from-amber-600 to-yellow-700 flex items-center justify-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
-                    <i class="fa-solid fa-plane text-5xl text-amber-200 group-hover:scale-110 transition duration-300"></i>
-                </div>
-                <div class="p-4 text-center">
-                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-amber-400 transition">PUBG Mobile</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">Tencent</p>
-                </div>
-            </div>
-
-            <div onclick="selectCategory('genshin')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                <div class="h-36 bg-gradient-to-br from-blue-600 to-cyan-700 flex items-center justify-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
-                    <i class="fa-solid fa-star text-5xl text-blue-200 group-hover:scale-110 transition duration-300"></i>
-                </div>
-                <div class="p-4 text-center">
-                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-blue-400 transition">Genshin Impact</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">HoYoverse</p>
-                </div>
-            </div>
-
-            <div onclick="selectCategory('valorant')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-red-500/10 hover:border-red-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                <div class="h-36 bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
-                    <i class="fa-solid fa-crosshairs text-5xl text-red-200 group-hover:scale-110 transition duration-300"></i>
-                </div>
-                <div class="p-4 text-center">
-                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-red-400 transition">Valorant</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">Riot Games</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Kategori Pulsa, Data & PLN -->
-    <section id="ppob" class="max-w-7xl mx-auto px-4 py-8">
-        <div class="flex items-center justify-between mb-8">
-            <h2 class="text-2xl font-black border-l-4 border-emerald-500 pl-3 tracking-wide">Pulsa, Paket Data & PLN</h2>
-            <span class="text-xs text-slate-400 font-medium">Kebutuhan harian praktis</span>
-        </div>
-        
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-            <div onclick="selectCategory('pulsa')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-emerald-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                <div class="h-36 bg-gradient-to-br from-emerald-600 to-teal-800 flex items-center justify-center">
-                    <i class="fa-solid fa-mobile-screen-button text-5xl text-emerald-200 group-hover:scale-110 transition duration-300"></i>
-                </div>
-                <div class="p-4 text-center">
-                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-emerald-400 transition">Pulsa Reguler</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">All Operator</p>
-                </div>
-            </div>
-
-            <div onclick="selectCategory('data')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-teal-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                <div class="h-36 bg-gradient-to-br from-teal-600 to-cyan-800 flex items-center justify-center">
-                    <i class="fa-solid fa-wifi text-5xl text-teal-200 group-hover:scale-110 transition duration-300"></i>
-                </div>
-                <div class="p-4 text-center">
-                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-teal-400 transition">Paket Data Internet</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">Kuota Bulanan</p>
-                </div>
-            </div>
-
-            <div onclick="selectCategory('pln')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                <div class="h-36 bg-gradient-to-br from-amber-600 to-orange-700 flex items-center justify-center">
-                    <i class="fa-solid fa-lightbulb text-5xl text-amber-200 group-hover:scale-110 transition duration-300"></i>
-                </div>
-                <div class="p-4 text-center">
-                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-amber-400 transition">Token Listrik PLN</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">Prabayar</p>
-                </div>
-            </div>
-
-            <div onclick="selectCategory('pln_tagihan')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-yellow-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                <div class="h-36 bg-gradient-to-br from-yellow-600 to-amber-800 flex items-center justify-center">
-                    <i class="fa-solid fa-file-invoice-dollar text-5xl text-yellow-200 group-hover:scale-110 transition duration-300"></i>
-                </div>
-                <div class="p-4 text-center">
-                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-yellow-400 transition">Tagihan PLN</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">Pascapayar</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Form Transaksi -->
-    <section id="form-section" class="max-w-4xl mx-auto px-4 py-10 my-8">
-        <div class="bg-slate-900/90 backdrop-blur-xl border border-cyan-500/20 rounded-3xl p-6 md:p-8 shadow-2xl neon-glow-cyan">
-            <h3 class="text-xl font-black mb-6 text-cyan-400 flex items-center">
-                <span class="bg-cyan-500/10 border border-cyan-500/30 p-2.5 rounded-xl mr-3 text-cyan-400"><i class="fa-solid fa-cart-shopping"></i></span>
-                Form Pemesanan & Transaksi
-            </h3>
-            
-            <form id="topup-form" class="space-y-6" onsubmit="handleTransaction(event)">
+                <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
+                    <a href="#" class="hover:text-cyan-400 transition">Beranda</a>
+                    <a href="#games" class="hover:text-cyan-400 transition">Game</a>
+                    <a href="#ppob" class="hover:text-cyan-400 transition">Pulsa & Token</a>
+                    <a href="#form-section" class="hover:text-cyan-400 transition">Transaksi</a>
+                </nav>
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">1. Pilih Kategori Layanan</label>
-                    <select id="category-select" onchange="renderProducts()" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
-                        <option value="mlbb">Game - Mobile Legends</option>
-                        <option value="ff">Game - Free Fire</option>
-                        <option value="pubg">Game - PUBG Mobile</option>
-                        <option value="genshin">Game - Genshin Impact</option>
-                        <option value="valorant">Game - Valorant</option>
-                        <option value="pulsa">Pulsa Reguler (All Operator)</option>
-                        <option value="data">Paket Data Internet</option>
-                        <option value="pln">Token Listrik PLN Prabayar</option>
-                        <option value="pln_tagihan">Tagihan PLN Pascapayar</option>
-                    </select>
+                    <button onclick="openLoginModal()" class="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-cyan-600/25 transition transform hover:-translate-y-0.5 active:translate-y-0 border border-cyan-400/30">Masuk</button>
                 </div>
+            </div>
+        </header>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-b from-purple-950/30 via-[#0b0f19] to-[#0b0f19] py-20 text-center px-4 overflow-hidden">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-gradient-to-r from-cyan-600/15 to-purple-600/20 blur-[140px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-3xl mx-auto relative z-10">
+                <span class="inline-flex items-center space-x-2 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 animate-fade-down shadow-sm shadow-cyan-500/10">
+                    <i class="fa-solid fa-bolt text-cyan-400"></i>
+                    <span>Layanan Otomatis 24 Jam Nonstop</span>
+                </span>
+                <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight animate-fade-down leading-tight">
+                    Top Up Game, Pulsa & Token PLN <span class="bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent text-glow">Tercepat</span>
+                </h1>
+                <p class="text-slate-400 mb-8 text-base md:text-lg animate-fade-up max-w-2xl mx-auto">
+                    Proses instan langsung masuk, harga paling bersaing, serta dijamin aman dan terpercaya untuk seluruh kebutuhan digital Anda.
+                </p>
+                <div class="animate-fade-up">
+                    <a href="#form-section" class="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold px-8 py-3.5 rounded-2xl shadow-xl shadow-cyan-600/40 transition transform hover:-translate-y-1 border border-cyan-400/30">
+                        <span>Mulai Transaksi</span>
+                        <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kategori Game -->
+        <section id="games" class="max-w-7xl mx-auto px-4 py-12">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-black border-l-4 border-cyan-500 pl-3 tracking-wide">Popular Games</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
+                <div onclick="selectCategory('mlbb')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-cyan-500/10 hover:border-cyan-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
+                    <div class="h-36 bg-gradient-to-br from-indigo-600 to-purple-800 flex items-center justify-center relative overflow-hidden">
+                        <i class="fa-solid fa-shield-halved text-5xl text-indigo-200 group-hover:scale-110 transition duration-300"></i>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-slate-200 group-hover:text-cyan-400 transition">Mobile Legends</h3>
+                    </div>
+                </div>
+                <div onclick="selectCategory('ff')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
+                    <div class="h-36 bg-gradient-to-br from-orange-600 to-red-800 flex items-center justify-center relative overflow-hidden">
+                        <i class="fa-solid fa-fire text-5xl text-orange-200 group-hover:scale-110 transition duration-300"></i>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-slate-200 group-hover:text-orange-400 transition">Free Fire</h3>
+                    </div>
+                </div>
+                <div onclick="selectCategory('pubg')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-amber-500/10 hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
+                    <div class="h-36 bg-gradient-to-br from-amber-600 to-yellow-700 flex items-center justify-center relative overflow-hidden">
+                        <i class="fa-solid fa-plane text-5xl text-amber-200 group-hover:scale-110 transition duration-300"></i>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-slate-200 group-hover:text-amber-400 transition">PUBG Mobile</h3>
+                    </div>
+                </div>
+                <div onclick="selectCategory('genshin')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
+                    <div class="h-36 bg-gradient-to-br from-blue-600 to-cyan-700 flex items-center justify-center relative overflow-hidden">
+                        <i class="fa-solid fa-star text-5xl text-blue-200 group-hover:scale-110 transition duration-300"></i>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-slate-200 group-hover:text-blue-400 transition">Genshin Impact</h3>
+                    </div>
+                </div>
+                <div onclick="selectCategory('valorant')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-red-500/10 hover:border-red-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
+                    <div class="h-36 bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fa-solid fa-crosshairs text-5xl text-red-200 group-hover:scale-110 transition duration-300"></i>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-slate-200 group-hover:text-red-400 transition">Valorant</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Transaksi -->
+        <section id="form-section" class="max-w-4xl mx-auto px-4 py-10 my-8">
+            <div class="bg-slate-900/90 backdrop-blur-xl border border-cyan-500/20 rounded-3xl p-6 md:p-8 shadow-2xl neon-glow-cyan">
+                <h3 class="text-xl font-black mb-6 text-cyan-400 flex items-center">
+                    <span class="bg-cyan-500/10 border border-cyan-500/30 p-2.5 rounded-xl mr-3 text-cyan-400"><i class="fa-solid fa-cart-shopping"></i></span>
+                    Form Pemesanan & Transaksi
+                </h3>
+                
+                <form id="topup-form" class="space-y-6" onsubmit="handleTransaction(event)">
                     <div>
-                        <label id="target-label" class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">2. User ID / Nomor Tujuan</label>
-                        <input type="text" id="target-input" required placeholder="Contoh: 12345678" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">1. Pilih Kategori Layanan</label>
+                        <select id="category-select" onchange="renderProducts()" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
+                            <option value="mlbb">Game - Mobile Legends</option>
+                            <option value="ff">Game - Free Fire</option>
+                            <option value="pubg">Game - PUBG Mobile</option>
+                            <option value="genshin">Game - Genshin Impact</option>
+                            <option value="valorant">Game - Valorant</option>
+                            <option value="pulsa">Pulsa Reguler (All Operator)</option>
+                            <option value="pln">Token Listrik PLN Prabayar</option>
+                        </select>
                     </div>
-                    <div id="zone-container">
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Zone / Server ID</label>
-                        <input type="text" id="zone-input" placeholder="Contoh: 2124" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label id="target-label" class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">2. User ID / Nomor Tujuan</label>
+                            <input type="text" id="target-input" required placeholder="Contoh: 12345678" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
+                        </div>
+                        <div id="zone-container">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Zone / Server ID</label>
+                            <input type="text" id="zone-input" placeholder="Contoh: 2124" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">3. Pilih Nominal / Produk</label>
-                    <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        <!-- Product items rendered dynamically via JS -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">3. Pilih Nominal / Produk (Termurah ke Termahal)</label>
+                        <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <!-- Items via JS -->
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">4. Metode Pembayaran</label>
-                    <select id="payment-method" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
-                        <option value="QRIS (All E-Wallet)">QRIS (GoPay, OVO, ShopeePay, DANA)</option>
-                        <option value="BSI Virtual Account">Bank Syariah Indonesia (BSI VA)</option>
-                        <option value="BRI Virtual Account">Bank Rakyat Indonesia (BRI VA)</option>
-                        <option value="Bank Jatim VA">Bank Jatim Virtual Account</option>
-                    </select>
-                </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">4. Metode Pembayaran</label>
+                        <select id="payment-method" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
+                            <option value="QRIS">QRIS (GoPay, OVO, DANA)</option>
+                            <option value="BSI VA">Bank Syariah Indonesia (BSI VA)</option>
+                            <option value="BRI VA">Bank Rakyat Indonesia (BRI VA)</option>
+                        </select>
+                    </div>
 
-                <button type="submit" class="w-full bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold py-4 rounded-xl shadow-xl shadow-cyan-600/30 transition transform hover:-translate-y-0.5 border border-cyan-400/30">Bayar Sekarang</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Modal Detail Pembayaran -->
-    <div id="payment-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden px-4">
-        <div class="bg-slate-900 border border-cyan-500/30 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative neon-glow-cyan">
-            <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <div class="text-center mb-6">
-                <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <i class="fa-solid fa-check text-xl"></i>
-                </div>
-                <h4 class="text-lg font-bold text-white">Invoice Pemesanan</h4>
-                <p class="text-xs text-slate-400 mt-1" id="invoice-id">INV/2026/HZ/0000</p>
+                    <button type="submit" class="w-full bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold py-4 rounded-xl shadow-xl shadow-cyan-600/30 transition transform hover:-translate-y-0.5 border border-cyan-400/30">Bayar Sekarang</button>
+                </form>
             </div>
+        </section>
+
+        <footer class="bg-[#080b13] border-t border-cyan-900/20 text-center py-8 text-slate-400 text-sm">
+            <p>&copy; 2026 <span class="text-cyan-400 font-bold">HZtopup</span>. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- ================= DASHBOARD ADMIN (HIDDEN DEFAULT) ================= -->
+    <div id="admin-view" class="hidden min-h-screen bg-[#080b13]">
+        <!-- Admin Navbar -->
+        <header class="bg-[#0b0f19] border-b border-purple-900/40 py-4 px-6 flex justify-between items-center sticky top-0 z-50">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-user-shield text-purple-400 text-2xl"></i>
+                <h1 class="text-xl font-black bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">HZ-Admin Panel</h1>
+            </div>
+            <button onclick="logoutAdmin()" class="text-sm font-bold text-slate-400 hover:text-rose-400 transition"><i class="fa-solid fa-right-from-bracket mr-2"></i>Keluar</button>
+        </header>
+
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <h2 class="text-2xl font-bold text-white mb-6">Ringkasan <span class="text-purple-400">Bulan Ini</span></h2>
             
-            <div class="space-y-3 bg-[#0b0f19] p-4 rounded-2xl border border-slate-800 text-xs text-slate-300 mb-6">
-                <div class="flex justify-between">
-                    <span class="text-slate-500">Layanan:</span>
-                    <span id="summary-service" class="font-semibold text-slate-200">-</span>
+            <!-- Cards Row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-wallet text-6xl text-cyan-400"></i></div>
+                    <p class="text-slate-400 text-sm font-bold mb-1">Total Pendapatan</p>
+                    <h3 class="text-3xl font-black text-cyan-400">Rp 15.450.000</h3>
+                    <p class="text-xs text-emerald-400 mt-2"><i class="fa-solid fa-arrow-trend-up mr-1"></i> Naik 12% dari bulan lalu</p>
                 </div>
-                <div class="flex justify-between">
-                    <span class="text-slate-500">Tujuan:</span>
-                    <span id="summary-target" class="font-semibold text-slate-200">-</span>
+                <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-cart-shopping text-6xl text-purple-400"></i></div>
+                    <p class="text-slate-400 text-sm font-bold mb-1">Total Penjualan</p>
+                    <h3 class="text-3xl font-black text-purple-400">428 Transaksi</h3>
+                    <p class="text-xs text-emerald-400 mt-2"><i class="fa-solid fa-arrow-trend-up mr-1"></i> Naik 5% dari bulan lalu</p>
                 </div>
-                <div class="flex justify-between">
-                    <span class="text-slate-500">Produk:</span>
-                    <span id="summary-product" class="font-semibold text-cyan-400">-</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-slate-500">Metode Bayar:</span>
-                    <span id="summary-method" class="font-semibold text-slate-200">-</span>
-                </div>
-                <hr class="border-slate-800 my-2">
-                <div class="flex justify-between text-sm font-bold">
-                    <span>Total Tagihan:</span>
-                    <span id="summary-total" class="text-emerald-400">Rp 0</span>
+                <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-users text-6xl text-indigo-400"></i></div>
+                    <p class="text-slate-400 text-sm font-bold mb-1">Pengguna Aktif</p>
+                    <h3 class="text-3xl font-black text-indigo-400">1,204 User</h3>
                 </div>
             </div>
 
-            <button onclick="closePaymentModal(); alert('Terima kasih! Pesanan sedang diproses.');" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-xl transition">Konfirmasi Pembayaran</button>
+            <!-- Chart & AI Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Diagram Penjualan -->
+                <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 shadow-lg lg:col-span-2">
+                    <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-chart-line text-cyan-400 mr-2"></i>Diagram Penjualan November</h3>
+                    <div class="w-full h-64">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- AI Smart Pricing (Dipindah ke Admin) -->
+                <div class="bg-[#0b0f19] border border-purple-500/30 rounded-2xl p-6 shadow-lg neon-glow-purple flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="bg-purple-500/20 p-3 rounded-xl text-purple-400 border border-purple-500/30">
+                                <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">AI Smart Pricing</h3>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-6">Ubah & sesuaikan margin harga seluruh produk di website secara otomatis dengan AI.</p>
+                        
+                        <label class="block text-xs font-bold text-slate-400 mb-2">Pilih Mode Harga:</label>
+                        <select id="ai-mode" class="w-full bg-[#080b13] border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500 mb-4">
+                            <option value="normal">Harga Normal (0%)</option>
+                            <option value="diskon_10">Diskon Kilat (-10%)</option>
+                            <option value="diskon_20">Promo Besar (-20%)</option>
+                            <option value="naik_5">Margin Profit (+5%)</option>
+                            <option value="naik_10">Margin Premium (+10%)</option>
+                        </select>
+                    </div>
+                    <button type="button" onclick="applyAiPricing()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-purple-600/30">
+                        Terapkan Harga Baru
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pengaturan Akun Admin -->
+            <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 shadow-lg max-w-md">
+                <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-key text-rose-400 mr-2"></i>Ganti Password Admin</h3>
+                <form onsubmit="event.preventDefault(); alert('Password berhasil diubah!'); document.getElementById('pass-form').reset();" id="pass-form" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 mb-1">Password Lama</label>
+                        <input type="password" required class="w-full bg-[#080b13] border border-slate-700 rounded-xl p-3 text-white text-sm focus:border-rose-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 mb-1">Password Baru</label>
+                        <input type="password" required class="w-full bg-[#080b13] border border-slate-700 rounded-xl p-3 text-white text-sm focus:border-rose-500 outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 rounded-xl transition mt-2">Simpan Password</button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- Modal Login -->
+    <!-- Modal Otentikasi (Masuk & Daftar) -->
     <div id="login-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden px-4">
         <div class="bg-slate-900 border border-purple-500/30 rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl relative neon-glow-purple">
             <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h4 class="text-xl font-black text-center mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent text-glow">Masuk Akun HZtopup</h4>
-            <form onsubmit="event.preventDefault(); closeLoginModal(); alert('Berhasil Masuk!');" class="space-y-4">
+            <h4 id="auth-title" class="text-xl font-black text-center mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent text-glow">Masuk HZtopup</h4>
+            
+            <!-- Form MASUK (Default) -->
+            <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-400 mb-1">Email / No. HP</label>
-                    <input type="text" required placeholder="user@domain.com" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500">
+                    <input type="text" id="login-email" required placeholder="user@domain.com" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-400 mb-1">Kata Sandi</label>
-                    <input type="password" required placeholder="••••••••" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500">
+                    <input type="password" id="login-pass" required placeholder="••••••••" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500">
                 </div>
                 <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl transition mt-2 shadow-lg shadow-purple-600/30">Masuk</button>
+                <p class="text-xs text-center text-slate-400 mt-4">Belum punya akun? <button type="button" onclick="toggleAuthMode('register')" class="text-cyan-400 hover:text-cyan-300 font-bold">Daftar di sini</button></p>
             </form>
+
+            <!-- Form DAFTAR (Hidden) -->
+            <form id="form-register" onsubmit="handleRegister(event)" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-1">Nama Lengkap</label>
+                    <input type="text" required placeholder="Nama Anda" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-cyan-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-1">Email / No. HP</label>
+                    <input type="text" required placeholder="user@domain.com" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-cyan-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-1">Kata Sandi</label>
+                    <input type="password" required placeholder="Buat sandi" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-cyan-500">
+                </div>
+                <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-xl transition mt-2 shadow-lg shadow-cyan-600/30">Daftar Sekarang</button>
+                <p class="text-xs text-center text-slate-400 mt-4">Sudah punya akun? <button type="button" onclick="toggleAuthMode('login')" class="text-purple-400 hover:text-purple-300 font-bold">Masuk di sini</button></p>
+            </form>
+
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-[#080b13] border-t border-cyan-900/20 text-center py-8 text-slate-400 text-sm">
-        <p>&copy; 2026 <span class="text-cyan-400 font-bold">HZtopup</span>. All rights reserved.</p>
-    </footer>
-
-    <!-- Script Interaktif JavaScript -->
+    <!-- Script Utama & Chart Admin -->
     <script>
-        const productsData = {
+        // Logika Data Produk & AI
+        const originalProductsData = {
             mlbb: [
-                { name: "86 Diamonds ML", price: "Rp 20.000" },
-                { name: "172 Diamonds ML", price: "Rp 40.000" },
-                { name: "257 Diamonds ML", price: "Rp 60.000" },
-                { name: "706 Diamonds ML", price: "Rp 160.000" },
-                { name: "Weekly Diamond Pass", price: "Rp 28.500" },
-                { name: "Twilight Pass", price: "Rp 145.000" }
+                { name: "Weekly Diamond Pass", priceRaw: 28500 },
+                { name: "86 Diamonds ML", priceRaw: 20000 },
+                { name: "172 Diamonds ML", priceRaw: 40000 },
+                { name: "257 Diamonds ML", priceRaw: 60000 },
+                { name: "Twilight Pass", priceRaw: 145000 },
+                { name: "706 Diamonds ML", priceRaw: 160000 }
             ],
             ff: [
-                { name: "140 Diamonds FF", price: "Rp 19.000" },
-                { name: "355 Diamonds FF", price: "Rp 47.000" },
-                { name: "720 Diamonds FF", price: "Rp 93.000" },
-                { name: "1440 Diamonds FF", price: "Rp 185.000" },
-                { name: "Member Mingguan", price: "Rp 30.000" },
-                { name: "Member Bulanan", price: "Rp 120.000" }
+                { name: "140 Diamonds FF", priceRaw: 19000 },
+                { name: "Member Mingguan", priceRaw: 30000 },
+                { name: "355 Diamonds FF", priceRaw: 47000 },
+                { name: "720 Diamonds FF", priceRaw: 93000 }
             ],
             pubg: [
-                { name: "60 UC PUBG", price: "Rp 14.500" },
-                { name: "325 UC PUBG", price: "Rp 73.000" },
-                { name: "660 UC PUBG", price: "Rp 145.000" },
-                { name: "1800 UC PUBG", price: "Rp 365.000" }
-            ],
-            genshin: [
-                { name: "60 Genesis Crystals", price: "Rp 16.000" },
-                { name: "300 Genesis Crystals", price: "Rp 79.000" },
-                { name: "980 Genesis Crystals", price: "Rp 249.000" },
-                { name: "Blessing of Welkin Moon", price: "Rp 79.000" }
-            ],
-            valorant: [
-                { name: "475 VP", price: "Rp 55.000" },
-                { name: "1000 VP", price: "Rp 110.000" },
-                { name: "2050 VP", price: "Rp 220.000" }
+                { name: "60 UC PUBG", priceRaw: 14500 },
+                { name: "325 UC PUBG", priceRaw: 73000 },
+                { name: "660 UC PUBG", priceRaw: 145000 }
             ],
             pulsa: [
-                { name: "Pulsa 10.000", price: "Rp 10.800" },
-                { name: "Pulsa 25.000", price: "Rp 25.500" },
-                { name: "Pulsa 50.000", price: "Rp 50.500" },
-                { name: "Pulsa 100.000", price: "Rp 99.500" }
-            ],
-            data: [
-                { name: "Freedom Internet 3GB / 30 Hari", price: "Rp 15.000" },
-                { name: "Freedom Internet 10GB / 30 Hari", price: "Rp 35.000" },
-                { name: "Freedom Internet 25GB / 30 Hari", price: "Rp 70.000" },
-                { name: "Unlimited Daily 1GB/Hari", price: "Rp 25.000" }
-            ],
-            pln: [
-                { name: "Token PLN 20.000", price: "Rp 20.500" },
-                { name: "Token PLN 50.000", price: "Rp 50.500" },
-                { name: "Token PLN 100.000", price: "Rp 100.500" },
-                { name: "Token PLN 200.000", price: "Rp 200.500" }
-            ],
-            pln_tagihan: [
-                { name: "Cek & Bayar Tagihan Listrik PLN", price: "Sesuai Tagihan + Admin Rp 2.500" }
+                { name: "Pulsa 10.000", priceRaw: 10800 },
+                { name: "Pulsa 25.000", priceRaw: 25500 },
+                { name: "Pulsa 50.000", priceRaw: 50500 }
             ]
         };
 
-        let selectedProductIndex = 0;
+        let productsData = JSON.parse(JSON.stringify(originalProductsData));
+        let chartInstance = null;
 
+        // Buka / Tutup Modal Autentikasi
+        function openLoginModal() { 
+            document.getElementById('login-modal').classList.remove('hidden'); 
+        }
+        function closeLoginModal() { 
+            document.getElementById('login-modal').classList.add('hidden'); 
+            toggleAuthMode('login'); // Reset ke tampilan login saat ditutup
+        }
+
+        // Toggle Form Masuk / Daftar
+        function toggleAuthMode(mode) {
+            if(mode === 'register') {
+                document.getElementById('form-login').classList.add('hidden');
+                document.getElementById('form-register').classList.remove('hidden');
+                document.getElementById('auth-title').innerText = 'Daftar Akun HZtopup';
+            } else {
+                document.getElementById('form-register').classList.add('hidden');
+                document.getElementById('form-login').classList.remove('hidden');
+                document.getElementById('auth-title').innerText = 'Masuk HZtopup';
+            }
+        }
+
+        // Handle Pendaftaran
+        function handleRegister(event) {
+            event.preventDefault();
+            alert('Pendaftaran berhasil! Akun Anda telah dibuat. Silakan Masuk.');
+            toggleAuthMode('login'); // Kembali ke halaman Masuk setelah daftar
+            event.target.reset(); // Kosongkan form
+        }
+
+        // Handle Login (Admin vs User)
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+            
+            closeLoginModal();
+
+            if(email === 'admin' && pass === 'admin123') {
+                // Masuk sebagai Admin
+                document.getElementById('main-view').classList.add('hidden');
+                document.getElementById('admin-view').classList.remove('hidden');
+                initChart(); // Render diagram
+            } else {
+                // Masuk sebagai User biasa
+                alert('Berhasil Masuk sebagai pengguna!');
+            }
+        }
+
+        function logoutAdmin() {
+            document.getElementById('admin-view').classList.add('hidden');
+            document.getElementById('main-view').classList.remove('hidden');
+            document.getElementById('login-email').value = '';
+            document.getElementById('login-pass').value = '';
+            renderProducts(); // Refresh harga UI di depan
+        }
+
+        // Fitur AI Pricing
+        function applyAiPricing() {
+            const mode = document.getElementById('ai-mode').value;
+            let multiplier = 1.0;
+            let labelInfo = "Normal";
+
+            if (mode === 'diskon_10') { multiplier = 0.90; labelInfo = "Diskon Kilat -10%"; }
+            else if (mode === 'diskon_20') { multiplier = 0.80; labelInfo = "Promo Besar -20%"; }
+            else if (mode === 'naik_5') { multiplier = 1.05; labelInfo = "Margin Profit +5%"; }
+            else if (mode === 'naik_10') { multiplier = 1.10; labelInfo = "Margin Premium +10%"; }
+
+            for (let key in originalProductsData) {
+                productsData[key] = originalProductsData[key].map(item => {
+                    const newRaw = Math.round(item.priceRaw * multiplier);
+                    return {
+                        name: item.name,
+                        rawPrice: newRaw,
+                        price: "Rp " + newRaw.toLocaleString('id-ID')
+                    };
+                });
+            }
+            alert("Berhasil! HZ-AI menerapkan mode: " + labelInfo + ". Harga di website utama otomatis ter-update.");
+        }
+
+        // Render Produk di Halaman Utama
         function renderProducts() {
             const category = document.getElementById('category-select').value;
             const container = document.getElementById('products-grid');
-            const zoneContainer = document.getElementById('zone-container');
-            const targetLabel = document.getElementById('target-label');
-            const targetInput = document.getElementById('target-input');
-
-            if (category === 'mlbb') {
-                targetLabel.innerText = '2. User ID Game';
-                targetInput.placeholder = 'Contoh: 12345678';
-                zoneContainer.style.display = 'block';
-            } else if (category === 'pulsa' || category === 'data') {
-                targetLabel.innerText = '2. Nomor Telepon / HP';
-                targetInput.placeholder = 'Contoh: 085712345678';
-                zoneContainer.style.display = 'none';
-            } else if (category === 'pln' || category === 'pln_tagihan') {
-                targetLabel.innerText = '2. ID Pelanggan PLN / Nomor Meter';
-                targetInput.placeholder = 'Contoh: 541200987654';
-                zoneContainer.style.display = 'none';
-            } else {
-                targetLabel.innerText = '2. User ID Game / Akun';
-                targetInput.placeholder = 'Masukkan ID / User';
-                zoneContainer.style.display = 'none';
-            }
-
-            const items = productsData[category] || [];
-            selectedProductIndex = 0;
+            
+            let items = productsData[category] ? [...productsData[category]] : originalProductsData['mlbb'].map(item => ({...item, price: "Rp " + item.priceRaw.toLocaleString('id-ID')}));
+            
+            items.sort((a, b) => a.rawPrice - b.rawPrice); // Termurah -> Termahal
 
             container.innerHTML = items.map((item, idx) => `
-                <div onclick="selectProduct(${idx})" id="product-card-${idx}" class="border ${idx === 0 ? 'border-cyan-500 bg-cyan-950/40 shadow-lg shadow-cyan-500/10' : 'border-slate-800 bg-[#0b0f19] hover:border-cyan-500/50 hover:bg-cyan-950/20'} p-4 rounded-xl text-center cursor-pointer transition">
+                <div class="border ${idx === 0 ? 'border-cyan-500 bg-cyan-950/40 shadow-lg shadow-cyan-500/10' : 'border-slate-800 bg-[#0b0f19]'} p-4 rounded-xl text-center cursor-pointer transition">
                     <p class="font-bold text-sm text-slate-200">${item.name}</p>
                     <p class="text-xs text-cyan-400 font-semibold mt-1">${item.price}</p>
                 </div>
             `).join('');
         }
 
-        function selectProduct(index) {
-            const category = document.getElementById('category-select').value;
-            const items = productsData[category] || [];
-            items.forEach((_, idx) => {
-                const el = document.getElementById(`product-card-${idx}`);
-                if (el) {
-                    if (idx === index) {
-                        el.className = 'border border-cyan-500 bg-cyan-950/40 shadow-lg shadow-cyan-500/10 p-4 rounded-xl text-center cursor-pointer transition';
-                    } else {
-                        el.className = 'border border-slate-800 bg-[#0b0f19] hover:border-cyan-500/50 hover:bg-cyan-950/20 p-4 rounded-xl text-center cursor-pointer transition';
+        // Inisialisasi Diagram Penjualan (Admin)
+        function initChart() {
+            if(chartInstance) return; // Mencegah render ganda
+            
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            
+            let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(6, 182, 212, 0.4)'); // Cyan blur
+            gradient.addColorStop(1, 'rgba(6, 182, 212, 0.0)');
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['1 Nov', '5 Nov', '10 Nov', '15 Nov', '20 Nov', '25 Nov', '30 Nov'],
+                    datasets: [{
+                        label: 'Penjualan (Transaksi)',
+                        data: [120, 195, 150, 250, 210, 310, 428],
+                        borderColor: '#06b6d4',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#a855f7',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#a855f7',
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
                     }
                 }
             });
-            selectedProductIndex = index;
         }
 
-        function selectCategory(catKey) {
-            const selectEl = document.getElementById('category-select');
-            selectEl.value = catKey;
-            renderProducts();
-            document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function handleTransaction(event) {
-            event.preventDefault();
-            const category = document.getElementById('category-select').value;
-            const target = document.getElementById('target-input').value;
-            const zone = document.getElementById('zone-input').value;
-            const payment = document.getElementById('payment-method').value;
-            const selectedProduct = (productsData[category] || [])[selectedProductIndex] || { name: '-', price: '-' };
-
-            document.getElementById('invoice-id').innerText = 'INV/' + Date.now().toString().slice(-6) + '/HZ';
-            document.getElementById('summary-service').innerText = document.getElementById('category-select').options[document.getElementById('category-select').selectedIndex].text;
-            document.getElementById('summary-target').innerText = target + (zone ? ` (${zone})` : '');
-            document.getElementById('summary-product').innerText = selectedProduct.name;
-            document.getElementById('summary-method').innerText = payment;
-            document.getElementById('summary-total').innerText = selectedProduct.price;
-
-            document.getElementById('payment-modal').classList.remove('hidden');
-        }
-
-        function closePaymentModal() {
-            document.getElementById('payment-modal').classList.add('hidden');
-        }
-
-        function openLoginModal() {
-            document.getElementById('login-modal').classList.remove('hidden');
-        }
-
-        function closeLoginModal() {
-            document.getElementById('login-modal').classList.add('hidden');
-        }
-
-        window.addEventListener('DOMContentLoaded', renderProducts);
+        window.addEventListener('DOMContentLoaded', () => {
+            applyAiPricing(); // Setting awal
+        });
     </script>
 </body>
 </html>

@@ -1,145 +1,261 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TopUpKu - Layanan Top Up Game Cepat & Terpercaya</title>
+    <title>HZtopup - Layanan Top Up Game, Pulsa & Token PLN Tercepat</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Animation Keyframes -->
+    <style>
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-fade-down { animation: fadeInDown 0.8s ease-out forwards; }
+        .animate-fade-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+    </style>
 </head>
-<body class="bg-gray-900 text-white font-sans">
+<body class="bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white">
 
     <!-- Header / Navbar -->
-    <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
+    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 transition-all">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fa-solid fa-gamepad text-indigo-500 text-2xl"></i>
-                <span class="text-xl font-bold tracking-wider">TOPUP<span class="text-indigo-500">KU</span></span>
+            <div class="flex items-center space-x-2 animate-fade-down">
+                <div class="bg-indigo-600 p-2 rounded-xl shadow-lg shadow-indigo-500/30 animate-float">
+                    <i class="fa-solid fa-bolt text-white text-xl"></i>
+                </div>
+                <span class="text-xl font-black tracking-wider bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">HZ<span class="text-white">TOPUP</span></span>
             </div>
-            <nav class="hidden md:flex space-x-6 text-sm text-gray-300">
-                <a href="#" class="hover:text-indigo-400">Beranda</a>
-                <a href="#games" class="hover:text-indigo-400">Daftar Game</a>
-                <a href="#" class="hover:text-indigo-400">Cek Transaksi</a>
-                <a href="#" class="hover:text-indigo-400">Bantuan</a>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
+                <a href="#" class="hover:text-indigo-400 transition">Beranda</a>
+                <a href="#games" class="hover:text-indigo-400 transition">Game</a>
+                <a href="#ppob" class="hover:text-indigo-400 transition">Pulsa & Token</a>
+                <a href="#form-section" class="hover:text-indigo-400 transition">Transaksi</a>
             </nav>
             <div>
-                <button class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Masuk</button>
+                <button class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-xl text-sm font-semibold shadow-lg shadow-indigo-600/30 transition transform hover:-translate-y-0.5 active:translate-y-0">Masuk</button>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-indigo-900 to-gray-900 py-16 text-center px-4">
-        <div class="max-w-3xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Top Up Game Termurah & Tercepat</h1>
-            <p class="text-gray-400 mb-8 text-lg">Proses instan 24 Jam. Aman, terpercaya, dan banyak pilihan metode pembayaran.</p>
-            <a href="#games" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3 rounded-full shadow-lg transition">Mulai Top Up</a>
+    <!-- Hero Section dengan Animasi -->
+    <section class="relative bg-gradient-to-b from-indigo-950/60 via-slate-950 to-slate-950 py-20 text-center px-4 overflow-hidden">
+        <!-- Glow Background Effect -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-600/20 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-3xl mx-auto relative z-10">
+            <span class="inline-block bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 animate-fade-down">⚡ Layanan Otomatis 24 Jam Nonstop</span>
+            <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight animate-fade-down leading-tight">
+                Top Up Game, Pulsa & Token PLN <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Tercepat</span>
+            </h1>
+            <p class="text-slate-400 mb-8 text-base md:text-lg animate-fade-up max-w-2xl mx-auto">
+                Proses instan langsung masuk, harga paling bersaing, serta dijamin aman dan terpercaya untuk seluruh kebutuhan digital Anda.
+            </p>
+            <div class="animate-fade-up">
+                <a href="#form-section" class="inline-flex items-center space-x-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold px-8 py-3.5 rounded-2xl shadow-xl shadow-indigo-600/40 transition transform hover:-translate-y-1">
+                    <span>Mulai Transaksi</span>
+                    <i class="fa-solid fa-arrow-down text-xs"></i>
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- Daftar Game Section -->
+    <!-- Kategori Game -->
     <section id="games" class="max-w-7xl mx-auto px-4 py-12">
-        <h2 class="text-2xl font-bold mb-6 border-l-4 border-indigo-500 pl-3">Pilih Game</h2>
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl font-black border-l-4 border-indigo-500 pl-3 tracking-wide">Popular Games</h2>
+            <span class="text-xs text-slate-400 font-medium">Pilih game favoritmu</span>
+        </div>
         
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-            <!-- Game 1: Mobile Legends -->
-            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer border border-gray-700 group">
-                <div class="h-40 bg-indigo-600 flex items-center justify-center relative">
-                    <i class="fa-solid fa-shield-halved text-6xl text-indigo-300 group-hover:scale-110 transition"></i>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
+            <!-- Game Cards -->
+            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+                <div class="h-36 bg-gradient-to-br from-indigo-600 to-indigo-800 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
+                    <i class="fa-solid fa-shield-halved text-5xl text-indigo-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
                 <div class="p-4 text-center">
-                    <h3 class="font-bold text-lg mb-1">Mobile Legends</h3>
-                    <p class="text-xs text-gray-400">Moonton</p>
+                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-indigo-400 transition">Mobile Legends</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Moonton</p>
                 </div>
             </div>
 
-            <!-- Game 2: Free Fire -->
-            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer border border-gray-700 group">
-                <div class="h-40 bg-orange-600 flex items-center justify-center relative">
-                    <i class="fa-solid fa-fire text-6xl text-orange-300 group-hover:scale-110 transition"></i>
+            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+                <div class="h-36 bg-gradient-to-br from-orange-600 to-orange-800 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
+                    <i class="fa-solid fa-fire text-5xl text-orange-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
                 <div class="p-4 text-center">
-                    <h3 class="font-bold text-lg mb-1">Free Fire</h3>
-                    <p class="text-xs text-gray-400">Garena</p>
+                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-orange-400 transition">Free Fire</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Garena</p>
                 </div>
             </div>
 
-            <!-- Game 3: PUBG Mobile -->
-            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer border border-gray-700 group">
-                <div class="h-40 bg-yellow-600 flex items-center justify-center relative">
-                    <i class="fa-solid fa-plane text-6xl text-yellow-300 group-hover:scale-110 transition"></i>
+            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-amber-500/10 hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+                <div class="h-36 bg-gradient-to-br from-amber-600 to-yellow-700 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
+                    <i class="fa-solid fa-plane text-5xl text-amber-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
                 <div class="p-4 text-center">
-                    <h3 class="font-bold text-lg mb-1">PUBG Mobile</h3>
-                    <p class="text-xs text-gray-400">Tencent</p>
+                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-amber-400 transition">PUBG Mobile</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Tencent</p>
                 </div>
             </div>
 
-            <!-- Game 4: Genshin Impact -->
-            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer border border-gray-700 group">
-                <div class="h-40 bg-blue-600 flex items-center justify-center relative">
-                    <i class="fa-solid fa-star text-6xl text-blue-300 group-hover:scale-110 transition"></i>
+            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+                <div class="h-36 bg-gradient-to-br from-blue-600 to-cyan-700 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
+                    <i class="fa-solid fa-star text-5xl text-blue-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
                 <div class="p-4 text-center">
-                    <h3 class="font-bold text-lg mb-1">Genshin Impact</h3>
-                    <p class="text-xs text-gray-400">HoYoverse</p>
+                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-blue-400 transition">Genshin Impact</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">HoYoverse</p>
                 </div>
             </div>
 
-            <!-- Game 5: Valorant -->
-            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer border border-gray-700 group">
-                <div class="h-40 bg-red-600 flex items-center justify-center relative">
-                    <i class="fa-solid fa-crosshairs text-6xl text-red-300 group-hover:scale-110 transition"></i>
+            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-red-500/10 hover:border-red-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+                <div class="h-36 bg-gradient-to-br from-red-600 to-rose-800 flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
+                    <i class="fa-solid fa-crosshairs text-5xl text-red-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
                 <div class="p-4 text-center">
-                    <h3 class="font-bold text-lg mb-1">Valorant</h3>
-                    <p class="text-xs text-gray-400">Riot Games</p>
+                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-red-400 transition">Valorant</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Riot Games</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contoh Form Simulasi Transaksi (Bisa dikembangkan jadi halaman detail) -->
-    <section class="max-w-4xl mx-auto px-4 py-8 bg-gray-800 rounded-2xl border border-gray-700 my-12">
-        <h3 class="text-xl font-bold mb-4 text-indigo-400"><i class="fa-solid fa-cart-shopping mr-2"></i> Simulasi Form Top Up</h3>
-        <form class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm text-gray-400 mb-1">User ID / ID Game</label>
-                    <input type="text" placeholder="Masukkan ID" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-indigo-500">
+    <!-- Kategori Pulsa, Data & PLN -->
+    <section id="ppob" class="max-w-7xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl font-black border-l-4 border-emerald-500 pl-3 tracking-wide">Pulsa, Paket Data & PLN</h2>
+            <span class="text-xs text-slate-400 font-medium">Kebutuhan harian praktis</span>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-emerald-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+                <div class="h-36 bg-gradient-to-br from-emerald-600 to-teal-800 flex items-center justify-center">
+                    <i class="fa-solid fa-mobile-screen-button text-5xl text-emerald-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
-                <div>
-                    <label class="block text-sm text-gray-400 mb-1">Server ID (Opsional)</label>
-                    <input type="text" placeholder="Masukkan Server" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-indigo-500">
-                </div>
-            </div>
-
-            <div>
-                <label class="block text-sm text-gray-400 mb-2">Pilih Nominal</label>
-                <div class="grid grid-cols-3 gap-3">
-                    <div class="border border-gray-700 p-3 rounded-lg text-center cursor-pointer hover:border-indigo-500 bg-gray-900">
-                        <p class="font-bold text-sm">86 Diamonds</p>
-                        <p class="text-xs text-indigo-400">Rp 20.000</p>
-                    </div>
-                    <div class="border border-indigo-500 p-3 rounded-lg text-center cursor-pointer bg-indigo-950/40">
-                        <p class="font-bold text-sm">172 Diamonds</p>
-                        <p class="text-xs text-indigo-400">Rp 40.000</p>
-                    </div>
-                    <div class="border border-gray-700 p-3 rounded-lg text-center cursor-pointer hover:border-indigo-500 bg-gray-900">
-                        <p class="font-bold text-sm">257 Diamonds</p>
-                        <p class="text-xs text-indigo-400">Rp 60.000</p>
-                    </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-emerald-400 transition">Pulsa Reguler</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">All Operator</p>
                 </div>
             </div>
 
-            <button type="button" onclick="alert('Fitur pembayaran simulasi berhasil diklik!')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition mt-4">Beli Sekarang</button>
-        </form>
+            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-teal-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+                <div class="h-36 bg-gradient-to-br from-teal-600 to-cyan-800 flex items-center justify-center">
+                    <i class="fa-solid fa-wifi text-5xl text-teal-200 group-hover:scale-110 transition duration-300"></i>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-teal-400 transition">Paket Data Internet</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Kuota Bulanan</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+                <div class="h-36 bg-gradient-to-br from-amber-600 to-orange-700 flex items-center justify-center">
+                    <i class="fa-solid fa-lightbulb text-5xl text-amber-200 group-hover:scale-110 transition duration-300"></i>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-amber-400 transition">Token Listrik PLN</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Prabayar</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-yellow-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+                <div class="h-36 bg-gradient-to-br from-yellow-600 to-amber-800 flex items-center justify-center">
+                    <i class="fa-solid fa-file-invoice-dollar text-5xl text-yellow-200 group-hover:scale-110 transition duration-300"></i>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-sm text-slate-200 group-hover:text-yellow-400 transition">Tagihan PLN</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Pascapayar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Transaksi -->
+    <section id="form-section" class="max-w-4xl mx-auto px-4 py-10 my-8">
+        <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 md:p-8 shadow-2xl">
+            <h3 class="text-xl font-black mb-6 text-indigo-400 flex items-center">
+                <span class="bg-indigo-600/20 p-2 rounded-xl mr-3 text-indigo-400"><i class="fa-solid fa-cart-shopping"></i></span>
+                Form Pemesanan & Transaksi
+            </h3>
+            
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">1. Pilih Kategori Layanan</label>
+                    <select class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
+                        <option value="mlbb">Game - Mobile Legends</option>
+                        <option value="ff">Game - Free Fire</option>
+                        <option value="pulsa">Pulsa Reguler (All Operator)</option>
+                        <option value="data">Paket Data Internet</option>
+                        <option value="pln">Token Listrik PLN Prabayar</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">2. Nomor HP / ID Pelanggan / User ID</label>
+                        <input type="text" placeholder="Contoh: 0857xxx / 5412xxx" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Server ID (Khusus Game)</label>
+                        <input type="text" placeholder="Contoh: 2124 (Opsional)" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">3. Pilih Nominal / Produk</label>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div class="border border-slate-800 p-4 rounded-xl text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-950/20 bg-slate-950 transition">
+                            <p class="font-bold text-sm text-slate-200">Token PLN 20.000</p>
+                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 20.500</p>
+                        </div>
+                        <div class="border border-indigo-500 p-4 rounded-xl text-center cursor-pointer bg-indigo-950/40 shadow-lg shadow-indigo-500/10">
+                            <p class="font-bold text-sm text-slate-100">Token PLN 50.000</p>
+                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 50.500</p>
+                        </div>
+                        <div class="border border-slate-800 p-4 rounded-xl text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-950/20 bg-slate-950 transition">
+                            <p class="font-bold text-sm text-slate-200">Pulsa 25.000</p>
+                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 25.500</p>
+                        </div>
+                        <div class="border border-slate-800 p-4 rounded-xl text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-950/20 bg-slate-950 transition">
+                            <p class="font-bold text-sm text-slate-200">Pulsa 50.000</p>
+                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 50.500</p>
+                        </div>
+                        <div class="border border-slate-800 p-4 rounded-xl text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-950/20 bg-slate-950 transition">
+                            <p class="font-bold text-sm text-slate-200">86 Diamonds ML</p>
+                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 20.000</p>
+                        </div>
+                        <div class="border border-slate-800 p-4 rounded-xl text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-950/20 bg-slate-950 transition">
+                            <p class="font-bold text-sm text-slate-200">172 Diamonds ML</p>
+                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 40.000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="alert('Pesanan berhasil dibuat! Silakan lanjutkan pembayaran.')" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-4 rounded-xl shadow-xl shadow-indigo-600/30 transition transform hover:-translate-y-0.5">Bayar Sekarang</button>
+            </form>
+        </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 border-t border-gray-700 text-center py-6 text-gray-400 text-sm">
-        <p>&copy; 2026 TopUpKu. All rights reserved.</p>
+    <footer class="bg-slate-900 border-t border-slate-800 text-center py-8 text-slate-400 text-sm">
+        <p>&copy; 2026 <span class="text-indigo-400 font-bold">HZtopup</span>. All rights reserved.</p>
     </footer>
 
 </body>

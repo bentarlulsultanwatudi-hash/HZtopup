@@ -44,7 +44,7 @@
                 <a href="#form-section" class="hover:text-indigo-400 transition">Transaksi</a>
             </nav>
             <div>
-                <button class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-xl text-sm font-semibold shadow-lg shadow-indigo-600/30 transition transform hover:-translate-y-0.5 active:translate-y-0">Masuk</button>
+                <button onclick="openLoginModal()" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-xl text-sm font-semibold shadow-lg shadow-indigo-600/30 transition transform hover:-translate-y-0.5 active:translate-y-0">Masuk</button>
             </div>
         </div>
     </header>
@@ -80,7 +80,7 @@
         
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
             <!-- Game Cards -->
-            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('mlbb')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
                 <div class="h-36 bg-gradient-to-br from-indigo-600 to-indigo-800 flex items-center justify-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
                     <i class="fa-solid fa-shield-halved text-5xl text-indigo-200 group-hover:scale-110 transition duration-300"></i>
@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('ff')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
                 <div class="h-36 bg-gradient-to-br from-orange-600 to-orange-800 flex items-center justify-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
                     <i class="fa-solid fa-fire text-5xl text-orange-200 group-hover:scale-110 transition duration-300"></i>
@@ -102,7 +102,7 @@
                 </div>
             </div>
 
-            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-amber-500/10 hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('pubg')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-amber-500/10 hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
                 <div class="h-36 bg-gradient-to-br from-amber-600 to-yellow-700 flex items-center justify-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
                     <i class="fa-solid fa-plane text-5xl text-amber-200 group-hover:scale-110 transition duration-300"></i>
@@ -113,7 +113,7 @@
                 </div>
             </div>
 
-            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('genshin')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
                 <div class="h-36 bg-gradient-to-br from-blue-600 to-cyan-700 flex items-center justify-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
                     <i class="fa-solid fa-star text-5xl text-blue-200 group-hover:scale-110 transition duration-300"></i>
@@ -124,7 +124,7 @@
                 </div>
             </div>
 
-            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-red-500/10 hover:border-red-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('valorant')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-red-500/10 hover:border-red-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
                 <div class="h-36 bg-gradient-to-br from-red-600 to-rose-800 flex items-center justify-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition"></div>
                     <i class="fa-solid fa-crosshairs text-5xl text-red-200 group-hover:scale-110 transition duration-300"></i>
@@ -145,7 +145,7 @@
         </div>
         
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-emerald-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('pulsa')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-emerald-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
                 <div class="h-36 bg-gradient-to-br from-emerald-600 to-teal-800 flex items-center justify-center">
                     <i class="fa-solid fa-mobile-screen-button text-5xl text-emerald-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
@@ -155,7 +155,7 @@
                 </div>
             </div>
 
-            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-teal-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('data')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-teal-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
                 <div class="h-36 bg-gradient-to-br from-teal-600 to-cyan-800 flex items-center justify-center">
                     <i class="fa-solid fa-wifi text-5xl text-teal-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
@@ -165,7 +165,7 @@
                 </div>
             </div>
 
-            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('pln')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
                 <div class="h-36 bg-gradient-to-br from-amber-600 to-orange-700 flex items-center justify-center">
                     <i class="fa-solid fa-lightbulb text-5xl text-amber-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
@@ -175,7 +175,7 @@
                 </div>
             </div>
 
-            <div class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-yellow-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
+            <div onclick="selectCategory('pln_tagihan')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:border-yellow-500/50 transition-all duration-300 cursor-pointer border border-slate-800 group">
                 <div class="h-36 bg-gradient-to-br from-yellow-600 to-amber-800 flex items-center justify-center">
                     <i class="fa-solid fa-file-invoice-dollar text-5xl text-yellow-200 group-hover:scale-110 transition duration-300"></i>
                 </div>
@@ -195,68 +195,272 @@
                 Form Pemesanan & Transaksi
             </h3>
             
-            <form class="space-y-6">
+            <form id="topup-form" class="space-y-6" onsubmit="handleTransaction(event)">
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">1. Pilih Kategori Layanan</label>
-                    <select class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
+                    <select id="category-select" onchange="renderProducts()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
                         <option value="mlbb">Game - Mobile Legends</option>
                         <option value="ff">Game - Free Fire</option>
+                        <option value="pubg">Game - PUBG Mobile</option>
+                        <option value="genshin">Game - Genshin Impact</option>
+                        <option value="valorant">Game - Valorant</option>
                         <option value="pulsa">Pulsa Reguler (All Operator)</option>
                         <option value="data">Paket Data Internet</option>
                         <option value="pln">Token Listrik PLN Prabayar</option>
+                        <option value="pln_tagihan">Tagihan PLN Pascapayar</option>
                     </select>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">2. Nomor HP / ID Pelanggan / User ID</label>
-                        <input type="text" placeholder="Contoh: 0857xxx / 5412xxx" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
+                        <label id="target-label" class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">2. User ID / Nomor Tujuan</label>
+                        <input type="text" id="target-input" required placeholder="Contoh: 12345678" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Server ID (Khusus Game)</label>
-                        <input type="text" placeholder="Contoh: 2124 (Opsional)" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
+                    <div id="zone-container">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Zone / Server ID</label>
+                        <input type="text" id="zone-input" placeholder="Contoh: 2124" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">3. Pilih Nominal / Produk</label>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        <div class="border border-slate-800 p-4 rounded-xl text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-950/20 bg-slate-950 transition">
-                            <p class="font-bold text-sm text-slate-200">Token PLN 20.000</p>
-                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 20.500</p>
-                        </div>
-                        <div class="border border-indigo-500 p-4 rounded-xl text-center cursor-pointer bg-indigo-950/40 shadow-lg shadow-indigo-500/10">
-                            <p class="font-bold text-sm text-slate-100">Token PLN 50.000</p>
-                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 50.500</p>
-                        </div>
-                        <div class="border border-slate-800 p-4 rounded-xl text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-950/20 bg-slate-950 transition">
-                            <p class="font-bold text-sm text-slate-200">Pulsa 25.000</p>
-                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 25.500</p>
-                        </div>
-                        <div class="border border-slate-800 p-4 rounded-xl text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-950/20 bg-slate-950 transition">
-                            <p class="font-bold text-sm text-slate-200">Pulsa 50.000</p>
-                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 50.500</p>
-                        </div>
-                        <div class="border border-slate-800 p-4 rounded-xl text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-950/20 bg-slate-950 transition">
-                            <p class="font-bold text-sm text-slate-200">86 Diamonds ML</p>
-                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 20.000</p>
-                        </div>
-                        <div class="border border-slate-800 p-4 rounded-xl text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-950/20 bg-slate-950 transition">
-                            <p class="font-bold text-sm text-slate-200">172 Diamonds ML</p>
-                            <p class="text-xs text-indigo-400 font-semibold mt-1">Rp 40.000</p>
-                        </div>
+                    <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <!-- Product items rendered dynamically via JS -->
                     </div>
                 </div>
 
-                <button type="button" onclick="alert('Pesanan berhasil dibuat! Silakan lanjutkan pembayaran.')" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-4 rounded-xl shadow-xl shadow-indigo-600/30 transition transform hover:-translate-y-0.5">Bayar Sekarang</button>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">4. Metode Pembayaran</label>
+                    <select id="payment-method" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-indigo-500 transition">
+                        <option value="QRIS (All E-Wallet)">QRIS (GoPay, OVO, ShopeePay, DANA)</option>
+                        <option value="BSI Virtual Account">Bank Syariah Indonesia (BSI VA)</option>
+                        <option value="BRI Virtual Account">Bank Rakyat Indonesia (BRI VA)</option>
+                        <option value="Bank Jatim VA">Bank Jatim Virtual Account</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-4 rounded-xl shadow-xl shadow-indigo-600/30 transition transform hover:-translate-y-0.5">Bayar Sekarang</button>
             </form>
         </div>
     </section>
+
+    <!-- Modal Detail Pembayaran -->
+    <div id="payment-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden px-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative">
+            <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <div class="text-center mb-6">
+                <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-check text-xl"></i>
+                </div>
+                <h4 class="text-lg font-bold text-white">Invoice Pemesanan</h4>
+                <p class="text-xs text-slate-400 mt-1" id="invoice-id">INV/2026/HZ/0000</p>
+            </div>
+            
+            <div class="space-y-3 bg-slate-950 p-4 rounded-2xl border border-slate-800 text-xs text-slate-300 mb-6">
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Layanan:</span>
+                    <span id="summary-service" class="font-semibold text-slate-200">-</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Tujuan:</span>
+                    <span id="summary-target" class="font-semibold text-slate-200">-</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Produk:</span>
+                    <span id="summary-product" class="font-semibold text-indigo-400">-</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Metode Bayar:</span>
+                    <span id="summary-method" class="font-semibold text-slate-200">-</span>
+                </div>
+                <hr class="border-slate-800 my-2">
+                <div class="flex justify-between text-sm font-bold">
+                    <span>Total Tagihan:</span>
+                    <span id="summary-total" class="text-emerald-400">Rp 0</span>
+                </div>
+            </div>
+
+            <button onclick="closePaymentModal(); alert('Terima kasih! Pesanan sedang diproses.');" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition">Konfirmasi Pembayaran</button>
+        </div>
+    </div>
+
+    <!-- Modal Login -->
+    <div id="login-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden px-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl relative">
+            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h4 class="text-xl font-black text-center mb-6 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Masuk Akun HZtopup</h4>
+            <form onsubmit="event.preventDefault(); closeLoginModal(); alert('Berhasil Masuk!');" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-1">Email / No. HP</label>
+                    <input type="text" required placeholder="user@domain.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-1">Kata Sandi</label>
+                    <input type="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-indigo-500">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition mt-2">Masuk</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-slate-900 border-t border-slate-800 text-center py-8 text-slate-400 text-sm">
         <p>&copy; 2026 <span class="text-indigo-400 font-bold">HZtopup</span>. All rights reserved.</p>
     </footer>
 
+    <!-- Script Interaktif JavaScript -->
+    <script>
+        const productsData = {
+            mlbb: [
+                { name: "86 Diamonds ML", price: "Rp 20.000" },
+                { name: "172 Diamonds ML", price: "Rp 40.000" },
+                { name: "257 Diamonds ML", price: "Rp 60.000" },
+                { name: "706 Diamonds ML", price: "Rp 160.000" },
+                { name: "Weekly Diamond Pass", price: "Rp 28.500" },
+                { name: "Twilight Pass", price: "Rp 145.000" }
+            ],
+            ff: [
+                { name: "140 Diamonds FF", price: "Rp 19.000" },
+                { name: "355 Diamonds FF", price: "Rp 47.000" },
+                { name: "720 Diamonds FF", price: "Rp 93.000" },
+                { name: "1440 Diamonds FF", price: "Rp 185.000" },
+                { name: "Member Mingguan", price: "Rp 30.000" },
+                { name: "Member Bulanan", price: "Rp 120.000" }
+            ],
+            pubg: [
+                { name: "60 UC PUBG", price: "Rp 14.500" },
+                { name: "325 UC PUBG", price: "Rp 73.000" },
+                { name: "660 UC PUBG", price: "Rp 145.000" },
+                { name: "1800 UC PUBG", price: "Rp 365.000" }
+            ],
+            genshin: [
+                { name: "60 Genesis Crystals", price: "Rp 16.000" },
+                { name: "300 Genesis Crystals", price: "Rp 79.000" },
+                { name: "980 Genesis Crystals", price: "Rp 249.000" },
+                { name: "Blessing of Welkin Moon", price: "Rp 79.000" }
+            ],
+            valorant: [
+                { name: "475 VP", price: "Rp 55.000" },
+                { name: "1000 VP", price: "Rp 110.000" },
+                { name: "2050 VP", price: "Rp 220.000" }
+            ],
+            pulsa: [
+                { name: "Pulsa 10.000", price: "Rp 10.800" },
+                { name: "Pulsa 25.000", price: "Rp 25.500" },
+                { name: "Pulsa 50.000", price: "Rp 50.500" },
+                { name: "Pulsa 100.000", price: "Rp 99.500" }
+            ],
+            data: [
+                { name: "Freedom Internet 3GB / 30 Hari", price: "Rp 15.000" },
+                { name: "Freedom Internet 10GB / 30 Hari", price: "Rp 35.000" },
+                { name: "Freedom Internet 25GB / 30 Hari", price: "Rp 70.000" },
+                { name: "Unlimited Daily 1GB/Hari", price: "Rp 25.000" }
+            ],
+            pln: [
+                { name: "Token PLN 20.000", price: "Rp 20.500" },
+                { name: "Token PLN 50.000", price: "Rp 50.500" },
+                { name: "Token PLN 100.000", price: "Rp 100.500" },
+                { name: "Token PLN 200.000", price: "Rp 200.500" }
+            ],
+            pln_tagihan: [
+                { name: "Cek & Bayar Tagihan Listrik PLN", price: "Sesuai Tagihan + Admin Rp 2.500" }
+            ]
+        };
+
+        let selectedProductIndex = 0;
+
+        function renderProducts() {
+            const category = document.getElementById('category-select').value;
+            const container = document.getElementById('products-grid');
+            const zoneContainer = document.getElementById('zone-container');
+            const targetLabel = document.getElementById('target-label');
+            const targetInput = document.getElementById('target-input');
+
+            // Set Form Label & Input Context
+            if (category === 'mlbb') {
+                targetLabel.innerText = '2. User ID Game';
+                targetInput.placeholder = 'Contoh: 12345678';
+                zoneContainer.style.display = 'block';
+            } else if (category === 'pulsa' || category === 'data') {
+                targetLabel.innerText = '2. Nomor Telepon / HP';
+                targetInput.placeholder = 'Contoh: 085712345678';
+                zoneContainer.style.display = 'none';
+            } else if (category === 'pln' || category === 'pln_tagihan') {
+                targetLabel.innerText = '2. ID Pelanggan PLN / Nomor Meter';
+                targetInput.placeholder = 'Contoh: 541200987654';
+                zoneContainer.style.display = 'none';
+            } else {
+                targetLabel.innerText = '2. User ID Game / Akun';
+                targetInput.placeholder = 'Masukkan ID / User';
+                zoneContainer.style.display = 'none';
+            }
+
+            const items = productsData[category] || [];
+            selectedProductIndex = 0;
+
+            container.innerHTML = items.map((item, idx) => `
+                <div onclick="selectProduct(${idx})" id="product-card-${idx}" class="border ${idx === 0 ? 'border-indigo-500 bg-indigo-950/40 shadow-lg shadow-indigo-500/10' : 'border-slate-800 bg-slate-950 hover:border-indigo-500 hover:bg-indigo-950/20'} p-4 rounded-xl text-center cursor-pointer transition">
+                    <p class="font-bold text-sm text-slate-200">${item.name}</p>
+                    <p class="text-xs text-indigo-400 font-semibold mt-1">${item.price}</p>
+                </div>
+            `).join('');
+        }
+
+        function selectProduct(index) {
+            const category = document.getElementById('category-select').value;
+            const items = productsData[category] || [];
+            items.forEach((_, idx) => {
+                const el = document.getElementById(`product-card-${idx}`);
+                if (el) {
+                    if (idx === index) {
+                        el.className = 'border border-indigo-500 bg-indigo-950/40 shadow-lg shadow-indigo-500/10 p-4 rounded-xl text-center cursor-pointer transition';
+                    } else {
+                        el.className = 'border border-slate-800 bg-slate-950 hover:border-indigo-500 hover:bg-indigo-950/20 p-4 rounded-xl text-center cursor-pointer transition';
+                    }
+                }
+            });
+            selectedProductIndex = index;
+        }
+
+        function selectCategory(catKey) {
+            const selectEl = document.getElementById('category-select');
+            selectEl.value = catKey;
+            renderProducts();
+            document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleTransaction(event) {
+            event.preventDefault();
+            const category = document.getElementById('category-select').value;
+            const target = document.getElementById('target-input').value;
+            const zone = document.getElementById('zone-input').value;
+            const payment = document.getElementById('payment-method').value;
+            const selectedProduct = (productsData[category] || [])[selectedProductIndex] || { name: '-', price: '-' };
+
+            document.getElementById('invoice-id').innerText = 'INV/' + Date.now().toString().slice(-6) + '/HZ';
+            document.getElementById('summary-service').innerText = document.getElementById('category-select').options[document.getElementById('category-select').selectedIndex].text;
+            document.getElementById('summary-target').innerText = target + (zone ? ` (${zone})` : '');
+            document.getElementById('summary-product').innerText = selectedProduct.name;
+            document.getElementById('summary-method').innerText = payment;
+            document.getElementById('summary-total').innerText = selectedProduct.price;
+
+            document.getElementById('payment-modal').classList.remove('hidden');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('payment-modal').classList.add('hidden');
+        }
+
+        function openLoginModal() {
+            document.getElementById('login-modal').classList.remove('hidden');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('login-modal').classList.add('hidden');
+        }
+
+        // Initialize Products on Load
+        window.addEventListener('DOMContentLoaded', renderProducts);
+    </script>
 </body>
 </html>

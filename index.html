@@ -47,22 +47,32 @@ header.scrolled{background:rgba(11,15,25,.96);box-shadow:0 8px 30px rgba(0,0,0,.
 .deal-card{animation:glowPulse 2.4s ease-in-out infinite}
 .deal-badge{animation:pop 1.4s ease-in-out infinite}
 .flame{display:inline-block;animation:flame 1s ease-in-out infinite}
+.goog-te-banner-frame,.goog-logo-link,.goog-te-gadget,#goog-gt-tt,.goog-tooltip,iframe.skiptranslate{display:none!important}
+body{top:0!important}.goog-text-highlight{background:none!important;box-shadow:none!important}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero-in>*{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 font-sans selection:bg-cyan-500 selection:text-slate-950">
 
 <!-- ============ TOAST ============ -->
+<div id="google_translate_element" style="display:none"></div>
 <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] hidden px-5 py-3 rounded-xl text-sm font-semibold shadow-xl"></div>
+
+<!-- ============ MENU SAMPING (DRAWER) ============ -->
+<div id="drawer-bg" onclick="closeDrawer()" class="fixed inset-0 z-[80] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
+<aside id="drawer" class="fixed top-0 left-0 bottom-0 z-[90] w-[88vw] max-w-sm -translate-x-full transition-transform duration-300 bg-gradient-to-b from-[#150f3a] via-[#2b2170] to-[#6a58c4] text-white p-6 overflow-y-auto shadow-2xl">
+ <div id="drawer-body" class="flex flex-col min-h-full"></div>
+</aside>
 
 <!-- ============ HALAMAN UTAMA ============ -->
 <div id="main-view">
 <header class="bg-[#0b0f19]/90 backdrop-blur-md border-b border-cyan-900/30 sticky top-0 z-50">
  <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+  <div class="flex items-center space-x-1"><button onclick="openDrawer()" class="text-slate-300 hover:text-white p-2" aria-label="Menu"><i class="fa-solid fa-bars text-xl"></i></button>
   <a href="#" class="flex items-center space-x-3">
    <div class="p-1 rounded-2xl border border-cyan-500/30 animate-float"><img src="logo.jpg.webp" alt="HZtopup" onerror="this.style.display='none'" class="h-10 w-10 rounded-xl object-cover"></div>
    <span class="text-xl font-black tracking-wider bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent text-glow">HZ<span class="text-white">TOPUP</span></span>
-  </a>
+  </a></div>
   <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
    <a href="#games" class="hover:text-cyan-400">Game</a>
    <a href="#ppob" class="hover:text-cyan-400">Pulsa & Token</a>
@@ -71,7 +81,7 @@ header.scrolled{background:rgba(11,15,25,.96);box-shadow:0 8px 30px rgba(0,0,0,.
   </nav>
   <div class="flex items-center space-x-2">
    <button id="auth-btn" onclick="authClick()" class="btn px-5 py-2.5 text-sm">Masuk</button>
-   <button onclick="$('mnav').classList.toggle('hidden')" class="md:hidden text-slate-300 p-2" aria-label="Menu"><i class="fa-solid fa-bars text-xl"></i></button>
+   
   </div>
  </div>
  <nav id="mnav" class="hidden md:hidden border-t border-slate-800 px-4 py-3 space-y-3 text-sm text-slate-300">
@@ -631,7 +641,51 @@ function addDeal(e) {
   e.target.reset(); fillDealProducts(); renderDealAdmin(); renderDeals(); toast('Promo produk ditambahkan');
 }
 function delDeal(id) { delete deals[id]; store.set('hz_deals', deals); renderDealAdmin(); renderDeals(); }
+const esc = t => String(t).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+function renderDrawer() {
+  const item = (ic, col, txt, act) => `<button onclick="${act}" class="w-full flex items-center gap-3 text-left py-3 text-sm font-semibold hover:text-cyan-300 transition"><i class="fa-solid fa-${ic} w-5 text-center ${col}"></i>${txt}</button>`;
+  const ben = (ic, txt) => `<div class="flex items-start gap-3"><i class="fa-solid fa-${ic} text-xl w-6 text-center mt-0.5"></i><p class="text-sm leading-snug">${txt}</p></div>`;
+  const top = '<button onclick="closeDrawer()" class="text-2xl mb-8 self-start" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>';
+  const guest = `<h2 class="text-3xl font-black leading-tight mb-6">Daftar HZtopup sekarang!</h2>
+    <div class="space-y-4 mb-8">${ben('tags', 'Jadilah yang pertama mengetahui promo dan penawaran eksklusif!')}${ben('bookmark', 'Akses riwayat pesanan Anda dengan mudah')}${ben('shield-halved', 'Lebih cepat dan aman')}</div>
+    <button onclick="drawerAuth(true)" class="w-full py-3 rounded-full bg-blue-600 hover:bg-blue-500 font-bold text-sm shadow-lg transition">Daftar sekarang, gratis</button>
+    <button onclick="drawerAuth(false)" class="w-full py-3 rounded-full bg-white text-indigo-900 hover:bg-slate-100 font-bold text-sm mt-3 transition">Masuk</button>`;
+  const user = session ? `<h2 class="text-2xl font-black leading-tight mb-1">Halo, ${esc(session.name || session.id)}!</h2><p class="text-sm text-slate-200 mb-6">Selamat datang kembali di HZtopup.</p>
+    <button onclick="closeDrawer();authClick()" class="w-full py-3 rounded-full bg-white/15 hover:bg-white/25 font-bold text-sm transition">Keluar</button>` : guest;
+  const hasDeal = !$('deals').classList.contains('hidden');
+  $('drawer-body').innerHTML = top + user + `<div class="border-t border-white/20 mt-6 pt-3">
+    ${item('gamepad', 'text-cyan-300', 'Game', "goTo('games')")}${item('mobile-screen-button', 'text-emerald-300', 'Pulsa & Token PLN', "goTo('ppob')")}
+    ${hasDeal ? item('fire', 'text-rose-300', 'Sedang Promo', "goTo('deals')") : ''}${item('clock-rotate-left', 'text-amber-300', 'Riwayat Pesanan', 'closeDrawer();openHistory()')}
+    <a href="${$('wa-link').href}" target="_blank" rel="noopener" class="w-full flex items-center gap-3 py-3 text-sm font-semibold hover:text-cyan-300 transition"><i class="fa-brands fa-whatsapp w-5 text-center text-emerald-300 text-lg"></i>Hubungi CS</a></div>
+    <div class="border-t border-white/20 mt-3 pt-5 text-center"><p class="text-sm text-slate-200 mb-3">Punya kode promo?</p><button onclick="drawerPromo()" class="inline-flex items-center gap-2 font-bold text-sm hover:text-cyan-300 transition"><i class="fa-solid fa-ticket"></i>Tukar Kode Promo</button></div>
+    <div class="mt-auto pt-6">${langBlock()}</div>`;
+}
+let langOpts = [];
+const curLang = () => { const m = document.cookie.match(/googtrans=\/[^/]*\/([^;]+)/); return m ? m[1] : 'id'; };
+function langBlock() {
+  const cur = curLang(), o = (v, t) => `<option value="${v}" ${v === cur ? 'selected' : ''} style="color:#0f172a;background:#fff">${esc(t)}</option>`;
+  return `<div class="border-t border-white/20 pt-4"><label class="flex items-center gap-2 text-xs text-slate-200 mb-2"><i class="fa-solid fa-globe"></i>Bahasa / Language</label>
+    <select onchange="setLang(this.value)" class="w-full bg-white/10 border border-white/20 rounded-xl p-2.5 text-sm text-white focus:outline-none">${o('id', 'Bahasa Indonesia (asli)')}${langOpts.map(([v, t]) => o(v, t)).join('')}</select>
+    ${langOpts.length ? '' : '<p class="text-[11px] text-slate-300 mt-2">Memuat daftar bahasa...</p>'}</div>`;
+}
+window.googleTranslateElementInit = () => { new google.translate.TranslateElement({ pageLanguage: 'id', autoDisplay: false }, 'google_translate_element'); let n = 0;
+  const t = setInterval(() => { const c = document.querySelector('.goog-te-combo');
+    if (c && c.options.length > 1) { langOpts = [...c.options].filter(x => x.value && x.value !== 'id').map(x => [x.value, x.text]); clearInterval(t); if (!$('drawer').classList.contains('-translate-x-full')) renderDrawer(); }
+    else if (++n > 40) clearInterval(t); }, 500); };
+function setLang(code) {
+  if (code === 'id') { ['', location.hostname, '.' + location.hostname].forEach(d => document.cookie = 'googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/' + (d ? ';domain=' + d : '')); location.reload(); return; }
+  const c = document.querySelector('.goog-te-combo');
+  if (!c) { toast('Terjemahan belum siap, coba lagi sebentar', false); return; }
+  c.value = code; c.dispatchEvent(new Event('change')); closeDrawer();
+}
+function openDrawer() { renderDrawer(); $('drawer').classList.remove('-translate-x-full'); $('drawer-bg').classList.remove('opacity-0', 'pointer-events-none'); document.body.style.overflow = 'hidden'; }
+function closeDrawer() { $('drawer').classList.add('-translate-x-full'); $('drawer-bg').classList.add('opacity-0', 'pointer-events-none'); document.body.style.overflow = ''; }
+function goTo(id) { closeDrawer(); setTimeout(() => $(id).scrollIntoView({ behavior: 'smooth' }), 250); }
+function drawerAuth(reg) { closeDrawer(); authMode(reg); openM('auth-modal'); }
+function drawerPromo() { closeDrawer(); openOrder(); setTimeout(() => { $('promo').scrollIntoView({ block: 'center' }); $('promo').focus(); }, 300); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 window.addEventListener('DOMContentLoaded', () => { renderHome(); renderDeals(); setInterval(tickDeals, 1000); initFx(); renderAuthBtn(); expireOld(); renderProducts(); });
 </script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
 </html>

@@ -551,12 +551,17 @@ function renderDeals() {
   const list = [];
   Object.keys(deals).forEach(id => { const it = findItem(id), p = dealPct(id); if (it && p) list.push([it, p, deals[id].until]); });
   $('deals').classList.toggle('hidden', !list.length);
-  $('deals-row').innerHTML = list.map(([it, p, u]) => { const c = CATS[it.id.split('-')[0]]; return `<div onclick="openDeal('${it.id}')" class="snap-start shrink-0 w-56 cursor-pointer transition hover:-translate-y-1 relative rounded-2xl p-4 border border-rose-500/30 bg-gradient-to-br from-rose-950/60 to-[#0b0f19]" style="animation:rise .6s ease both">
-    <span class="absolute -top-2 -right-2 bg-rose-600 text-white text-xs font-black px-2.5 py-1 rounded-full shadow-lg">-${p}%</span>
-    <div class="flex items-center space-x-2 mb-3"><i class="fa-solid fa-${c.icon} text-${c.c}-300"></i><span class="text-xs text-slate-400">${c.name}</span></div>
-    <p class="font-bold text-sm">${it.name}</p>
-    <p class="mt-2"><span class="line-through text-slate-500 text-xs mr-2">${rp(rawPrice(it))}</span><span class="text-lg font-black text-emerald-400">${rp(priceOf(it))}</span></p>
-    ${u ? `<p class="text-[11px] text-amber-400 mt-2"><i class="fa-regular fa-clock mr-1"></i><span class="dl-t" data-u="${u}"></span></p>` : '<p class="text-[11px] text-slate-500 mt-2">Promo terbatas</p>'}</div>`; }).join('');
+  $('deals-row').innerHTML = list.map(([it, p, u]) => { const c = CATS[it.id.split('-')[0]]; const k = it.id.split('-')[0]; return `<div onclick="openDeal('${it.id}')" class="snap-start shrink-0 w-44 sm:w-52 aspect-[3/4] cursor-pointer transition hover:-translate-y-1 relative rounded-2xl overflow-hidden border border-rose-500/40 bg-gradient-to-br from-${c.c}-500 via-${c.c}-700 to-slate-950" style="animation:rise .6s ease both">
+    <i class="fa-solid fa-${c.icon} absolute left-1/2 top-[32%] -translate-x-1/2 -translate-y-1/2 text-6xl text-white/90 drop-shadow-[0_6px_18px_rgba(0,0,0,.5)]"></i>
+    <img src="posters/${k}.jpeg" alt="Poster ${c.name}" loading="lazy" onerror="var e=['webp','jpg','png'],i=+(this.dataset.i||0);if(i<e.length){this.dataset.i=i+1;this.src='posters/${k}.'+e[i]}else this.remove()" class="absolute inset-0 w-full h-full object-cover">
+    <span class="absolute top-2 left-2 text-[10px] font-bold bg-black/50 backdrop-blur px-2 py-0.5 rounded-full"><i class="fa-solid fa-fire text-rose-400 mr-1"></i>PROMO</span>
+    <span class="absolute top-2 right-2 bg-rose-600 text-white text-xs font-black px-2.5 py-1 rounded-full shadow-lg">-${p}%</span>
+    <div class="absolute inset-x-0 bottom-0 p-3 pt-14 bg-gradient-to-t from-black/95 via-black/75 to-transparent text-left">
+      <p class="text-[10px] text-${c.c}-300">${c.name}</p>
+      <p class="font-black text-sm leading-tight">${it.name}</p>
+      <p class="mt-1"><span class="line-through text-slate-400 text-[11px] mr-1.5">${rp(rawPrice(it))}</span><span class="text-base font-black text-emerald-400">${rp(priceOf(it))}</span></p>
+      ${u ? `<p class="text-[10px] text-amber-400 mt-1"><i class="fa-regular fa-clock mr-1"></i><span class="dl-t" data-u="${u}"></span></p>` : '<p class="text-[10px] text-slate-400 mt-1">Promo terbatas</p>'}
+    </div></div>`; }).join('');
   tickDeals();
 }
 function tickDeals() {

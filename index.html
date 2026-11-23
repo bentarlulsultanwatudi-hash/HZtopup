@@ -325,7 +325,7 @@ function renderHome() {
       <div class="absolute inset-0 opacity-30" style="background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.45),transparent 45%),repeating-linear-gradient(135deg,rgba(255,255,255,.08) 0 2px,transparent 2px 14px)"></div>
       <i class="fa-solid fa-${c.icon} absolute -right-5 -top-3 text-[9rem] leading-none text-white/15 group-hover:scale-110 group-hover:-rotate-6 transition duration-500"></i>
       <i class="fa-solid fa-${c.icon} absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 text-6xl text-white drop-shadow-[0_6px_18px_rgba(0,0,0,.5)] group-hover:scale-125 transition duration-500"></i>
-      <img src="posters/${k}.webp" alt="Poster ${c.name}" loading="lazy" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='posters/${k}.jpg'}else this.remove()" class="absolute inset-0 w-full h-full object-cover">
+      <img src="posters/${k}.jpeg" alt="Poster ${c.name}" loading="lazy" onerror="var e=['webp','jpg','png'],i=+(this.dataset.i||0);if(i<e.length){this.dataset.i=i+1;this.src='posters/${k}.'+e[i]}else this.remove()" class="absolute inset-0 w-full h-full object-cover">
       <span class="absolute top-2 left-2 text-[10px] font-bold bg-black/40 backdrop-blur px-2 py-0.5 rounded-full">Top Up</span>
       <div class="absolute inset-x-0 bottom-0 p-3 pt-10 bg-gradient-to-t from-black/90 to-transparent text-left">
         <h3 class="font-black text-sm leading-tight">${c.name}</h3><p class="text-[11px] text-${c.c}-300">${cur}</p>

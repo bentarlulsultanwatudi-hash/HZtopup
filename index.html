@@ -1,493 +1,535 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HZtopup - Layanan Top Up Game, Pulsa & Token PLN Tercepat</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js CDN untuk Diagram -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Custom Animation Keyframes -->
-    <style>
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-        .animate-fade-down { animation: fadeInDown 0.8s ease-out forwards; }
-        .animate-fade-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        
-        /* Neon Glow Effects */
-        .neon-glow-cyan { box-shadow: 0 0 20px rgba(6, 182, 212, 0.35), inset 0 0 15px rgba(6, 182, 212, 0.15); }
-        .neon-glow-purple { box-shadow: 0 0 25px rgba(168, 85, 247, 0.4); }
-        .text-glow { text-shadow: 0 0 12px rgba(168, 85, 247, 0.5); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HZtopup - Top Up Game, Pulsa & Token PLN Tercepat</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style type="text/tailwindcss">
+@layer components{
+ .inp{@apply w-full bg-[#080b13] border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-cyan-500 transition}
+ .lbl{@apply block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2}
+ .modal{@apply fixed inset-0 z-[60] bg-slate-950/85 backdrop-blur-sm overflow-y-auto p-4}
+ .box{@apply bg-[#0b0f19] border border-cyan-500/40 rounded-3xl p-5 sm:p-8 w-full mx-auto my-6 relative shadow-2xl}
+ .btn{@apply bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold rounded-xl transition}
+ .card{@apply bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 shadow-lg}
+}
+.modal.hidden{display:none}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.animate-float{animation:float 3s ease-in-out infinite}
+.text-glow{text-shadow:0 0 12px rgba(168,85,247,.5)}
+#products-grid::-webkit-scrollbar{width:6px}#products-grid::-webkit-scrollbar-thumb{background:#0e7490;border-radius:8px}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.2)}}
+@keyframes gshift{to{background-position:200% center}}
+@keyframes shine{from{left:-60%}to{left:140%}}
+@keyframes rotIn{from{opacity:0;transform:translateY(14px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(8deg)}}
+.orb{position:absolute;border-radius:9999px;filter:blur(90px);pointer-events:none;animation:drift 12s ease-in-out infinite}
+.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(6,182,212,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.08) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at center,#000 25%,transparent 72%);mask-image:radial-gradient(ellipse at center,#000 25%,transparent 72%)}
+.grad-text{background:linear-gradient(90deg,#22d3ee,#a78bfa,#f472b6,#22d3ee);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gshift 5s linear infinite}
+.shine{position:relative;overflow:hidden}
+.shine::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;transform:skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:shine 3s ease-in-out infinite}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal.in.lift{transition:transform .3s,box-shadow .3s,border-color .3s}
+.reveal.in.lift:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 22px 40px -14px rgba(6,182,212,.4)}
+.grid>.reveal:nth-child(2){transition-delay:.08s}.grid>.reveal:nth-child(3){transition-delay:.16s}.grid>.reveal:nth-child(4){transition-delay:.24s}.grid>.reveal:nth-child(5){transition-delay:.32s}
+.hero-in>*{opacity:0;animation:rise .8s ease forwards}
+.hero-in>*:nth-child(2){animation-delay:.12s}.hero-in>*:nth-child(3){animation-delay:.24s}.hero-in>*:nth-child(4){animation-delay:.36s}.hero-in>*:nth-child(5){animation-delay:.48s}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08)}
+header.scrolled{background:rgba(11,15,25,.96);box-shadow:0 8px 30px rgba(0,0,0,.45)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero-in>*{opacity:1!important;transform:none!important}}
+</style>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 font-sans selection:bg-cyan-500 selection:text-slate-950">
 
-    <!-- ================= HALAMAN UTAMA WEBSITE ================= -->
-    <div id="main-view">
-        <!-- Header / Navbar -->
-        <header class="bg-[#0b0f19]/90 backdrop-blur-md border-b border-cyan-900/30 sticky top-0 z-50 transition-all">
-            <div class="max-w-7xl mx-auto px-4 py-3.5 flex justify-between items-center">
-                <div class="flex items-center space-x-3 animate-fade-down">
-                    <div class="p-1 rounded-2xl bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 neon-glow-cyan animate-float">
-                        <img src="logo.jpg.webp" alt="HZtopup Logo" class="h-11 w-11 rounded-xl object-cover">
-                    </div>
-                    <span class="text-xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent text-glow">HZ<span class="text-white">TOPUP</span></span>
-                </div>
-                <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
-                    <a href="#" class="hover:text-cyan-400 transition">Beranda</a>
-                    <a href="#games" class="hover:text-cyan-400 transition">Game</a>
-                    <a href="#ppob" class="hover:text-cyan-400 transition">Pulsa & Token</a>
-                    <a href="#form-section" class="hover:text-cyan-400 transition">Transaksi</a>
-                </nav>
-                <div>
-                    <button onclick="openLoginModal()" class="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-cyan-600/25 transition transform hover:-translate-y-0.5 active:translate-y-0 border border-cyan-400/30">Masuk</button>
-                </div>
-            </div>
-        </header>
+<!-- ============ TOAST ============ -->
+<div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] hidden px-5 py-3 rounded-xl text-sm font-semibold shadow-xl"></div>
 
-        <!-- Hero Section -->
-        <section class="relative bg-gradient-to-b from-purple-950/30 via-[#0b0f19] to-[#0b0f19] py-20 text-center px-4 overflow-hidden">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-gradient-to-r from-cyan-600/15 to-purple-600/20 blur-[140px] rounded-full pointer-events-none"></div>
+<!-- ============ HALAMAN UTAMA ============ -->
+<div id="main-view">
+<header class="bg-[#0b0f19]/90 backdrop-blur-md border-b border-cyan-900/30 sticky top-0 z-50">
+ <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+  <a href="#" class="flex items-center space-x-3">
+   <div class="p-1 rounded-2xl border border-cyan-500/30 animate-float"><img src="logo.jpg.webp" alt="HZtopup" onerror="this.style.display='none'" class="h-10 w-10 rounded-xl object-cover"></div>
+   <span class="text-xl font-black tracking-wider bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent text-glow">HZ<span class="text-white">TOPUP</span></span>
+  </a>
+  <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
+   <a href="#games" class="hover:text-cyan-400">Game</a>
+   <a href="#ppob" class="hover:text-cyan-400">Pulsa & Token</a>
+   <a href="#" onclick="openOrder();return false" class="hover:text-cyan-400">Transaksi</a>
+   <a href="#" onclick="openHistory();return false" class="hover:text-cyan-400">Riwayat</a>
+  </nav>
+  <div class="flex items-center space-x-2">
+   <button id="auth-btn" onclick="authClick()" class="btn px-5 py-2.5 text-sm">Masuk</button>
+   <button onclick="$('mnav').classList.toggle('hidden')" class="md:hidden text-slate-300 p-2" aria-label="Menu"><i class="fa-solid fa-bars text-xl"></i></button>
+  </div>
+ </div>
+ <nav id="mnav" class="hidden md:hidden border-t border-slate-800 px-4 py-3 space-y-3 text-sm text-slate-300">
+  <a href="#games" onclick="$('mnav').classList.add('hidden')" class="block">Game</a>
+  <a href="#ppob" onclick="$('mnav').classList.add('hidden')" class="block">Pulsa & Token</a>
+  <a href="#" onclick="openOrder();$('mnav').classList.add('hidden');return false" class="block">Transaksi</a>
+  <a href="#" onclick="openHistory();$('mnav').classList.add('hidden');return false" class="block">Riwayat</a>
+ </nav>
+</header>
 
-            <div class="max-w-3xl mx-auto relative z-10">
-                <span class="inline-flex items-center space-x-2 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 animate-fade-down shadow-sm shadow-cyan-500/10">
-                    <i class="fa-solid fa-bolt text-cyan-400"></i>
-                    <span>Layanan Otomatis 24 Jam Nonstop</span>
-                </span>
-                <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight animate-fade-down leading-tight">
-                    Top Up Game, Pulsa & Token PLN <span class="bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent text-glow">Tercepat</span>
-                </h1>
-                <p class="text-slate-400 mb-8 text-base md:text-lg animate-fade-up max-w-2xl mx-auto">
-                    Proses instan langsung masuk, harga paling bersaing, serta dijamin aman dan terpercaya untuk seluruh kebutuhan digital Anda.
-                </p>
-                <div class="animate-fade-up">
-                    <a href="#form-section" class="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold px-8 py-3.5 rounded-2xl shadow-xl shadow-cyan-600/40 transition transform hover:-translate-y-1 border border-cyan-400/30">
-                        <span>Mulai Transaksi</span>
-                        <i class="fa-solid fa-arrow-down text-xs"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
+<section class="relative py-20 md:py-28 text-center px-4 overflow-hidden">
+ <div class="hero-grid"></div>
+ <div class="orb w-72 h-72 bg-cyan-500/30 -top-10 -left-10"></div>
+ <div class="orb w-80 h-80 bg-purple-600/30 top-20 -right-16" style="animation-delay:-4s"></div>
+ <div class="orb w-60 h-60 bg-pink-500/20 bottom-0 left-1/3" style="animation-delay:-8s"></div>
+ <i class="fa-solid fa-gamepad absolute top-16 left-[8%] text-3xl text-cyan-400/40 hidden sm:block" style="animation:bob 5s ease-in-out infinite"></i>
+ <i class="fa-solid fa-bolt absolute top-1/3 right-[10%] text-3xl text-purple-400/40 hidden sm:block" style="animation:bob 6s ease-in-out infinite -2s"></i>
+ <i class="fa-solid fa-coins absolute bottom-24 left-[14%] text-3xl text-amber-400/40 hidden sm:block" style="animation:bob 7s ease-in-out infinite -4s"></i>
+ <i class="fa-solid fa-mobile-screen-button absolute bottom-20 right-[16%] text-3xl text-emerald-400/40 hidden sm:block" style="animation:bob 5.5s ease-in-out infinite -1s"></i>
+ <div class="hero-in max-w-3xl mx-auto relative z-10">
+  <span class="inline-flex items-center space-x-2 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-6"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span></span><span>Layanan 24 Jam Nonstop</span></span>
+  <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">Top Up Game, Pulsa & Token PLN <span id="rot" class="inline-block"><span id="rot-t" class="grad-text">Tercepat</span></span></h1>
+  <p class="text-slate-400 mb-8 md:text-lg">Proses cepat, harga bersaing, aman dan terpercaya untuk kebutuhan digital Anda.</p>
+  <div class="flex flex-wrap justify-center gap-3">
+   <button onclick="openOrder()" class="btn shine inline-flex items-center space-x-2 px-8 py-3.5 shadow-xl shadow-cyan-600/40 hover:-translate-y-1"><span>Mulai Transaksi</span><i class="fa-solid fa-arrow-right text-xs"></i></button>
+   <a href="#games" class="glass px-8 py-3.5 rounded-xl font-bold text-slate-200 hover:border-cyan-500/50 transition">Lihat Game</a>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-14">
+   <div class="glass rounded-2xl p-4"><p class="text-2xl font-black text-cyan-400"><span data-count="layanan">0</span></p><p class="text-xs text-slate-400">Layanan</p></div>
+   <div class="glass rounded-2xl p-4"><p class="text-2xl font-black text-purple-400"><span data-count="produk">0</span>+</p><p class="text-xs text-slate-400">Pilihan Produk</p></div>
+   <div class="glass rounded-2xl p-4"><p class="text-2xl font-black text-emerald-400"><span data-count="metode">0</span></p><p class="text-xs text-slate-400">Metode Bayar</p></div>
+   <div class="glass rounded-2xl p-4"><p class="text-2xl font-black text-amber-400"><span data-count="jam">0</span>/7</p><p class="text-xs text-slate-400">Siap Melayani</p></div>
+  </div>
+ </div>
+</section>
+<section class="max-w-7xl mx-auto px-4 pt-4 pb-2">
+ <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+  <div class="reveal lift glass rounded-2xl p-5"><i class="fa-solid fa-bolt text-2xl text-cyan-400 mb-3"></i><h3 class="font-bold text-sm mb-1">Proses Cepat</h3><p class="text-xs text-slate-400">Pesanan diproses otomatis setelah pembayaran.</p></div>
+  <div class="reveal lift glass rounded-2xl p-5"><i class="fa-solid fa-tags text-2xl text-purple-400 mb-3"></i><h3 class="font-bold text-sm mb-1">Harga Bersaing</h3><p class="text-xs text-slate-400">Harga kompetitif plus kode promo rutin.</p></div>
+  <div class="reveal lift glass rounded-2xl p-5"><i class="fa-solid fa-shield-halved text-2xl text-emerald-400 mb-3"></i><h3 class="font-bold text-sm mb-1">Aman</h3><p class="text-xs text-slate-400">Pembayaran lewat QRIS dan Virtual Account bank.</p></div>
+  <div class="reveal lift glass rounded-2xl p-5"><i class="fa-solid fa-headset text-2xl text-amber-400 mb-3"></i><h3 class="font-bold text-sm mb-1">Bantuan CS</h3><p class="text-xs text-slate-400">Hubungi kami lewat WhatsApp kapan saja.</p></div>
+ </div>
+</section>
 
-        <!-- Kategori Game -->
-        <section id="games" class="max-w-7xl mx-auto px-4 py-12">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-2xl font-black border-l-4 border-cyan-500 pl-3 tracking-wide">Popular Games</h2>
-            </div>
-            
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
-                <div onclick="selectCategory('mlbb')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-cyan-500/10 hover:border-cyan-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                    <div class="h-36 bg-gradient-to-br from-indigo-600 to-purple-800 flex items-center justify-center relative overflow-hidden">
-                        <i class="fa-solid fa-shield-halved text-5xl text-indigo-200 group-hover:scale-110 transition duration-300"></i>
-                    </div>
-                    <div class="p-4 text-center">
-                        <h3 class="font-bold text-sm text-slate-200 group-hover:text-cyan-400 transition">Mobile Legends</h3>
-                    </div>
-                </div>
-                <div onclick="selectCategory('ff')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                    <div class="h-36 bg-gradient-to-br from-orange-600 to-red-800 flex items-center justify-center relative overflow-hidden">
-                        <i class="fa-solid fa-fire text-5xl text-orange-200 group-hover:scale-110 transition duration-300"></i>
-                    </div>
-                    <div class="p-4 text-center">
-                        <h3 class="font-bold text-sm text-slate-200 group-hover:text-orange-400 transition">Free Fire</h3>
-                    </div>
-                </div>
-                <div onclick="selectCategory('pubg')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-amber-500/10 hover:border-amber-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                    <div class="h-36 bg-gradient-to-br from-amber-600 to-yellow-700 flex items-center justify-center relative overflow-hidden">
-                        <i class="fa-solid fa-plane text-5xl text-amber-200 group-hover:scale-110 transition duration-300"></i>
-                    </div>
-                    <div class="p-4 text-center">
-                        <h3 class="font-bold text-sm text-slate-200 group-hover:text-amber-400 transition">PUBG Mobile</h3>
-                    </div>
-                </div>
-                <div onclick="selectCategory('genshin')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                    <div class="h-36 bg-gradient-to-br from-blue-600 to-cyan-700 flex items-center justify-center relative overflow-hidden">
-                        <i class="fa-solid fa-star text-5xl text-blue-200 group-hover:scale-110 transition duration-300"></i>
-                    </div>
-                    <div class="p-4 text-center">
-                        <h3 class="font-bold text-sm text-slate-200 group-hover:text-blue-400 transition">Genshin Impact</h3>
-                    </div>
-                </div>
-                <div onclick="selectCategory('valorant')" class="bg-slate-900/80 rounded-2xl overflow-hidden shadow-xl hover:shadow-red-500/10 hover:border-red-500/50 transition-all duration-300 cursor-pointer border border-slate-800/80 group">
-                    <div class="h-36 bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center relative overflow-hidden">
-                        <i class="fa-solid fa-crosshairs text-5xl text-red-200 group-hover:scale-110 transition duration-300"></i>
-                    </div>
-                    <div class="p-4 text-center">
-                        <h3 class="font-bold text-sm text-slate-200 group-hover:text-red-400 transition">Valorant</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
+<section id="games" class="max-w-7xl mx-auto px-4 py-12">
+ <h2 class="reveal text-2xl font-black border-l-4 border-cyan-500 pl-3 mb-8">Popular Games</h2>
+ <div id="games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5"></div>
+</section>
+<section id="ppob" class="max-w-7xl mx-auto px-4 py-8 mb-12">
+ <h2 class="reveal text-2xl font-black border-l-4 border-emerald-500 pl-3 mb-8">Pulsa & PLN</h2>
+ <div id="ppob-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5"></div>
+</section>
+<footer class="bg-[#080b13] border-t border-cyan-900/20 text-center py-8 text-slate-400 text-sm">
+ <p class="mb-2"><a id="wa-link" target="_blank" rel="noopener" class="text-emerald-400 hover:underline"><i class="fa-brands fa-whatsapp mr-1"></i>Hubungi CS via WhatsApp</a></p>
+ <p>&copy; 2026 <span class="text-cyan-400 font-bold">HZtopup</span>. All rights reserved.</p>
+</footer>
+</div>
 
-        <!-- Form Transaksi -->
-        <section id="form-section" class="max-w-4xl mx-auto px-4 py-10 my-8">
-            <div class="bg-slate-900/90 backdrop-blur-xl border border-cyan-500/20 rounded-3xl p-6 md:p-8 shadow-2xl neon-glow-cyan">
-                <h3 class="text-xl font-black mb-6 text-cyan-400 flex items-center">
-                    <span class="bg-cyan-500/10 border border-cyan-500/30 p-2.5 rounded-xl mr-3 text-cyan-400"><i class="fa-solid fa-cart-shopping"></i></span>
-                    Form Pemesanan & Transaksi
-                </h3>
-                
-                <form id="topup-form" class="space-y-6" onsubmit="handleTransaction(event)">
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">1. Pilih Kategori Layanan</label>
-                        <select id="category-select" onchange="renderProducts()" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
-                            <option value="mlbb">Game - Mobile Legends</option>
-                            <option value="ff">Game - Free Fire</option>
-                            <option value="pubg">Game - PUBG Mobile</option>
-                            <option value="genshin">Game - Genshin Impact</option>
-                            <option value="valorant">Game - Valorant</option>
-                            <option value="pulsa">Pulsa Reguler (All Operator)</option>
-                            <option value="pln">Token Listrik PLN Prabayar</option>
-                        </select>
-                    </div>
+<!-- ============ DASHBOARD ADMIN ============ -->
+<div id="admin-view" class="hidden min-h-screen bg-[#080b13]">
+ <header class="bg-[#0b0f19] border-b border-purple-900/40 py-4 px-6 flex justify-between items-center sticky top-0 z-50">
+  <div class="flex items-center space-x-3"><i class="fa-solid fa-user-shield text-purple-400 text-2xl"></i><h1 class="text-xl font-black bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">HZ-Admin Panel</h1></div>
+  <button onclick="logout()" class="text-sm font-bold text-slate-400 hover:text-rose-400"><i class="fa-solid fa-right-from-bracket mr-2"></i>Keluar</button>
+ </header>
+ <div class="max-w-7xl mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold mb-6">Ringkasan <span class="text-purple-400">Bulan Ini</span></h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+   <div class="card"><p class="text-slate-400 text-sm font-bold mb-1">Total Pendapatan</p><h3 id="st-rev" class="text-3xl font-black text-cyan-400">Rp 0</h3></div>
+   <div class="card"><p class="text-slate-400 text-sm font-bold mb-1">Transaksi Berhasil/Dibayar</p><h3 id="st-cnt" class="text-3xl font-black text-purple-400">0</h3></div>
+   <div class="card"><p class="text-slate-400 text-sm font-bold mb-1">Pengguna Terdaftar</p><h3 id="st-usr" class="text-3xl font-black text-indigo-400">0</h3></div>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+   <div class="card lg:col-span-2"><h3 class="text-lg font-bold mb-4"><i class="fa-solid fa-chart-line text-cyan-400 mr-2"></i>Pendapatan 7 Hari Terakhir</h3><div class="h-64"><canvas id="salesChart"></canvas></div></div>
+   <div class="card border-purple-500/30">
+    <h3 class="text-lg font-bold mb-2"><i class="fa-solid fa-wand-magic-sparkles text-purple-400 mr-2"></i>Pengaturan Harga</h3>
+    <p class="text-sm text-slate-400 mb-4">Sesuaikan margin seluruh produk. Tersimpan di browser ini.</p>
+    <select id="ai-mode" class="inp mb-4">
+     <option value="1">Harga Normal (0%)</option><option value="0.9">Diskon Kilat (-10%)</option><option value="0.8">Promo Besar (-20%)</option><option value="1.05">Margin Profit (+5%)</option><option value="1.1">Margin Premium (+10%)</option>
+    </select>
+    <button onclick="applyPricing()" class="w-full bg-purple-600 hover:bg-purple-500 font-bold py-3 rounded-xl">Terapkan Harga Baru</button>
+   </div>
+  </div>
+  <div class="card mb-8 overflow-x-auto">
+   <h3 class="text-lg font-bold mb-4"><i class="fa-solid fa-receipt text-amber-400 mr-2"></i>Transaksi Terbaru</h3>
+   <table class="w-full text-xs text-left"><thead class="text-slate-400"><tr><th class="py-2">Invoice</th><th>Layanan</th><th>Tujuan</th><th>Total</th><th>Status</th></tr></thead><tbody id="tx-admin"></tbody></table>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+   <div class="card">
+    <h3 class="text-lg font-bold mb-4"><i class="fa-solid fa-key text-rose-400 mr-2"></i>Ganti Password Admin</h3>
+    <form onsubmit="changePass(event)" class="space-y-4">
+     <input id="pw-old" type="password" required placeholder="Password lama" class="inp">
+     <input id="pw-new" type="password" required minlength="8" placeholder="Password baru (min. 8 karakter)" class="inp">
+     <button class="w-full bg-rose-600 hover:bg-rose-500 font-bold py-3 rounded-xl">Simpan Password</button>
+    </form>
+   </div>
+   <div class="card border-emerald-500/30">
+    <h3 class="text-lg font-bold mb-4"><i class="fa-solid fa-ticket text-emerald-400 mr-2"></i>Kode Promo</h3>
+    <form onsubmit="addPromo(event)" class="grid grid-cols-5 gap-3 mb-4">
+     <input id="np-code" required placeholder="HZ10" class="inp uppercase col-span-2">
+     <input id="np-disc" type="number" required min="1" max="100" placeholder="%" class="inp col-span-2">
+     <button class="bg-emerald-600 hover:bg-emerald-500 font-bold rounded-xl">+</button>
+    </form>
+    <div id="promo-list" class="space-y-2 max-h-40 overflow-y-auto"></div>
+   </div>
+  </div>
+ </div>
+</div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label id="target-label" class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">2. User ID / Nomor Tujuan</label>
-                            <input type="text" id="target-input" required placeholder="Contoh: 12345678" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
-                        </div>
-                        <div id="zone-container">
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Zone / Server ID</label>
-                            <input type="text" id="zone-input" placeholder="Contoh: 2124" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
-                        </div>
-                    </div>
+<!-- ============ MODAL ORDER ============ -->
+<div id="order-modal" class="modal hidden"><div class="box max-w-4xl">
+ <button onclick="closeM('order-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full w-9 h-9" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+ <h3 class="text-xl font-black mb-6 text-cyan-400"><i class="fa-solid fa-cart-shopping mr-2"></i>Form Pemesanan</h3>
+ <form id="order-form" class="space-y-5" onsubmit="submitOrder(event)" novalidate>
+  <div><label class="lbl">1. Layanan</label><select id="cat" class="inp" onchange="renderProducts()"></select></div>
+  <div class="grid md:grid-cols-2 gap-4">
+   <div><label id="t-lbl" class="lbl">2. User ID</label><input id="target" class="inp" inputmode="text" autocomplete="off"></div>
+   <div id="zone-wrap"><label id="z-lbl" class="lbl">Zone ID</label><input id="zone" class="inp" autocomplete="off"><select id="zone-sel" class="inp hidden"></select></div>
+  </div>
+  <p id="err" class="text-xs font-semibold text-rose-400 hidden"></p>
+  <div>
+   <div class="flex justify-between items-center mb-2"><label class="lbl !mb-0">3. Pilih Nominal (termurah dulu)</label><input id="psearch" oninput="renderProducts(true)" placeholder="Cari..." class="bg-[#080b13] border border-slate-800 rounded-lg px-3 py-1 text-xs w-28"></div>
+   <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-[280px] overflow-y-auto p-1 bg-[#080b13]/60 border border-slate-800 rounded-2xl"></div>
+  </div>
+  <div><label class="lbl">4. Metode Pembayaran</label>
+   <select id="method" class="inp"><option>QRIS</option><option>BSI VA</option><option>BRI VA</option><option>MANDIRI VA</option></select></div>
+  <div><label class="lbl">5. Kode Promo (opsional)</label>
+   <div class="flex space-x-3"><input id="promo" oninput="resetPromo()" placeholder="Kode promo" class="inp uppercase"><button type="button" onclick="checkPromo()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 font-bold px-6 rounded-xl border border-slate-700">Klaim</button></div>
+   <p id="promo-msg" class="text-xs font-semibold mt-2 hidden"></p></div>
+  <div class="flex justify-between items-center bg-[#080b13] border border-slate-800 rounded-xl p-4"><span class="text-sm text-slate-400">Total Bayar</span><span id="live-total" class="text-xl font-black text-emerald-400">Rp 0</span></div>
+  <button class="btn w-full py-4">Bayar Sekarang</button>
+ </form>
+</div></div>
 
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">3. Pilih Nominal / Produk (Termurah ke Termahal)</label>
-                        <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                            <!-- Items via JS -->
-                        </div>
-                    </div>
+<!-- ============ MODAL PEMBAYARAN ============ -->
+<div id="pay-modal" class="modal hidden z-[70]"><div class="box max-w-md">
+ <button onclick="closeM('pay-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-white" aria-label="Tutup"><i class="fa-solid fa-xmark text-xl"></i></button>
+ <div class="text-center mb-5"><h4 class="text-lg font-bold">Invoice Pemesanan</h4><p id="p-id" class="text-xs text-slate-400"></p>
+  <p class="text-xs text-amber-400 mt-2">Bayar dalam <span id="p-timer" class="font-bold">30:00</span></p></div>
+ <div class="space-y-2 bg-[#080b13] p-4 rounded-2xl border border-slate-800 text-xs mb-4" id="p-sum"></div>
+ <div id="p-pay" class="bg-[#080b13] border border-cyan-900/40 rounded-2xl p-4 text-center mb-4"></div>
+ <button id="p-done" onclick="markPaid()" class="btn w-full py-3 mb-2">Saya Sudah Bayar</button>
+ <a id="p-wa" target="_blank" rel="noopener" class="block text-center text-xs text-emerald-400 hover:underline">Konfirmasi via WhatsApp</a>
+</div></div>
 
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">4. Metode Pembayaran</label>
-                        <select id="payment-method" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
-                            <option value="QRIS">QRIS (GoPay, OVO, DANA)</option>
-                            <option value="BSI VA">Bank Syariah Indonesia (BSI VA)</option>
-                            <option value="BRI VA">Bank Rakyat Indonesia (BRI VA)</option>
-                        </select>
-                    </div>
+<!-- ============ MODAL RIWAYAT ============ -->
+<div id="hist-modal" class="modal hidden"><div class="box max-w-2xl">
+ <button onclick="closeM('hist-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-white" aria-label="Tutup"><i class="fa-solid fa-xmark text-xl"></i></button>
+ <h3 class="text-xl font-black mb-4 text-cyan-400"><i class="fa-solid fa-clock-rotate-left mr-2"></i>Riwayat Transaksi</h3>
+ <div id="hist-list" class="space-y-3"></div>
+</div></div>
 
-                    <button type="submit" class="w-full bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold py-4 rounded-xl shadow-xl shadow-cyan-600/30 transition transform hover:-translate-y-0.5 border border-cyan-400/30">Bayar Sekarang</button>
-                </form>
-            </div>
-        </section>
+<!-- ============ MODAL AUTH ============ -->
+<div id="auth-modal" class="modal hidden"><div class="box max-w-sm !border-purple-500/30">
+ <button onclick="closeM('auth-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-white" aria-label="Tutup"><i class="fa-solid fa-xmark text-xl"></i></button>
+ <h4 id="auth-title" class="text-xl font-black text-center mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Masuk HZtopup</h4>
+ <form onsubmit="handleAuth(event)" class="space-y-4">
+  <input id="a-name" placeholder="Nama lengkap" class="inp hidden">
+  <input id="a-id" required placeholder="Email / No. HP" class="inp">
+  <input id="a-pw" type="password" required placeholder="Kata sandi" class="inp">
+  <p id="a-err" class="text-xs text-rose-400 hidden"></p>
+  <button id="a-submit" class="w-full bg-purple-600 hover:bg-purple-500 font-bold py-3 rounded-xl">Masuk</button>
+  <p class="text-xs text-center text-slate-400"><span id="a-sw-txt">Belum punya akun?</span> <button type="button" id="a-sw" onclick="authMode(!isReg)" class="text-cyan-400 font-bold">Daftar di sini</button></p>
+ </form>
+</div></div>
 
-        <footer class="bg-[#080b13] border-t border-cyan-900/20 text-center py-8 text-slate-400 text-sm">
-            <p>&copy; 2026 <span class="text-cyan-400 font-bold">HZtopup</span>. All rights reserved.</p>
-        </footer>
-    </div>
+<script>
+const $ = id => document.getElementById(id);
+const rp = n => 'Rp ' + Math.round(n).toLocaleString('id-ID');
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+const WA = '6281234567890'; // GANTI dengan nomor WhatsApp CS Anda
+const PAY_MIN = 30;
+async function sha(s) {
+  try { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('hz|' + s)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join(''); }
+  catch (e) { return btoa('hz|' + s); }
+}
+function toast(msg, ok = true) {
+  const t = $('toast'); t.textContent = msg;
+  t.className = 'fixed top-4 left-1/2 -translate-x-1/2 z-[100] px-5 py-3 rounded-xl text-sm font-semibold shadow-xl ' + (ok ? 'bg-emerald-600' : 'bg-rose-600');
+  clearTimeout(t._t); t._t = setTimeout(() => t.classList.add('hidden'), 2800);
+}
+const openM = id => $(id).classList.remove('hidden');
+const closeM = id => { $(id).classList.add('hidden'); if (id === 'pay-modal') clearInterval(timerId); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal:not(.hidden)').forEach(m => closeM(m.id)); });
 
-    <!-- ================= DASHBOARD ADMIN (HIDDEN DEFAULT) ================= -->
-    <div id="admin-view" class="hidden min-h-screen bg-[#080b13]">
-        <!-- Admin Navbar -->
-        <header class="bg-[#0b0f19] border-b border-purple-900/40 py-4 px-6 flex justify-between items-center sticky top-0 z-50">
-            <div class="flex items-center space-x-3">
-                <i class="fa-solid fa-user-shield text-purple-400 text-2xl"></i>
-                <h1 class="text-xl font-black bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">HZ-Admin Panel</h1>
-            </div>
-            <button onclick="logoutAdmin()" class="text-sm font-bold text-slate-400 hover:text-rose-400 transition"><i class="fa-solid fa-right-from-bracket mr-2"></i>Keluar</button>
-        </header>
+/* ---------- Data ---------- */
+// Tiap kategori: nama, ikon, warna, grup, validasi input, produk [nama, harga]
+const CATS = {
+  mlbb: { name: 'Mobile Legends', icon: 'shield-halved', c: 'indigo', g: 'game', tl: 'User ID', tp: '12345678', re: /^\d{6,12}$/, te: 'User ID harus 6-12 digit angka.', z: 'text', zl: 'Zone ID', zp: '2124', zre: /^\d{3,5}$/, ze: 'Zone ID harus 3-5 digit.',
+    p: [['3 Diamonds', 1500], ['5 Diamonds', 1500], ['12 Diamonds', 3500], ['28 Diamonds', 8000], ['59 Diamonds', 16000], ['86 Diamonds', 20000], ['Weekly Diamond Pass', 28500], ['172 Diamonds', 40000], ['257 Diamonds', 60000], ['344 Diamonds', 80000], ['429 Diamonds', 100000], ['514 Diamonds', 120000], ['706 Diamonds', 160000], ['878 Diamonds', 200000], ['Starlight Member', 140000], ['Twilight Pass', 145000], ['1050 Diamonds', 240000], ['2195 Diamonds', 480000], ['3688 Diamonds', 800000], ['5532 Diamonds', 1200000]] },
+  ff: { name: 'Free Fire', icon: 'fire', c: 'orange', g: 'game', tl: 'Player ID', tp: '123456789', re: /^\d{8,12}$/, te: 'Player ID harus 8-12 digit angka.',
+    p: [['5 Diamonds', 1000], ['12 Diamonds', 2000], ['50 Diamonds', 8000], ['70 Diamonds', 10000], ['140 Diamonds', 19000], ['Member Mingguan', 30000], ['355 Diamonds', 47000], ['Member Bulanan', 90000], ['720 Diamonds', 93000], ['1450 Diamonds', 185000], ['2180 Diamonds', 280000], ['3640 Diamonds', 460000], ['7290 Diamonds', 920000]] },
+  pubg: { name: 'PUBG Mobile', icon: 'plane', c: 'amber', g: 'game', tl: 'Player ID', tp: '5123456789', re: /^\d{5,12}$/, te: 'Player ID harus 5-12 digit angka.',
+    p: [['30 UC', 7500], ['60 UC', 14500], ['325 UC', 73000], ['660 UC', 145000], ['1800 UC', 350000], ['3850 UC', 730000], ['8100 UC', 1450000]] },
+  genshin: { name: 'Genshin Impact', icon: 'star', c: 'blue', g: 'game', tl: 'UID', tp: '812345678', re: /^\d{9}$/, te: 'UID Genshin harus 9 digit angka.', z: 'select', zl: 'Server', zo: ['Asia', 'America', 'Europe', 'TW, HK, MO'],
+    p: [['60 Genesis Crystals', 16000], ['300 Genesis Crystals', 79000], ['Blessing of Welkin Moon', 79000], ['980 Genesis Crystals', 249000], ['1980 Genesis Crystals', 479000], ['3280 Genesis Crystals', 799000], ['6480 Genesis Crystals', 1599000]] },
+  valorant: { name: 'Valorant', icon: 'crosshairs', c: 'red', g: 'game', tl: 'Riot ID', tp: 'Nama#TAG', re: /^.{3,16}#[A-Za-z0-9]{3,5}$/, te: 'Format Riot ID: Nama#TAG.',
+    p: [['125 VP', 15000], ['420 VP', 50000], ['700 VP', 80000], ['1375 VP', 150000], ['2400 VP', 250000], ['4000 VP', 400000], ['8150 VP', 800000]] },
+  hok: { name: 'Honor of Kings', icon: 'crown', c: 'yellow', g: 'game', tl: 'User ID', tp: '6123456789', re: /^\d{6,15}$/, te: 'User ID harus 6-15 digit angka.',
+    p: [['16 Tokens', 4000],['80 Tokens', 20000],['240 Tokens', 60000],['400 Tokens', 100000],['560 Tokens', 140000],['800 Tokens', 200000],['1200 Tokens', 300000]] },
+  codm: { name: 'Call of Duty Mobile', icon: 'skull', c: 'lime', g: 'game', tl: 'Open ID', tp: '6742000000000000000', re: /^\d{10,20}$/, te: 'Open ID harus 10-20 digit angka.',
+    p: [['31 CP', 5000],['63 CP', 10000],['128 CP', 20000],['321 CP', 50000],['645 CP', 100000],['1373 CP', 200000],['2750 CP', 400000]] },
+  aov: { name: 'Arena of Valor', icon: 'hat-wizard', c: 'sky', g: 'game', tl: 'User ID', tp: '1234567890', re: /^\d{8,15}$/, te: 'User ID harus 8-15 digit angka.',
+    p: [['18 Vouchers', 5000],['56 Vouchers', 15000],['94 Vouchers', 25000],['188 Vouchers', 50000],['376 Vouchers', 100000],['940 Vouchers', 250000],['1880 Vouchers', 500000]] },
+  coc: { name: 'Clash of Clans', icon: 'chess-rook', c: 'green', g: 'game', tl: 'Player Tag', tp: '#2PP0LQ', re: /^#?[0289PYLQGRJCUV]{5,12}$/i, te: 'Player Tag tidak valid (contoh #2PP0LQ).',
+    p: [['Gold Pass', 80000],['80 Gems', 15000],['500 Gems', 80000],['1200 Gems', 160000],['2500 Gems', 320000],['6500 Gems', 800000],['14000 Gems', 1600000]] },
+  cr: { name: 'Clash Royale', icon: 'chess-knight', c: 'blue', g: 'game', tl: 'Player Tag', tp: '#2PP0LQ', re: /^#?[0289PYLQGRJCUV]{5,12}$/i, te: 'Player Tag tidak valid (contoh #2PP0LQ).',
+    p: [['80 Gems', 15000],['Pass Royale', 80000],['500 Gems', 80000],['1200 Gems', 160000],['2500 Gems', 320000],['6500 Gems', 800000]] },
+  bs: { name: 'Brawl Stars', icon: 'bomb', c: 'fuchsia', g: 'game', tl: 'Player Tag', tp: '#2PP0LQ', re: /^#?[0289PYLQGRJCUV]{5,12}$/i, te: 'Player Tag tidak valid (contoh #2PP0LQ).',
+    p: [['30 Gems', 15000],['80 Gems', 40000],['Brawl Pass', 90000],['170 Gems', 80000],['360 Gems', 160000],['950 Gems', 400000],['2000 Gems', 800000]] },
+  roblox: { name: 'Roblox', icon: 'cube', c: 'rose', g: 'game', tl: 'Username', tp: 'NamaRoblox', re: /^[A-Za-z0-9_]{3,20}$/, te: 'Username Roblox 3-20 karakter (huruf, angka, _).',
+    p: [['80 Robux', 15000],['400 Robux', 75000],['800 Robux', 150000],['1700 Robux', 300000],['4500 Robux', 750000]] },
+  hsr: { name: 'Honkai: Star Rail', icon: 'train', c: 'violet', g: 'game', tl: 'UID', tp: '812345678', re: /^\d{9}$/, te: 'UID harus 9 digit angka.', z: 'select', zl: 'Server', zo: ['Asia', 'America', 'Europe', 'TW, HK, MO'],
+    p: [['60 Oneiric Shard', 16000],['300 Oneiric Shard', 80000],['Express Supply Pass', 79000],['980 Oneiric Shard', 250000],['1980 Oneiric Shard', 480000],['3280 Oneiric Shard', 800000],['6480 Oneiric Shard', 1600000]] },
+  zzz: { name: 'Zenless Zone Zero', icon: 'tv', c: 'teal', g: 'game', tl: 'UID', tp: '1012345678', re: /^\d{8,10}$/, te: 'UID harus 8-10 digit angka.', z: 'select', zl: 'Server', zo: ['Asia', 'America', 'Europe', 'TW, HK, MO'],
+    p: [['60 Monochrome', 16000],['300 Monochrome', 80000],['Inter-Knot Membership', 79000],['980 Monochrome', 250000],['1980 Monochrome', 480000],['3280 Monochrome', 800000],['6480 Monochrome', 1600000]] },
+  wuwa: { name: 'Wuthering Waves', icon: 'wind', c: 'cyan', g: 'game', tl: 'UID', tp: '100123456', re: /^\d{9}$/, te: 'UID harus 9 digit angka.',
+    p: [['60 Lunite', 16000],['300 Lunite', 79000],['Lunite Subscription', 79000],['980 Lunite', 249000],['1980 Lunite', 479000],['3280 Lunite', 799000],['6480 Lunite', 1599000]] },
+  pb: { name: 'Point Blank', icon: 'bullseye', c: 'slate', g: 'game', tl: 'User ID', tp: 'NamaPB', re: /^[A-Za-z0-9_]{4,20}$/, te: 'User ID Point Blank 4-20 karakter.',
+    p: [['1200 PB Cash', 10000],['2400 PB Cash', 20000],['6000 PB Cash', 50000],['12000 PB Cash', 100000],['24000 PB Cash', 200000],['60000 PB Cash', 500000]] },
+  lords: { name: 'Lords Mobile', icon: 'dragon', c: 'orange', g: 'game', tl: 'Player ID', tp: '123456789', re: /^\d{6,12}$/, te: 'Player ID harus 6-12 digit angka.',
+    p: [['60 Diamonds', 15000],['300 Diamonds', 70000],['980 Diamonds', 220000],['1980 Diamonds', 440000],['3280 Diamonds', 700000],['6480 Diamonds', 1400000]] },
+  sausage: { name: 'Sausage Man', icon: 'drumstick-bite', c: 'pink', g: 'game', tl: 'Player ID', tp: '123456789', re: /^\d{6,12}$/, te: 'Player ID harus 6-12 digit angka.',
+    p: [['100 Candy', 15000],['300 Candy', 45000],['600 Candy', 90000],['1000 Candy', 150000],['2000 Candy', 300000]] },
+  stumble: { name: 'Stumble Guys', icon: 'person-running', c: 'purple', g: 'game', tl: 'User ID', tp: 'abc123', re: /^[A-Za-z0-9_-]{3,20}$/, te: 'User ID Stumble Guys 3-20 karakter.',
+    p: [['100 Gems', 15000],['400 Gems', 55000],['1000 Gems', 130000],['2000 Gems', 260000],['5000 Gems', 650000]] },
+  eggy: { name: 'Eggy Party', icon: 'egg', c: 'amber', g: 'game', tl: 'Player ID', tp: '123456789', re: /^\d{6,12}$/, te: 'Player ID harus 6-12 digit angka.',
+    p: [['60 Eggy Coins', 15000],['300 Eggy Coins', 75000],['680 Eggy Coins', 160000],['1280 Eggy Coins', 300000],['3280 Eggy Coins', 750000]] },
+  pulsa: { name: 'Pulsa Reguler', icon: 'mobile-screen-button', c: 'emerald', g: 'ppob', tl: 'Nomor HP', tp: '085712345678', re: /^(08|628|\+628)\d{8,12}$/, te: 'Nomor HP tidak valid (contoh 0857...).',
+    p: [['Pulsa 5.000', 5500], ['Pulsa 10.000', 10800], ['Pulsa 15.000', 15000], ['Pulsa 20.000', 20000], ['Pulsa 25.000', 25500], ['Pulsa 30.000', 30000], ['Pulsa 50.000', 50500], ['Pulsa 75.000', 75000], ['Pulsa 100.000', 99500], ['Pulsa 150.000', 149000], ['Pulsa 200.000', 199000]] },
+  pln: { name: 'Token Listrik PLN', icon: 'lightbulb', c: 'amber', g: 'ppob', tl: 'No. Meter / ID Pelanggan', tp: '541200987654', re: /^\d{11,12}$/, te: 'Nomor meter/ID pelanggan harus 11-12 digit.',
+    p: [['Token PLN 20.000', 20500], ['Token PLN 50.000', 50500], ['Token PLN 100.000', 100500], ['Token PLN 200.000', 200500], ['Token PLN 500.000', 500500], ['Token PLN 1.000.000', 1000500]] }
+};
+// Normalisasi: setiap produk punya id tetap (bug priceRaw/rawPrice & indeks sudah diperbaiki)
+Object.entries(CATS).forEach(([k, c]) => c.items = c.p.map(([name, base], i) => ({ id: k + '-' + i, name, base })));
 
-        <div class="max-w-7xl mx-auto px-4 py-8">
-            <h2 class="text-2xl font-bold text-white mb-6">Ringkasan <span class="text-purple-400">Bulan Ini</span></h2>
-            
-            <!-- Cards Row -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 shadow-lg relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-wallet text-6xl text-cyan-400"></i></div>
-                    <p class="text-slate-400 text-sm font-bold mb-1">Total Pendapatan</p>
-                    <h3 class="text-3xl font-black text-cyan-400">Rp 15.450.000</h3>
-                    <p class="text-xs text-emerald-400 mt-2"><i class="fa-solid fa-arrow-trend-up mr-1"></i> Naik 12% dari bulan lalu</p>
-                </div>
-                <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 shadow-lg relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-cart-shopping text-6xl text-purple-400"></i></div>
-                    <p class="text-slate-400 text-sm font-bold mb-1">Total Penjualan</p>
-                    <h3 class="text-3xl font-black text-purple-400">428 Transaksi</h3>
-                    <p class="text-xs text-emerald-400 mt-2"><i class="fa-solid fa-arrow-trend-up mr-1"></i> Naik 5% dari bulan lalu</p>
-                </div>
-                <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 shadow-lg relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-users text-6xl text-indigo-400"></i></div>
-                    <p class="text-slate-400 text-sm font-bold mb-1">Pengguna Aktif</p>
-                    <h3 class="text-3xl font-black text-indigo-400">1,204 User</h3>
-                </div>
-            </div>
+let mult = store.get('hz_mult', 1);
+let promos = store.get('hz_promos', { HZBARU: 10, DISKON20: 20 });
+let users = store.get('hz_users', {});
+let session = store.get('hz_session', null);
+let txs = store.get('hz_tx', []);
+let selId = null, promoPct = 0, promoCode = '', curTx = null, timerId = null, chart = null, isReg = false;
+const priceOf = it => Math.round(it.base * mult);
+const finalPrice = it => { const p = priceOf(it); return p - Math.floor(p * promoPct / 100); };
 
-            <!-- Chart & AI Row -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <!-- Diagram Penjualan -->
-                <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 shadow-lg lg:col-span-2">
-                    <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-chart-line text-cyan-400 mr-2"></i>Diagram Penjualan November</h3>
-                    <div class="w-full h-64">
-                        <canvas id="salesChart"></canvas>
-                    </div>
-                </div>
+/* ---------- Beranda ---------- */
+function renderHome() {
+  const card = ([k, c]) => `<div onclick="openOrder('${k}')" class="reveal lift bg-slate-900/80 rounded-2xl overflow-hidden border border-slate-800 hover:border-${c.c}-500/60 cursor-pointer group">
+    <div class="shine h-32 bg-gradient-to-br from-${c.c}-600 to-${c.c}-900 flex items-center justify-center"><i class="fa-solid fa-${c.icon} text-5xl text-${c.c}-200 group-hover:scale-125 group-hover:-rotate-6 transition duration-300"></i></div>
+    <div class="p-4 text-center"><h3 class="font-bold text-sm text-slate-200">${c.name}</h3></div></div>`;
+  // Poster game: pakai gambar posters/<kode>.webp atau .jpg jika ada, kalau tidak pakai desain poster otomatis
+  const poster = ([k, c]) => {
+    const cur = (c.items.find(i => /^\d/.test(i.name)) || c.items[0]).name.replace(/^[\d.]+\s*/, '');
+    return `<div onclick="openOrder('${k}')" class="reveal lift group relative aspect-[3/4] rounded-2xl overflow-hidden border border-slate-800 hover:border-${c.c}-400/70 cursor-pointer bg-gradient-to-br from-${c.c}-500 via-${c.c}-700 to-slate-950">
+      <div class="absolute inset-0 opacity-30" style="background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.45),transparent 45%),repeating-linear-gradient(135deg,rgba(255,255,255,.08) 0 2px,transparent 2px 14px)"></div>
+      <i class="fa-solid fa-${c.icon} absolute -right-5 -top-3 text-[9rem] leading-none text-white/15 group-hover:scale-110 group-hover:-rotate-6 transition duration-500"></i>
+      <i class="fa-solid fa-${c.icon} absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 text-6xl text-white drop-shadow-[0_6px_18px_rgba(0,0,0,.5)] group-hover:scale-125 transition duration-500"></i>
+      <img src="posters/${k}.webp" alt="Poster ${c.name}" loading="lazy" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='posters/${k}.jpg'}else this.remove()" class="absolute inset-0 w-full h-full object-cover">
+      <span class="absolute top-2 left-2 text-[10px] font-bold bg-black/40 backdrop-blur px-2 py-0.5 rounded-full">Top Up</span>
+      <div class="absolute inset-x-0 bottom-0 p-3 pt-10 bg-gradient-to-t from-black/90 to-transparent text-left">
+        <h3 class="font-black text-sm leading-tight">${c.name}</h3><p class="text-[11px] text-${c.c}-300">${cur}</p>
+      </div></div>`;
+  };
+  $('games-grid').innerHTML = Object.entries(CATS).filter(([, c]) => c.g === 'game').map(poster).join('');
+  $('ppob-grid').innerHTML = Object.entries(CATS).filter(([, c]) => c.g === 'ppob').map(card).join('');
+  $('cat').innerHTML = Object.entries(CATS).map(([k, c]) => `<option value="${k}">${c.g === 'game' ? 'Game' : 'PPOB'} - ${c.name}</option>`).join('');
+  $('wa-link').href = 'https://wa.me/' + WA;
+}
 
-                <!-- AI Smart Pricing (Dipindah ke Admin) -->
-                <div class="bg-[#0b0f19] border border-purple-500/30 rounded-2xl p-6 shadow-lg neon-glow-purple flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center space-x-3 mb-4">
-                            <div class="bg-purple-500/20 p-3 rounded-xl text-purple-400 border border-purple-500/30">
-                                <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
-                            </div>
-                            <h3 class="text-lg font-bold text-white">AI Smart Pricing</h3>
-                        </div>
-                        <p class="text-sm text-slate-400 mb-6">Ubah & sesuaikan margin harga seluruh produk di website secara otomatis dengan AI.</p>
-                        
-                        <label class="block text-xs font-bold text-slate-400 mb-2">Pilih Mode Harga:</label>
-                        <select id="ai-mode" class="w-full bg-[#080b13] border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500 mb-4">
-                            <option value="normal">Harga Normal (0%)</option>
-                            <option value="diskon_10">Diskon Kilat (-10%)</option>
-                            <option value="diskon_20">Promo Besar (-20%)</option>
-                            <option value="naik_5">Margin Profit (+5%)</option>
-                            <option value="naik_10">Margin Premium (+10%)</option>
-                        </select>
-                    </div>
-                    <button type="button" onclick="applyAiPricing()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-purple-600/30">
-                        Terapkan Harga Baru
-                    </button>
-                </div>
-            </div>
+/* ---------- Order ---------- */
+function openOrder(k) {
+  if (k) $('cat').value = k;
+  $('promo').value = ''; resetPromo(); $('psearch').value = '';
+  renderProducts(); openM('order-modal');
+}
+function renderProducts(keep) {
+  const c = CATS[$('cat').value];
+  $('t-lbl').textContent = '2. ' + c.tl; $('target').placeholder = 'Contoh: ' + c.tp;
+  const zw = $('zone-wrap');
+  zw.style.display = c.z ? 'block' : 'none';
+  if (c.z) {
+    $('z-lbl').textContent = c.zl;
+    $('zone').classList.toggle('hidden', c.z !== 'text'); $('zone-sel').classList.toggle('hidden', c.z !== 'select');
+    $('zone').placeholder = 'Contoh: ' + (c.zp || '');
+    if (c.z === 'select') $('zone-sel').innerHTML = c.zo.map(o => `<option>${o}</option>`).join('');
+  }
+  const q = $('psearch').value.toLowerCase();
+  const items = c.items.filter(i => i.name.toLowerCase().includes(q)).sort((a, b) => a.base - b.base);
+  if (!keep || !items.some(i => i.id === selId)) selId = items[0] ? items[0].id : null;
+  $('products-grid').innerHTML = items.map(i => `<div onclick="selectProduct('${i.id}')" id="pc-${i.id}" class="p-3 rounded-xl text-center cursor-pointer transition flex flex-col justify-center min-h-[75px] border">
+    <p class="font-bold text-xs text-slate-200">${i.name}</p><p class="text-[11px] text-cyan-400 font-semibold mt-1">${rp(priceOf(i))}</p></div>`).join('') || '<p class="col-span-full text-center text-xs text-slate-500 p-4">Produk tidak ditemukan</p>';
+  paintSel();
+}
+function paintSel() {
+  document.querySelectorAll('#products-grid > div[id^=pc-]').forEach(el => {
+    const on = el.id === 'pc-' + selId;
+    el.className = 'p-3 rounded-xl text-center cursor-pointer transition flex flex-col justify-center min-h-[75px] border ' + (on ? 'border-cyan-500 bg-cyan-950/40 shadow-lg shadow-cyan-500/20' : 'border-slate-800 bg-[#0b0f19] hover:border-cyan-500/50');
+  });
+  const it = findItem(selId);
+  $('live-total').innerHTML = it ? (promoPct ? `<span class="line-through text-slate-500 text-xs mr-2 font-normal">${rp(priceOf(it))}</span>` : '') + rp(finalPrice(it)) : 'Rp 0';
+}
+const selectProduct = id => { selId = id; paintSel(); };
+const findItem = id => { if (!id) return null; const c = CATS[id.split('-')[0]]; return c && c.items.find(i => i.id === id); };
 
-            <!-- Pengaturan Akun Admin -->
-            <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 shadow-lg max-w-md">
-                <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-key text-rose-400 mr-2"></i>Ganti Password Admin</h3>
-                <form onsubmit="event.preventDefault(); alert('Password berhasil diubah!'); document.getElementById('pass-form').reset();" id="pass-form" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-400 mb-1">Password Lama</label>
-                        <input type="password" required class="w-full bg-[#080b13] border border-slate-700 rounded-xl p-3 text-white text-sm focus:border-rose-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-400 mb-1">Password Baru</label>
-                        <input type="password" required class="w-full bg-[#080b13] border border-slate-700 rounded-xl p-3 text-white text-sm focus:border-rose-500 outline-none">
-                    </div>
-                    <button type="submit" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 rounded-xl transition mt-2">Simpan Password</button>
-                </form>
-            </div>
-        </div>
-    </div>
+function checkPromo() {
+  const code = $('promo').value.trim().toUpperCase(), m = $('promo-msg');
+  m.classList.remove('hidden');
+  if (code && promos[code]) { promoPct = promos[code]; promoCode = code; m.textContent = 'Promo diterapkan! Diskon ' + promoPct + '%'; m.className = 'text-xs font-semibold mt-2 text-emerald-400'; }
+  else { promoPct = 0; promoCode = ''; m.textContent = 'Kode promo tidak valid.'; m.className = 'text-xs font-semibold mt-2 text-rose-400'; }
+  paintSel();
+}
+function resetPromo() { promoPct = 0; promoCode = ''; $('promo-msg').classList.add('hidden'); paintSel(); }
 
-    <!-- Modal Otentikasi (Masuk & Daftar) -->
-    <div id="login-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden px-4">
-        <div class="bg-slate-900 border border-purple-500/30 rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl relative neon-glow-purple">
-            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h4 id="auth-title" class="text-xl font-black text-center mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent text-glow">Masuk HZtopup</h4>
-            
-            <!-- Form MASUK (Default) -->
-            <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 mb-1">Email / No. HP</label>
-                    <input type="text" id="login-email" required placeholder="user@domain.com" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 mb-1">Kata Sandi</label>
-                    <input type="password" id="login-pass" required placeholder="••••••••" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500">
-                </div>
-                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl transition mt-2 shadow-lg shadow-purple-600/30">Masuk</button>
-                <p class="text-xs text-center text-slate-400 mt-4">Belum punya akun? <button type="button" onclick="toggleAuthMode('register')" class="text-cyan-400 hover:text-cyan-300 font-bold">Daftar di sini</button></p>
-            </form>
+function submitOrder(e) {
+  e.preventDefault();
+  const k = $('cat').value, c = CATS[k], target = $('target').value.trim(), err = $('err');
+  const zone = c.z === 'select' ? $('zone-sel').value : $('zone').value.trim();
+  let msg = '';
+  if (!c.re.test(target)) msg = c.te;
+  else if (c.zre && !c.zre.test(zone)) msg = c.ze;
+  else if (!findItem(selId)) msg = 'Pilih nominal terlebih dahulu.';
+  err.textContent = msg; err.classList.toggle('hidden', !msg);
+  if (msg) return;
+  if (promoCode && !promos[promoCode]) { resetPromo(); toast('Kode promo sudah tidak berlaku', false); return; }
+  const it = findItem(selId), base = priceOf(it), total = finalPrice(it);
+  curTx = { id: 'INV' + Date.now().toString().slice(-8), cat: k, service: c.name, target: target + (c.z ? ` (${zone})` : ''), product: it.name, base, promo: promoCode, total, method: $('method').value, status: 'pending', time: Date.now(), user: session ? session.id : null };
+  txs.unshift(curTx); store.set('hz_tx', txs);
+  closeM('order-modal'); showPay(curTx);
+}
 
-            <!-- Form DAFTAR (Hidden) -->
-            <form id="form-register" onsubmit="handleRegister(event)" class="space-y-4 hidden">
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 mb-1">Nama Lengkap</label>
-                    <input type="text" required placeholder="Nama Anda" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-cyan-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 mb-1">Email / No. HP</label>
-                    <input type="text" required placeholder="user@domain.com" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-cyan-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 mb-1">Kata Sandi</label>
-                    <input type="password" required placeholder="Buat sandi" class="w-full bg-[#0b0f19] border border-slate-800 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-cyan-500">
-                </div>
-                <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-xl transition mt-2 shadow-lg shadow-cyan-600/30">Daftar Sekarang</button>
-                <p class="text-xs text-center text-slate-400 mt-4">Sudah punya akun? <button type="button" onclick="toggleAuthMode('login')" class="text-purple-400 hover:text-purple-300 font-bold">Masuk di sini</button></p>
-            </form>
+/* ---------- Pembayaran ---------- */
+function vaNumber(t) { const p = { 'BSI VA': '9451', 'BRI VA': '88810', 'MANDIRI VA': '89508' }[t.method] || ''; return p + t.id.replace(/\D/g, '').padStart(10, '0'); }
+function showPay(t) {
+  curTx = t; $('p-id').textContent = t.id;
+  $('p-sum').innerHTML = [['Layanan', t.service], ['Tujuan', t.target], ['Produk', t.product], ['Metode', t.method]].map(([a, b]) => `<div class="flex justify-between"><span class="text-slate-500">${a}</span><span class="font-semibold text-slate-200">${b}</span></div>`).join('') +
+    `<hr class="border-slate-800 my-2"><div class="flex justify-between items-center text-sm font-bold"><span>Total</span><span class="text-emerald-400 text-lg">${t.promo ? `<span class="line-through text-slate-500 text-xs mr-2 font-normal">${rp(t.base)}</span>` : ''}${rp(t.total)}</span></div>`;
+  $('p-pay').innerHTML = t.method === 'QRIS'
+    ? '<div class="w-32 h-32 mx-auto bg-white rounded-xl flex items-center justify-center text-slate-500 text-[10px] p-2">QR dari payment gateway tampil di sini</div>'
+    : `<p class="text-xs text-slate-400 mb-1">Nomor Virtual Account</p><p class="text-lg font-black tracking-widest text-cyan-400">${vaNumber(t)}</p><button onclick="navigator.clipboard&&navigator.clipboard.writeText('${vaNumber(t)}').then(()=>toast('Nomor VA disalin'))" class="text-xs text-slate-300 underline mt-1">Salin</button>`;
+  $('p-wa').href = `https://wa.me/${WA}?text=` + encodeURIComponent(`Halo HZtopup, saya sudah bayar ${t.id} (${t.product}) ${rp(t.total)}`);
+  const pending = t.status === 'pending';
+  $('p-done').classList.toggle('hidden', !pending);
+  clearInterval(timerId);
+  const tick = () => {
+    const left = t.time + PAY_MIN * 60000 - Date.now();
+    if (t.status !== 'pending') { $('p-timer').textContent = statusLabel(t.status); return; }
+    if (left <= 0) { t.status = 'cancelled'; store.set('hz_tx', txs); clearInterval(timerId); $('p-timer').textContent = 'Kedaluwarsa'; $('p-done').classList.add('hidden'); return; }
+    $('p-timer').textContent = String(Math.floor(left / 60000)).padStart(2, '0') + ':' + String(Math.floor(left % 60000 / 1000)).padStart(2, '0');
+  };
+  tick(); timerId = setInterval(tick, 1000); openM('pay-modal');
+}
+function markPaid() {
+  if (!curTx || curTx.status !== 'pending') return;
+  curTx.status = 'paid'; store.set('hz_tx', txs); closeM('pay-modal');
+  toast('Terima kasih! Pembayaran menunggu verifikasi.');
+}
+const statusLabel = s => ({ pending: 'Menunggu Bayar', paid: 'Dibayar', success: 'Berhasil', cancelled: 'Batal/Kedaluwarsa' }[s] || s);
+const statusColor = s => ({ pending: 'text-amber-400', paid: 'text-cyan-400', success: 'text-emerald-400', cancelled: 'text-rose-400' }[s] || '');
+function expireOld() { let ch = false; txs.forEach(t => { if (t.status === 'pending' && Date.now() - t.time > PAY_MIN * 60000) { t.status = 'cancelled'; ch = true; } }); if (ch) store.set('hz_tx', txs); }
 
-        </div>
-    </div>
+/* ---------- Riwayat ---------- */
+function openHistory() {
+  expireOld();
+  const list = txs.filter(t => !session || !t.user || t.user === session.id);
+  $('hist-list').innerHTML = list.map(t => `<div class="bg-[#080b13] border border-slate-800 rounded-xl p-4 text-xs">
+    <div class="flex justify-between mb-1"><span class="font-bold text-slate-200">${t.service} - ${t.product}</span><span class="${statusColor(t.status)} font-bold">${statusLabel(t.status)}</span></div>
+    <div class="text-slate-400">${t.id} &middot; ${t.target} &middot; ${new Date(t.time).toLocaleString('id-ID')}</div>
+    <div class="flex justify-between items-center mt-2"><span class="text-emerald-400 font-bold">${rp(t.total)}</span>
+    ${t.status === 'pending' ? `<button onclick="closeM('hist-modal');showPay(txs.find(x=>x.id==='${t.id}'))" class="text-cyan-400 underline">Lanjut bayar</button>` : ''}</div></div>`).join('') || '<p class="text-sm text-slate-500 text-center py-6">Belum ada transaksi di perangkat ini.</p>';
+  openM('hist-modal');
+}
 
-    <!-- Script Utama & Chart Admin -->
-    <script>
-        // Logika Data Produk & AI
-        const originalProductsData = {
-            mlbb: [
-                { name: "Weekly Diamond Pass", priceRaw: 28500 },
-                { name: "86 Diamonds ML", priceRaw: 20000 },
-                { name: "172 Diamonds ML", priceRaw: 40000 },
-                { name: "257 Diamonds ML", priceRaw: 60000 },
-                { name: "Twilight Pass", priceRaw: 145000 },
-                { name: "706 Diamonds ML", priceRaw: 160000 }
-            ],
-            ff: [
-                { name: "140 Diamonds FF", priceRaw: 19000 },
-                { name: "Member Mingguan", priceRaw: 30000 },
-                { name: "355 Diamonds FF", priceRaw: 47000 },
-                { name: "720 Diamonds FF", priceRaw: 93000 }
-            ],
-            pubg: [
-                { name: "60 UC PUBG", priceRaw: 14500 },
-                { name: "325 UC PUBG", priceRaw: 73000 },
-                { name: "660 UC PUBG", priceRaw: 145000 }
-            ],
-            pulsa: [
-                { name: "Pulsa 10.000", priceRaw: 10800 },
-                { name: "Pulsa 25.000", priceRaw: 25500 },
-                { name: "Pulsa 50.000", priceRaw: 50500 }
-            ]
-        };
+/* ---------- Auth ---------- */
+function authMode(reg) {
+  isReg = reg; $('a-name').classList.toggle('hidden', !reg); $('a-name').required = reg;
+  $('auth-title').textContent = reg ? 'Daftar Akun HZtopup' : 'Masuk HZtopup';
+  $('a-submit').textContent = reg ? 'Daftar Sekarang' : 'Masuk';
+  $('a-sw-txt').textContent = reg ? 'Sudah punya akun?' : 'Belum punya akun?';
+  $('a-sw').textContent = reg ? 'Masuk di sini' : 'Daftar di sini'; $('a-err').classList.add('hidden');
+}
+function renderAuthBtn() { $('auth-btn').textContent = session ? (session.name || session.id).split(' ')[0] + ' (Keluar)' : 'Masuk'; }
+function authClick() { if (session) { session = null; store.set('hz_session', null); renderAuthBtn(); toast('Anda sudah keluar'); } else { authMode(false); openM('auth-modal'); } }
+async function handleAuth(e) {
+  e.preventDefault();
+  const id = $('a-id').value.trim().toLowerCase(), pw = $('a-pw').value, er = $('a-err');
+  const fail = m => { er.textContent = m; er.classList.remove('hidden'); };
+  if (isReg) {
+    if (id === 'admin') return fail('ID tidak tersedia.');
+    if (users[id]) return fail('Akun sudah terdaftar.');
+    if (pw.length < 8) return fail('Kata sandi minimal 8 karakter.');
+    users[id] = { name: $('a-name').value.trim(), h: await sha(pw) }; store.set('hz_users', users);
+    toast('Pendaftaran berhasil! Silakan masuk.'); authMode(false); $('a-pw').value = ''; return;
+  }
+  const h = await sha(pw);
+  if (id === 'admin') {
+    if (h !== (store.get('hz_admin', null) || await sha('admin123'))) return fail('ID atau kata sandi salah.');
+    closeM('auth-modal'); $('a-pw').value = ''; showAdmin(); return;
+  }
+  if (!users[id] || users[id].h !== h) return fail('ID atau kata sandi salah.');
+  session = { id, name: users[id].name }; store.set('hz_session', session);
+  closeM('auth-modal'); $('a-pw').value = ''; renderAuthBtn(); toast('Berhasil masuk, ' + session.name);
+}
 
-        let productsData = JSON.parse(JSON.stringify(originalProductsData));
-        let chartInstance = null;
+/* ---------- Admin ---------- */
+function showAdmin() { $('main-view').classList.add('hidden'); $('admin-view').classList.remove('hidden'); refreshAdmin(); }
+function logout() { $('admin-view').classList.add('hidden'); $('main-view').classList.remove('hidden'); renderProducts(); }
+function refreshAdmin() {
+  expireOld();
+  const now = new Date(), ok = t => t.status === 'paid' || t.status === 'success';
+  const month = txs.filter(t => ok(t) && new Date(t.time).getMonth() === now.getMonth() && new Date(t.time).getFullYear() === now.getFullYear());
+  $('st-rev').textContent = rp(month.reduce((s, t) => s + t.total, 0));
+  $('st-cnt').textContent = month.length + ' transaksi';
+  $('st-usr').textContent = Object.keys(users).length + ' user';
+  $('ai-mode').value = String(mult);
+  renderPromoList(); renderTxAdmin();
+  const labels = [], data = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    labels.push(d.getDate() + '/' + (d.getMonth() + 1));
+    data.push(txs.filter(t => ok(t) && new Date(t.time).toDateString() === d.toDateString()).reduce((s, t) => s + t.total, 0));
+  }
+  if (chart) chart.destroy();
+  chart = new Chart($('salesChart').getContext('2d'), { type: 'line', data: { labels, datasets: [{ data, borderColor: '#06b6d4', backgroundColor: 'rgba(6,182,212,.2)', fill: true, tension: .4, borderWidth: 3, pointBackgroundColor: '#a855f7' }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,.05)' }, ticks: { color: '#94a3b8' } }, x: { grid: { display: false }, ticks: { color: '#94a3b8' } } } } });
+}
+function renderTxAdmin() {
+  $('tx-admin').innerHTML = txs.slice(0, 20).map(t => `<tr class="border-t border-slate-800"><td class="py-2">${t.id}</td><td>${t.product}</td><td>${t.target}</td><td>${rp(t.total)}</td>
+   <td><select onchange="setStatus('${t.id}',this.value)" class="bg-[#080b13] border border-slate-700 rounded-lg px-2 py-1 ${statusColor(t.status)}">${['pending', 'paid', 'success', 'cancelled'].map(s => `<option value="${s}" ${s === t.status ? 'selected' : ''}>${statusLabel(s)}</option>`).join('')}</select></td></tr>`).join('') || '<tr><td colspan="5" class="py-4 text-center text-slate-500">Belum ada transaksi</td></tr>';
+}
+function setStatus(id, s) { const t = txs.find(x => x.id === id); if (t) { t.status = s; store.set('hz_tx', txs); refreshAdmin(); } }
+function applyPricing() { mult = parseFloat($('ai-mode').value); store.set('hz_mult', mult); renderProducts(); toast('Harga diperbarui'); }
+function renderPromoList() {
+  $('promo-list').innerHTML = Object.keys(promos).map(c => `<div class="flex justify-between items-center bg-[#080b13] p-3 rounded-xl border border-slate-800"><span class="text-sm font-bold text-emerald-400">${c}</span><span class="text-xs text-slate-400">Diskon ${promos[c]}% <button onclick="delPromo('${c}')" class="ml-3 text-rose-400" aria-label="Hapus"><i class="fa-solid fa-trash"></i></button></span></div>`).join('') || '<p class="text-xs text-slate-500">Belum ada promo.</p>';
+}
+function addPromo(e) {
+  e.preventDefault();
+  const c = $('np-code').value.trim().toUpperCase().replace(/[^A-Z0-9]/g, ''), d = parseInt($('np-disc').value);
+  if (!c || !(d >= 1 && d <= 100)) return toast('Kode/diskon tidak valid', false);
+  promos[c] = d; store.set('hz_promos', promos); renderPromoList(); e.target.reset(); toast('Promo ' + c + ' ditambahkan');
+}
+function delPromo(c) { delete promos[c]; store.set('hz_promos', promos); renderPromoList(); }
+async function changePass(e) {
+  e.preventDefault();
+  const cur = store.get('hz_admin', null) || await sha('admin123');
+  if (await sha($('pw-old').value) !== cur) return toast('Password lama salah', false);
+  store.set('hz_admin', await sha($('pw-new').value)); e.target.reset(); toast('Password berhasil diubah');
+}
 
-        // Buka / Tutup Modal Autentikasi
-        function openLoginModal() { 
-            document.getElementById('login-modal').classList.remove('hidden'); 
-        }
-        function closeLoginModal() { 
-            document.getElementById('login-modal').classList.add('hidden'); 
-            toggleAuthMode('login'); // Reset ke tampilan login saat ditutup
-        }
-
-        // Toggle Form Masuk / Daftar
-        function toggleAuthMode(mode) {
-            if(mode === 'register') {
-                document.getElementById('form-login').classList.add('hidden');
-                document.getElementById('form-register').classList.remove('hidden');
-                document.getElementById('auth-title').innerText = 'Daftar Akun HZtopup';
-            } else {
-                document.getElementById('form-register').classList.add('hidden');
-                document.getElementById('form-login').classList.remove('hidden');
-                document.getElementById('auth-title').innerText = 'Masuk HZtopup';
-            }
-        }
-
-        // Handle Pendaftaran
-        function handleRegister(event) {
-            event.preventDefault();
-            alert('Pendaftaran berhasil! Akun Anda telah dibuat. Silakan Masuk.');
-            toggleAuthMode('login'); // Kembali ke halaman Masuk setelah daftar
-            event.target.reset(); // Kosongkan form
-        }
-
-        // Handle Login (Admin vs User)
-        function handleLogin(event) {
-            event.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const pass = document.getElementById('login-pass').value;
-            
-            closeLoginModal();
-
-            if(email === 'admin' && pass === 'admin123') {
-                // Masuk sebagai Admin
-                document.getElementById('main-view').classList.add('hidden');
-                document.getElementById('admin-view').classList.remove('hidden');
-                initChart(); // Render diagram
-            } else {
-                // Masuk sebagai User biasa
-                alert('Berhasil Masuk sebagai pengguna!');
-            }
-        }
-
-        function logoutAdmin() {
-            document.getElementById('admin-view').classList.add('hidden');
-            document.getElementById('main-view').classList.remove('hidden');
-            document.getElementById('login-email').value = '';
-            document.getElementById('login-pass').value = '';
-            renderProducts(); // Refresh harga UI di depan
-        }
-
-        // Fitur AI Pricing
-        function applyAiPricing() {
-            const mode = document.getElementById('ai-mode').value;
-            let multiplier = 1.0;
-            let labelInfo = "Normal";
-
-            if (mode === 'diskon_10') { multiplier = 0.90; labelInfo = "Diskon Kilat -10%"; }
-            else if (mode === 'diskon_20') { multiplier = 0.80; labelInfo = "Promo Besar -20%"; }
-            else if (mode === 'naik_5') { multiplier = 1.05; labelInfo = "Margin Profit +5%"; }
-            else if (mode === 'naik_10') { multiplier = 1.10; labelInfo = "Margin Premium +10%"; }
-
-            for (let key in originalProductsData) {
-                productsData[key] = originalProductsData[key].map(item => {
-                    const newRaw = Math.round(item.priceRaw * multiplier);
-                    return {
-                        name: item.name,
-                        rawPrice: newRaw,
-                        price: "Rp " + newRaw.toLocaleString('id-ID')
-                    };
-                });
-            }
-            alert("Berhasil! HZ-AI menerapkan mode: " + labelInfo + ". Harga di website utama otomatis ter-update.");
-        }
-
-        // Render Produk di Halaman Utama
-        function renderProducts() {
-            const category = document.getElementById('category-select').value;
-            const container = document.getElementById('products-grid');
-            
-            let items = productsData[category] ? [...productsData[category]] : originalProductsData['mlbb'].map(item => ({...item, price: "Rp " + item.priceRaw.toLocaleString('id-ID')}));
-            
-            items.sort((a, b) => a.rawPrice - b.rawPrice); // Termurah -> Termahal
-
-            container.innerHTML = items.map((item, idx) => `
-                <div class="border ${idx === 0 ? 'border-cyan-500 bg-cyan-950/40 shadow-lg shadow-cyan-500/10' : 'border-slate-800 bg-[#0b0f19]'} p-4 rounded-xl text-center cursor-pointer transition">
-                    <p class="font-bold text-sm text-slate-200">${item.name}</p>
-                    <p class="text-xs text-cyan-400 font-semibold mt-1">${item.price}</p>
-                </div>
-            `).join('');
-        }
-
-        // Inisialisasi Diagram Penjualan (Admin)
-        function initChart() {
-            if(chartInstance) return; // Mencegah render ganda
-            
-            const ctx = document.getElementById('salesChart').getContext('2d');
-            
-            let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, 'rgba(6, 182, 212, 0.4)'); // Cyan blur
-            gradient.addColorStop(1, 'rgba(6, 182, 212, 0.0)');
-
-            chartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['1 Nov', '5 Nov', '10 Nov', '15 Nov', '20 Nov', '25 Nov', '30 Nov'],
-                    datasets: [{
-                        label: 'Penjualan (Transaksi)',
-                        data: [120, 195, 150, 250, 210, 310, 428],
-                        borderColor: '#06b6d4',
-                        backgroundColor: gradient,
-                        borderWidth: 3,
-                        pointBackgroundColor: '#a855f7',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: '#a855f7',
-                        pointRadius: 5,
-                        pointHoverRadius: 7,
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
-                        x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
-                    }
-                }
-            });
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            applyAiPricing(); // Setting awal
-        });
-    </script>
+function initFx() {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  const vals = { layanan: Object.keys(CATS).length, produk: Object.values(CATS).reduce((n, c) => n + c.items.length, 0), metode: 4, jam: 24 };
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const end = vals[el.dataset.count] || 0, t0 = performance.now();
+    const step = t => { const p = Math.min((t - t0) / 1400, 1); el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+  const words = ['Tercepat', 'Termurah', 'Terpercaya', 'Otomatis']; let i = 0;
+  setInterval(() => { i = (i + 1) % words.length; const r = $('rot'); r.style.animation = 'none'; void r.offsetWidth; $('rot-t').textContent = words[i]; r.style.animation = 'rotIn .5s ease'; }, 2600);
+  addEventListener('scroll', () => document.querySelector('header').classList.toggle('scrolled', scrollY > 20), { passive: true });
+}
+window.addEventListener('DOMContentLoaded', () => { renderHome(); initFx(); renderAuthBtn(); expireOld(); renderProducts(); });
+</script>
 </body>
 </html>

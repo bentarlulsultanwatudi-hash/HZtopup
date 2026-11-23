@@ -230,7 +230,12 @@ header.scrolled{background:rgba(11,15,25,.96);box-shadow:0 8px 30px rgba(0,0,0,.
    <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-[280px] overflow-y-auto p-1 bg-[#080b13]/60 border border-slate-800 rounded-2xl"></div>
   </div>
   <div><label class="lbl">4. Metode Pembayaran</label>
-   <select id="method" class="inp"><option>QRIS</option><option>BSI VA</option><option>BRI VA</option><option>MANDIRI VA</option></select></div>
+   <select id="method" class="inp">
+     <optgroup label="QRIS"><option>QRIS</option></optgroup>
+     <optgroup label="E-Wallet"><option>GoPay</option><option>OVO</option><option>DANA</option><option>ShopeePay</option><option>LinkAja</option></optgroup>
+     <optgroup label="Virtual Account Bank"><option>BCA VA</option><option>BNI VA</option><option>BRI VA</option><option>MANDIRI VA</option><option>BSI VA</option><option>PERMATA VA</option><option>CIMB VA</option></optgroup>
+     <optgroup label="Minimarket"><option>Alfamart</option><option>Indomaret</option></optgroup>
+    </select></div>
   <div><label class="lbl">5. Kode Promo (opsional)</label>
    <div class="flex space-x-3"><input id="promo" oninput="resetPromo()" placeholder="Kode promo" class="inp uppercase"><button type="button" onclick="checkPromo()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 font-bold px-6 rounded-xl border border-slate-700">Klaim</button></div>
    <p id="promo-msg" class="text-xs font-semibold mt-2 hidden"></p></div>
@@ -278,7 +283,7 @@ const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 };
-const WA = '6281234567890'; // GANTI dengan nomor WhatsApp CS Anda
+const WA = '6287836040569'; // GANTI dengan nomor WhatsApp CS Anda
 const PAY_MIN = 30;
 async function sha(s) {
   try { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('hz|' + s)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join(''); }
@@ -442,14 +447,21 @@ function submitOrder(e) {
 }
 
 /* ---------- Pembayaran ---------- */
-function vaNumber(t) { const p = { 'BSI VA': '9451', 'BRI VA': '88810', 'MANDIRI VA': '89508' }[t.method] || ''; return p + t.id.replace(/\D/g, '').padStart(10, '0'); }
+const PAYM = { 'QRIS': { t: 'qris' }, GoPay: { t: 'ew' }, OVO: { t: 'ew' }, DANA: { t: 'ew' }, ShopeePay: { t: 'ew' }, LinkAja: { t: 'ew' },
+  'BCA VA': { t: 'va', p: '39358' }, 'BNI VA': { t: 'va', p: '8810' }, 'BRI VA': { t: 'va', p: '88810' }, 'MANDIRI VA': { t: 'va', p: '89508' }, 'BSI VA': { t: 'va', p: '9451' }, 'PERMATA VA': { t: 'va', p: '8528' }, 'CIMB VA': { t: 'va', p: '5188' },
+  Alfamart: { t: 'rt', p: '3000' }, Indomaret: { t: 'rt', p: '5000' } };
+function vaNumber(t) { return ((PAYM[t.method] || {}).p || '') + t.id.replace(/\D/g, '').padStart(10, '0'); }
+function payHtml(t) {
+  const m = PAYM[t.method] || { t: 'va' }, no = vaNumber(t);
+  if (m.t === 'qris') return '<div class="w-32 h-32 mx-auto bg-white rounded-xl flex items-center justify-center text-slate-500 text-[10px] p-2">QR dari payment gateway tampil di sini</div>';
+  if (m.t === 'ew') return `<p class="text-xs text-slate-400 mb-1">Pembayaran via</p><p class="text-lg font-black text-cyan-400">${t.method}</p><p class="text-[11px] text-slate-400 mt-1">Tautan pembayaran ${t.method} dari payment gateway tampil di sini. Buka aplikasi ${t.method} untuk membayar.</p>`;
+  return `<p class="text-xs text-slate-400 mb-1">${m.t === 'rt' ? 'Kode Pembayaran ' + t.method : 'Nomor Virtual Account'}</p><p class="text-lg font-black tracking-widest text-cyan-400">${no}</p><button onclick="navigator.clipboard&&navigator.clipboard.writeText('${no}').then(()=>toast('Nomor disalin'))" class="text-xs text-slate-300 underline mt-1">Salin</button>` + (m.t === 'rt' ? `<p class="text-[11px] text-slate-400 mt-2">Tunjukkan kode ini ke kasir ${t.method}.</p>` : '');
+}
 function showPay(t) {
   curTx = t; $('p-id').textContent = t.id;
   $('p-sum').innerHTML = [['Layanan', t.service], ['Tujuan', t.target], ['Produk', t.product], ['Metode', t.method]].map(([a, b]) => `<div class="flex justify-between"><span class="text-slate-500">${a}</span><span class="font-semibold text-slate-200">${b}</span></div>`).join('') +
     `<hr class="border-slate-800 my-2"><div class="flex justify-between items-center text-sm font-bold"><span>Total</span><span class="text-emerald-400 text-lg">${t.promo ? `<span class="line-through text-slate-500 text-xs mr-2 font-normal">${rp(t.base)}</span>` : ''}${rp(t.total)}</span></div>`;
-  $('p-pay').innerHTML = t.method === 'QRIS'
-    ? '<div class="w-32 h-32 mx-auto bg-white rounded-xl flex items-center justify-center text-slate-500 text-[10px] p-2">QR dari payment gateway tampil di sini</div>'
-    : `<p class="text-xs text-slate-400 mb-1">Nomor Virtual Account</p><p class="text-lg font-black tracking-widest text-cyan-400">${vaNumber(t)}</p><button onclick="navigator.clipboard&&navigator.clipboard.writeText('${vaNumber(t)}').then(()=>toast('Nomor VA disalin'))" class="text-xs text-slate-300 underline mt-1">Salin</button>`;
+  $('p-pay').innerHTML = payHtml(t);
   $('p-wa').href = `https://wa.me/${WA}?text=` + encodeURIComponent(`Halo HZtopup, saya sudah bayar ${t.id} (${t.product}) ${rp(t.total)}`);
   const pending = t.status === 'pending';
   $('p-done').classList.toggle('hidden', !pending);

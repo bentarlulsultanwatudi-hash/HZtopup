@@ -41,6 +41,12 @@
 .hero-in>*:nth-child(2){animation-delay:.12s}.hero-in>*:nth-child(3){animation-delay:.24s}.hero-in>*:nth-child(4){animation-delay:.36s}.hero-in>*:nth-child(5){animation-delay:.48s}
 .glass{background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08)}
 header.scrolled{background:rgba(11,15,25,.96);box-shadow:0 8px 30px rgba(0,0,0,.45)}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 rgba(244,63,94,0)}50%{box-shadow:0 0 26px rgba(244,63,94,.6)}}
+@keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+@keyframes flame{0%,100%{transform:scale(1) rotate(-4deg)}50%{transform:scale(1.28) rotate(6deg)}}
+.deal-card{animation:glowPulse 2.4s ease-in-out infinite}
+.deal-badge{animation:pop 1.4s ease-in-out infinite}
+.flame{display:inline-block;animation:flame 1s ease-in-out infinite}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero-in>*{opacity:1!important;transform:none!important}}
 </style>
 </head>
@@ -111,7 +117,7 @@ header.scrolled{background:rgba(11,15,25,.96);box-shadow:0 8px 30px rgba(0,0,0,.
 </section>
 
 <section id="deals" class="max-w-7xl mx-auto px-4 pt-10 hidden">
- <h2 class="text-2xl font-black border-l-4 border-rose-500 pl-3 mb-6"><i class="fa-solid fa-fire text-rose-400 mr-2"></i>Sedang Promo</h2>
+ <h2 class="text-2xl font-black border-l-4 border-rose-500 pl-3 mb-6"><i class="fa-solid fa-fire flame text-rose-400 mr-2"></i><span class="grad-text">Sedang Promo</span></h2>
  <div id="deals-row" class="flex gap-4 overflow-x-auto pt-3 pb-3 snap-x"></div>
 </section>
 <section id="games" class="max-w-7xl mx-auto px-4 py-12">
@@ -382,7 +388,7 @@ function renderHome() {
   $('games-grid').innerHTML = Object.entries(CATS).filter(([, c]) => c.g === 'game').map(poster).join('');
   $('ppob-grid').innerHTML = Object.entries(CATS).filter(([, c]) => c.g === 'ppob').map(card).join('');
   $('cat').innerHTML = Object.entries(CATS).map(([k, c]) => `<option value="${k}">${c.g === 'game' ? 'Game' : 'PPOB'} - ${c.name}</option>`).join('');
-  $('wa-link').href = 'https://wa.me/' + WA;
+  $('wa-link').href = 'https://api.whatsapp.com/send?phone=' + WA + '&text=' + encodeURIComponent('Halo HZtopup, saya ingin bertanya.');
 }
 
 /* ---------- Order ---------- */
@@ -462,7 +468,7 @@ function showPay(t) {
   $('p-sum').innerHTML = [['Layanan', t.service], ['Tujuan', t.target], ['Produk', t.product], ['Metode', t.method]].map(([a, b]) => `<div class="flex justify-between"><span class="text-slate-500">${a}</span><span class="font-semibold text-slate-200">${b}</span></div>`).join('') +
     `<hr class="border-slate-800 my-2"><div class="flex justify-between items-center text-sm font-bold"><span>Total</span><span class="text-emerald-400 text-lg">${t.promo ? `<span class="line-through text-slate-500 text-xs mr-2 font-normal">${rp(t.base)}</span>` : ''}${rp(t.total)}</span></div>`;
   $('p-pay').innerHTML = payHtml(t);
-  $('p-wa').href = `https://wa.me/${WA}?text=` + encodeURIComponent(`Halo HZtopup, saya sudah bayar ${t.id} (${t.product}) ${rp(t.total)}`);
+  $('p-wa').href = `https://api.whatsapp.com/send?phone=${WA}&text=` + encodeURIComponent(`Halo HZtopup, saya sudah bayar ${t.id} (${t.product}) ${rp(t.total)}`);
   const pending = t.status === 'pending';
   $('p-done').classList.toggle('hidden', !pending);
   clearInterval(timerId);
@@ -572,7 +578,7 @@ async function changePass(e) {
 }
 
 function initFx() {
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+  const io = window.fxIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   const vals = { layanan: Object.keys(CATS).length, produk: Object.values(CATS).reduce((n, c) => n + c.items.length, 0), metode: 4, jam: 24 };
   document.querySelectorAll('[data-count]').forEach(el => {
@@ -588,17 +594,18 @@ function renderDeals() {
   const list = [];
   Object.keys(deals).forEach(id => { const it = findItem(id), p = dealPct(id); if (it && p) list.push([it, p, deals[id].until]); });
   $('deals').classList.toggle('hidden', !list.length);
-  $('deals-row').innerHTML = list.map(([it, p, u]) => { const c = CATS[it.id.split('-')[0]]; const k = it.id.split('-')[0]; return `<div onclick="openDeal('${it.id}')" class="snap-start shrink-0 w-44 sm:w-52 aspect-[3/4] cursor-pointer transition hover:-translate-y-1 relative rounded-2xl overflow-hidden border border-rose-500/40 bg-gradient-to-br from-${c.c}-500 via-${c.c}-700 to-slate-950" style="animation:rise .6s ease both">
+  $('deals-row').innerHTML = list.map(([it, p, u]) => { const c = CATS[it.id.split('-')[0]]; const k = it.id.split('-')[0]; return `<div onclick="openDeal('${it.id}')" class="reveal lift deal-card shine snap-start shrink-0 w-44 sm:w-52 aspect-[3/4] cursor-pointer relative rounded-2xl overflow-hidden border border-rose-500/40 bg-gradient-to-br from-${c.c}-500 via-${c.c}-700 to-slate-950">
     <i class="fa-solid fa-${c.icon} absolute left-1/2 top-[32%] -translate-x-1/2 -translate-y-1/2 text-6xl text-white/90 drop-shadow-[0_6px_18px_rgba(0,0,0,.5)]"></i>
     <img src="posters/${k}.jpeg" alt="Poster ${c.name}" loading="lazy" onerror="var e=['webp','jpg','png'],i=+(this.dataset.i||0);if(i<e.length){this.dataset.i=i+1;this.src='posters/${k}.'+e[i]}else this.remove()" class="absolute inset-0 w-full h-full object-cover">
     <span class="absolute top-2 left-2 text-[10px] font-bold bg-black/50 backdrop-blur px-2 py-0.5 rounded-full"><i class="fa-solid fa-fire text-rose-400 mr-1"></i>PROMO</span>
-    <span class="absolute top-2 right-2 bg-rose-600 text-white text-xs font-black px-2.5 py-1 rounded-full shadow-lg">-${p}%</span>
+    <span class="deal-badge absolute top-2 right-2 bg-rose-600 text-white text-xs font-black px-2.5 py-1 rounded-full shadow-lg">-${p}%</span>
     <div class="absolute inset-x-0 bottom-0 p-3 pt-14 bg-gradient-to-t from-black/95 via-black/75 to-transparent text-left">
       <p class="text-[10px] text-${c.c}-300">${c.name}</p>
       <p class="font-black text-sm leading-tight">${it.name}</p>
       <p class="mt-1"><span class="line-through text-slate-400 text-[11px] mr-1.5">${rp(rawPrice(it))}</span><span class="text-base font-black text-emerald-400">${rp(priceOf(it))}</span></p>
-      ${u ? `<p class="text-[10px] text-amber-400 mt-1"><i class="fa-regular fa-clock mr-1"></i><span class="dl-t" data-u="${u}"></span></p>` : '<p class="text-[10px] text-slate-400 mt-1">Promo terbatas</p>'}
+      ${u ? `<p class="animate-pulse text-[10px] text-amber-400 mt-1"><i class="fa-regular fa-clock mr-1"></i><span class="dl-t" data-u="${u}"></span></p>` : '<p class="text-[10px] text-slate-400 mt-1">Promo terbatas</p>'}
     </div></div>`; }).join('');
+  document.querySelectorAll('#deals-row .reveal').forEach(el => window.fxIO && window.fxIO.observe(el));
   tickDeals();
 }
 function tickDeals() {

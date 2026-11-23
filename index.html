@@ -110,6 +110,10 @@ header.scrolled{background:rgba(11,15,25,.96);box-shadow:0 8px 30px rgba(0,0,0,.
  </div>
 </section>
 
+<section id="deals" class="max-w-7xl mx-auto px-4 pt-10 hidden">
+ <h2 class="text-2xl font-black border-l-4 border-rose-500 pl-3 mb-6"><i class="fa-solid fa-fire text-rose-400 mr-2"></i>Sedang Promo</h2>
+ <div id="deals-row" class="flex gap-4 overflow-x-auto pt-3 pb-3 snap-x"></div>
+</section>
 <section id="games" class="max-w-7xl mx-auto px-4 py-12">
  <h2 class="reveal text-2xl font-black border-l-4 border-cyan-500 pl-3 mb-8">Popular Games</h2>
  <div id="games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5"></div>
@@ -147,6 +151,17 @@ header.scrolled{background:rgba(11,15,25,.96);box-shadow:0 8px 30px rgba(0,0,0,.
     </select>
     <button onclick="applyPricing()" class="w-full bg-purple-600 hover:bg-purple-500 font-bold py-3 rounded-xl">Terapkan Harga Baru</button>
    </div>
+  </div>
+  <div class="card mb-8 border-rose-500/30">
+   <h3 class="text-lg font-bold mb-4"><i class="fa-solid fa-fire text-rose-400 mr-2"></i>Produk Sedang Promo</h3>
+   <form onsubmit="addDeal(event)" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
+    <select id="d-cat" class="inp" onchange="fillDealProducts()"></select>
+    <select id="d-prod" class="inp"></select>
+    <input id="d-pct" type="number" min="1" max="90" required placeholder="Diskon %" class="inp">
+    <select id="d-dur" class="inp"><option value="0">Tanpa batas</option><option value="1">1 jam</option><option value="6">6 jam</option><option value="24">24 jam</option><option value="72">3 hari</option></select>
+    <button class="bg-rose-600 hover:bg-rose-500 font-bold rounded-xl py-3 col-span-2 md:col-span-1">Tambah</button>
+   </form>
+   <div id="deal-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
   </div>
   <div class="card mb-8 overflow-x-auto">
    <h3 class="text-lg font-bold mb-4"><i class="fa-solid fa-receipt text-amber-400 mr-2"></i>Transaksi Terbaru</h3>
@@ -310,7 +325,10 @@ let users = store.get('hz_users', {});
 let session = store.get('hz_session', null);
 let txs = store.get('hz_tx', []);
 let selId = null, promoPct = 0, promoCode = '', curTx = null, timerId = null, chart = null, isReg = false;
-const priceOf = it => Math.round(it.base * mult);
+let deals = store.get('hz_deals', { 'mlbb-5': { pct: 10, until: 0 }, 'ff-4': { pct: 10, until: 0 }, 'hok-1': { pct: 15, until: 0 } });
+const dealPct = id => { const d = deals[id]; return d && (!d.until || d.until > Date.now()) ? d.pct : 0; };
+const rawPrice = it => Math.round(it.base * mult);
+const priceOf = it => { const r = rawPrice(it), p = dealPct(it.id); return r - Math.floor(r * p / 100); };
 const finalPrice = it => { const p = priceOf(it); return p - Math.floor(p * promoPct / 100); };
 
 /* ---------- Beranda ---------- */
@@ -358,7 +376,7 @@ function renderProducts(keep) {
   const items = c.items.filter(i => i.name.toLowerCase().includes(q)).sort((a, b) => a.base - b.base);
   if (!keep || !items.some(i => i.id === selId)) selId = items[0] ? items[0].id : null;
   $('products-grid').innerHTML = items.map(i => `<div onclick="selectProduct('${i.id}')" id="pc-${i.id}" class="p-3 rounded-xl text-center cursor-pointer transition flex flex-col justify-center min-h-[75px] border">
-    <p class="font-bold text-xs text-slate-200">${i.name}</p><p class="text-[11px] text-cyan-400 font-semibold mt-1">${rp(priceOf(i))}</p></div>`).join('') || '<p class="col-span-full text-center text-xs text-slate-500 p-4">Produk tidak ditemukan</p>';
+    <p class="font-bold text-xs text-slate-200">${i.name}</p><p class="text-[11px] text-cyan-400 font-semibold mt-1">${dealPct(i.id) ? `<span class="line-through text-slate-500 mr-1">${rp(rawPrice(i))}</span>` : ''}${rp(priceOf(i))}</p>${dealPct(i.id) ? `<span class="text-[9px] font-bold text-rose-300">PROMO -${dealPct(i.id)}%</span>` : ''}</div>`).join('') || '<p class="col-span-full text-center text-xs text-slate-500 p-4">Produk tidak ditemukan</p>';
   paintSel();
 }
 function paintSel() {
@@ -482,7 +500,7 @@ function refreshAdmin() {
   $('st-cnt').textContent = month.length + ' transaksi';
   $('st-usr').textContent = Object.keys(users).length + ' user';
   $('ai-mode').value = String(mult);
-  renderPromoList(); renderTxAdmin();
+  renderPromoList(); renderTxAdmin(); renderDealAdmin();
   const labels = [], data = [];
   for (let i = 6; i >= 0; i--) {
     const d = new Date(); d.setDate(d.getDate() - i);
@@ -529,7 +547,42 @@ function initFx() {
   setInterval(() => { i = (i + 1) % words.length; const r = $('rot'); r.style.animation = 'none'; void r.offsetWidth; $('rot-t').textContent = words[i]; r.style.animation = 'rotIn .5s ease'; }, 2600);
   addEventListener('scroll', () => document.querySelector('header').classList.toggle('scrolled', scrollY > 20), { passive: true });
 }
-window.addEventListener('DOMContentLoaded', () => { renderHome(); initFx(); renderAuthBtn(); expireOld(); renderProducts(); });
+function renderDeals() {
+  const list = [];
+  Object.keys(deals).forEach(id => { const it = findItem(id), p = dealPct(id); if (it && p) list.push([it, p, deals[id].until]); });
+  $('deals').classList.toggle('hidden', !list.length);
+  $('deals-row').innerHTML = list.map(([it, p, u]) => { const c = CATS[it.id.split('-')[0]]; return `<div onclick="openDeal('${it.id}')" class="snap-start shrink-0 w-56 cursor-pointer transition hover:-translate-y-1 relative rounded-2xl p-4 border border-rose-500/30 bg-gradient-to-br from-rose-950/60 to-[#0b0f19]" style="animation:rise .6s ease both">
+    <span class="absolute -top-2 -right-2 bg-rose-600 text-white text-xs font-black px-2.5 py-1 rounded-full shadow-lg">-${p}%</span>
+    <div class="flex items-center space-x-2 mb-3"><i class="fa-solid fa-${c.icon} text-${c.c}-300"></i><span class="text-xs text-slate-400">${c.name}</span></div>
+    <p class="font-bold text-sm">${it.name}</p>
+    <p class="mt-2"><span class="line-through text-slate-500 text-xs mr-2">${rp(rawPrice(it))}</span><span class="text-lg font-black text-emerald-400">${rp(priceOf(it))}</span></p>
+    ${u ? `<p class="text-[11px] text-amber-400 mt-2"><i class="fa-regular fa-clock mr-1"></i><span class="dl-t" data-u="${u}"></span></p>` : '<p class="text-[11px] text-slate-500 mt-2">Promo terbatas</p>'}</div>`; }).join('');
+  tickDeals();
+}
+function tickDeals() {
+  let exp = false;
+  document.querySelectorAll('.dl-t').forEach(el => {
+    const l = +el.dataset.u - Date.now(); if (l <= 0) { exp = true; return; }
+    const h = Math.floor(l / 3600000), m = Math.floor(l % 3600000 / 60000), sc = Math.floor(l % 60000 / 1000);
+    el.textContent = 'Berakhir ' + (h ? h + 'j ' : '') + m + 'm ' + sc + 'd';
+  });
+  if (exp) { renderDeals(); if (!$('order-modal').classList.contains('hidden')) renderProducts(true); }
+}
+function openDeal(id) { openOrder(id.split('-')[0]); selectProduct(id); const el = $('pc-' + id); if (el) el.scrollIntoView({ block: 'nearest' }); }
+function fillDealProducts() { $('d-prod').innerHTML = CATS[$('d-cat').value].items.map(i => `<option value="${i.id}">${i.name}</option>`).join(''); }
+function renderDealAdmin() {
+  if (!$('d-cat').options.length) { $('d-cat').innerHTML = Object.entries(CATS).map(([k, c]) => `<option value="${k}">${c.name}</option>`).join(''); fillDealProducts(); }
+  $('deal-list').innerHTML = Object.keys(deals).map(id => { const it = findItem(id); if (!it) return ''; const d = deals[id], on = dealPct(id);
+    return `<div class="flex justify-between items-center bg-[#080b13] p-3 rounded-xl border border-slate-800 text-xs"><span><b class="text-slate-200">${CATS[id.split('-')[0]].name}</b> - ${it.name} <span class="text-rose-400 font-bold">-${d.pct}%</span> <span class="${on ? 'text-emerald-400' : 'text-slate-500'}">${on ? (d.until ? 'sampai ' + new Date(d.until).toLocaleString('id-ID') : 'tanpa batas') : 'berakhir'}</span></span><button onclick="delDeal('${id}')" class="text-rose-400" aria-label="Hapus"><i class="fa-solid fa-trash"></i></button></div>`; }).join('') || '<p class="text-xs text-slate-500">Belum ada promo produk.</p>';
+}
+function addDeal(e) {
+  e.preventDefault(); const p = parseInt($('d-pct').value), h = +$('d-dur').value;
+  if (!(p >= 1 && p <= 90)) return toast('Diskon harus 1-90%', false);
+  deals[$('d-prod').value] = { pct: p, until: h ? Date.now() + h * 3600000 : 0 }; store.set('hz_deals', deals);
+  e.target.reset(); fillDealProducts(); renderDealAdmin(); renderDeals(); toast('Promo produk ditambahkan');
+}
+function delDeal(id) { delete deals[id]; store.set('hz_deals', deals); renderDealAdmin(); renderDeals(); }
+window.addEventListener('DOMContentLoaded', () => { renderHome(); renderDeals(); setInterval(tickDeals, 1000); initFx(); renderAuthBtn(); expireOld(); renderProducts(); });
 </script>
 </body>
 </html>
